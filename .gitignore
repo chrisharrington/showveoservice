@@ -1,3 +1,7 @@
+
+*packages*
 *resharper*
 bin
 obj
+*.nupkg
+*.dll
