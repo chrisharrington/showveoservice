@@ -1,46 +1,232 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Cfg;
-using NHibernate.Linq;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
+using ShowveoService.Data;
 using ShowveoService.Data.Maps;
+using ShowveoService.Data.Repositories;
 using ShowveoService.Entities;
 using ShowveoService.MVCApplication.Load;
+using ShowveoService.Service.Encoding;
+using ShowveoService.Test.Data;
+using log4net.Config;
 
 namespace ShowveoService.Test
 {
 	[TestFixture]
-	public class Test
+	public class Test : DataTest
 	{
-		[Test]
+		private Random _random;
+
+		//[Test]
 		public void Blah()
 		{
 			Loader.Start();
+			XmlConfigurator.Configure();
 
-			//var repository = DR.Get<IUserRepository>();
-			//var user = repository.Authenticate("blah", "boo");
+			var factory = Fluently
+			    .Configure()
+			    .Database(MsSqlConfiguration.MsSql2008.ConnectionString(x => x.FromConnectionStringWithKey("Database")))
+			    .Mappings(x => x.FluentMappings.AddFromAssemblyOf<UserMap>())
+			    .BuildSessionFactory();
+
+			var session = factory.OpenSession();
+
+			//var repository = new PersonRepository(session);
+			//var blah = repository.GetAll().ToArray();
+
+			//session.Close();
+
+			SessionProvider.CurrentSession = session;
+			var manager = new EncoderManager(new EncoderFactory(new TestConfigurationProvider()), new UncategorizedMovieRepository());
+			manager.Encode(@"e:\Media\Showveo\Movies\blah.avi");
+
+			
+		}
+
+		[Test]
+		public void Reset()
+		{
+			_random = new Random();
 
 			Configuration configuration = null;
-			var factory = Fluently
+			var session = Fluently
 				.Configure()
 				.ExposeConfiguration(x => configuration = x)
 				.Database(MsSqlConfiguration.MsSql2008.ConnectionString(x => x.FromConnectionStringWithKey("Database")))
 				.Mappings(x => x.FluentMappings.AddFromAssemblyOf<UserMap>())
-				.BuildSessionFactory();
+				.BuildSessionFactory()
+				.OpenSession();
 
-			if (configuration == null)
-				return;
+			SessionProvider.CurrentSession = session;
 
 			new SchemaExport(configuration).Execute(false, true, false);
 
-			IEnumerable<User> users = null;
-			using (var session = factory.OpenSession())
+			using (var transaction = session.BeginTransaction())
 			{
-				users = session.Query<User>().ToArray();
+				var user = new User { EmailAddress = "chrisharrington99@gmail.com", FirstName = "Chris", Identity = "", LastName = "Harrington", Password = "" };
+				session.Save(user);
+				transaction.Commit();
 			}
+
+			using (var transaction = session.BeginTransaction())
+			{
+				var repository = new UncategorizedMovieRepository();
+				repository.Insert(new UncategorizedMovie { OriginalFile = "file1.avi", EncodedFile = "encoded1.mp4" });
+				repository.Insert(new UncategorizedMovie { OriginalFile = "file2.avi", EncodedFile = "encoded1.mp4" });
+				repository.Insert(new UncategorizedMovie { OriginalFile = "file3.avi", EncodedFile = "encoded1.mp4" });
+				repository.Insert(new UncategorizedMovie { OriginalFile = "file4.avi", EncodedFile = "encoded1.mp4" });
+				repository.Insert(new UncategorizedMovie { OriginalFile = "file5.avi", EncodedFile = "encoded1.mp4" });
+				repository.Insert(new UncategorizedMovie { OriginalFile = "file6.avi", EncodedFile = "encoded1.mp4" });
+				repository.Insert(new UncategorizedMovie { OriginalFile = "file7.avi", EncodedFile = "encoded1.mp4" });
+				repository.Insert(new UncategorizedMovie { OriginalFile = "file8.avi", EncodedFile = "encoded1.mp4" });
+				transaction.Commit();
+			}
+
+			var genres = new List<Genre>();
+			using (var transaction = session.BeginTransaction())
+			{
+				var repository = new GenreRepository();
+				genres.Add(new Genre { Name = "Action" });
+				genres.Add(new Genre { Name = "Comedy" });
+				genres.Add(new Genre { Name = "Romance" });
+				genres.Add(new Genre { Name = "Drama" });
+				genres.Add(new Genre { Name = "Thriller" });
+				genres.Add(new Genre { Name = "Pron" });
+				foreach (var genre in genres)
+					repository.Insert(genre);
+				transaction.Commit();
+			}
+
+			var jobs = new List<PersonType>();
+			using (var transaction = session.BeginTransaction())
+			{
+				var repository = new PersonTypeRepository();
+				jobs.Add(new PersonType { Name = "Actor" });
+				jobs.Add(new PersonType { Name = "Producer" });
+				jobs.Add(new PersonType { Name = "Director" });
+				foreach (var job in jobs)
+					repository.Insert(job);
+				transaction.Commit();
+			}
+
+			var people = new List<Person>();
+			using (var transaction = session.BeginTransaction())
+			{
+				var repository = new PersonRepository();
+				people.Add(new Person { FirstName = "Brad", LastName = "Pitt", Job = jobs.Where(x => x.Name == "Actor").FirstOrDefault() });
+				people.Add(new Person { FirstName = "Steve", LastName = "Buscemi", Job = jobs.Where(x => x.Name == "Actor").FirstOrDefault() });
+				people.Add(new Person { FirstName = "Nicole", LastName = "Kidman", Job = jobs.Where(x => x.Name == "Producer").FirstOrDefault() });
+				people.Add(new Person { FirstName = "Gwyneth", LastName = "Paltrow", Job = jobs.Where(x => x.Name == "Producer").FirstOrDefault() });
+				people.Add(new Person { FirstName = "Harrison", LastName = "Ford", Job = jobs.Where(x => x.Name == "Actor").FirstOrDefault() });
+				people.Add(new Person { FirstName = "Val", LastName = "Kilmer", Job = jobs.Where(x => x.Name == "Director").FirstOrDefault() });
+				people.Add(new Person { FirstName = "George", LastName = "Clooney", Job = jobs.Where(x => x.Name == "Actor").FirstOrDefault() });
+				foreach (var person in people)
+					repository.Insert(person);
+				transaction.Commit();
+			}
+
+			using (var transaction = session.BeginTransaction())
+			{
+				var repository = new MovieRepository();
+				repository.Insert(new Movie { Name = "Moneyball", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/17e/4e4306015e73d6408900017e/moneyball-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah"});
+				repository.Insert(new Movie { Name = "Abduction", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/37c/4db301ed5e73d67a8100037c/abduction-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Transformers - Dark of the Moon", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/1ed/4e6fab557b9aa1182c0001ed/transformers-dark-of-the-moon-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "X-Men First Class", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/422/4e5ea6a45e73d6072900c422/x-men-first-class-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Horrible Bosses", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/0f0/4e7e24207b9aa15eb80000f0/horrible-bosses-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Drive", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/017/4e827acd5e73d67843000017/drive-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Thor", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/61f/4e8057b65e73d6709300061f/thor-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Star Wars: Episode IV - A New Hope", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/0ae/4bc90145017a3c57fe0000ae/star-wars-episode-iv-a-new-hope-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Pirates of the Caribbean: On Stranger Tides", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/970/4e5e9a1b5e73d60b31006970/pirates-of-the-caribbean-on-stranger-tides-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Moneyball", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/17e/4e4306015e73d6408900017e/moneyball-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Abduction", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/37c/4db301ed5e73d67a8100037c/abduction-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Transformers - Dark of the Moon", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/1ed/4e6fab557b9aa1182c0001ed/transformers-dark-of-the-moon-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "X-Men First Class", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/422/4e5ea6a45e73d6072900c422/x-men-first-class-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Horrible Bosses", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/0f0/4e7e24207b9aa15eb80000f0/horrible-bosses-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Drive", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/017/4e827acd5e73d67843000017/drive-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Thor", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/61f/4e8057b65e73d6709300061f/thor-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Star Wars: Episode IV - A New Hope", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/0ae/4bc90145017a3c57fe0000ae/star-wars-episode-iv-a-new-hope-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Pirates of the Caribbean: On Stranger Tides", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/970/4e5e9a1b5e73d60b31006970/pirates-of-the-caribbean-on-stranger-tides-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Moneyball", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/17e/4e4306015e73d6408900017e/moneyball-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Abduction", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/37c/4db301ed5e73d67a8100037c/abduction-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Transformers - Dark of the Moon", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/1ed/4e6fab557b9aa1182c0001ed/transformers-dark-of-the-moon-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "X-Men First Class", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/422/4e5ea6a45e73d6072900c422/x-men-first-class-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Horrible Bosses", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/0f0/4e7e24207b9aa15eb80000f0/horrible-bosses-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Drive", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/017/4e827acd5e73d67843000017/drive-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Thor", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/61f/4e8057b65e73d6709300061f/thor-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Star Wars: Episode IV - A New Hope", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/0ae/4bc90145017a3c57fe0000ae/star-wars-episode-iv-a-new-hope-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Pirates of the Caribbean: On Stranger Tides", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/970/4e5e9a1b5e73d60b31006970/pirates-of-the-caribbean-on-stranger-tides-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Moneyball", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/17e/4e4306015e73d6408900017e/moneyball-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Abduction", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/37c/4db301ed5e73d67a8100037c/abduction-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Transformers - Dark of the Moon", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/1ed/4e6fab557b9aa1182c0001ed/transformers-dark-of-the-moon-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "X-Men First Class", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/422/4e5ea6a45e73d6072900c422/x-men-first-class-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Horrible Bosses", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/0f0/4e7e24207b9aa15eb80000f0/horrible-bosses-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Drive", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/017/4e827acd5e73d67843000017/drive-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Thor", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/61f/4e8057b65e73d6709300061f/thor-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Star Wars: Episode IV - A New Hope", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/0ae/4bc90145017a3c57fe0000ae/star-wars-episode-iv-a-new-hope-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Pirates of the Caribbean: On Stranger Tides", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/970/4e5e9a1b5e73d60b31006970/pirates-of-the-caribbean-on-stranger-tides-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Moneyball", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/17e/4e4306015e73d6408900017e/moneyball-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Abduction", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/37c/4db301ed5e73d67a8100037c/abduction-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Transformers - Dark of the Moon", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/1ed/4e6fab557b9aa1182c0001ed/transformers-dark-of-the-moon-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "X-Men First Class", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/422/4e5ea6a45e73d6072900c422/x-men-first-class-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Horrible Bosses", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/0f0/4e7e24207b9aa15eb80000f0/horrible-bosses-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Drive", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/017/4e827acd5e73d67843000017/drive-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Thor", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/61f/4e8057b65e73d6709300061f/thor-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Star Wars: Episode IV - A New Hope", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/0ae/4bc90145017a3c57fe0000ae/star-wars-episode-iv-a-new-hope-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Pirates of the Caribbean: On Stranger Tides", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/970/4e5e9a1b5e73d60b31006970/pirates-of-the-caribbean-on-stranger-tides-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Moneyball", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/17e/4e4306015e73d6408900017e/moneyball-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Abduction", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/37c/4db301ed5e73d67a8100037c/abduction-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Transformers - Dark of the Moon", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/1ed/4e6fab557b9aa1182c0001ed/transformers-dark-of-the-moon-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "X-Men First Class", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/422/4e5ea6a45e73d6072900c422/x-men-first-class-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Horrible Bosses", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/0f0/4e7e24207b9aa15eb80000f0/horrible-bosses-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Drive", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/017/4e827acd5e73d67843000017/drive-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Thor", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/61f/4e8057b65e73d6709300061f/thor-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Star Wars: Episode IV - A New Hope", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/0ae/4bc90145017a3c57fe0000ae/star-wars-episode-iv-a-new-hope-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Pirates of the Caribbean: On Stranger Tides", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/970/4e5e9a1b5e73d60b31006970/pirates-of-the-caribbean-on-stranger-tides-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Moneyball", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/17e/4e4306015e73d6408900017e/moneyball-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Abduction", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/37c/4db301ed5e73d67a8100037c/abduction-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Transformers - Dark of the Moon", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/1ed/4e6fab557b9aa1182c0001ed/transformers-dark-of-the-moon-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "X-Men First Class", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/422/4e5ea6a45e73d6072900c422/x-men-first-class-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Horrible Bosses", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/0f0/4e7e24207b9aa15eb80000f0/horrible-bosses-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Drive", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/017/4e827acd5e73d67843000017/drive-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Thor", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/61f/4e8057b65e73d6709300061f/thor-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Star Wars: Episode IV - A New Hope", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/0ae/4bc90145017a3c57fe0000ae/star-wars-episode-iv-a-new-hope-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				repository.Insert(new Movie { Name = "Pirates of the Caribbean: On Stranger Tides", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/970/4e5e9a1b5e73d60b31006970/pirates-of-the-caribbean-on-stranger-tides-original.jpg", Genres = GenerateRandomGenres(genres), Cast = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				transaction.Commit();
+			}
+
+			session.Close();
+		}
+
+		private DateTime GenerateRandomDate()
+		{
+			return DateTime.Now.AddDays(_random.Next(1, 2000)*-1);
+		}
+
+		private IEnumerable<Genre> GenerateRandomGenres(IEnumerable<Genre> genres)
+		{
+			var begin = genres.First().ID;
+			var end = genres.Last().ID;
+			var first = _random.Next(begin, end);
+			var second = _random.Next(begin, end);
+			while (first == second)
+				second = _random.Next(begin, end);
+			return genres.Where(x => x.ID == first || x.ID == second).ToArray();
+		}
+
+		private IEnumerable<Person> GenerateRandomPeople(IEnumerable<Person> people)
+		{
+			var begin = people.First().ID;
+			var end = people.Last().ID;
+			var first = _random.Next(begin, end);
+			var second = _random.Next(begin, end);
+			while (first == second)
+				second = _random.Next(begin, end);
+			return people.Where(x => x.ID == first || x.ID == second).ToArray();
 		}
 	}
 }

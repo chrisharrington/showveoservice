@@ -1,0 +1,10 @@
+﻿html { height:100%; margin:0; padding:0; }
+body { background-color:#BDD8ED; height:100%; font-size:18px; font-family:Arial; margin:0; padding:0; }
+
+body>div.f {display:none; position:absolute; z-index:2; top:75px; border-radius:5px; box-shadow:10px 10px 5px #BBB; }
+body>div.f.error { background-color:#BF0808; box-shadow:2px 2px 2px #962424; }
+body>div.f.success {background-color:#249624; box-shadow:2px 2px 2px #276327; }
+body>div.f>span {float:left; max-width:400px; padding:7px; font-size:13px; color:#FFF; font-weight:bold; }
+body>div.f>img {position:absolute; z-index:3; cursor:pointer; width:19px; height:19px; }
+
+div.p { float:left; width:100%; }

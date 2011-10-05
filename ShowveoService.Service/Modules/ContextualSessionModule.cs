@@ -1,8 +1,6 @@
 using System;
 using System.Web;
-using NHibernate.Context;
 using ShowveoService.Data;
-using ShowveoService.Data.Repositories;
 
 namespace ShowveoService.Service.Modules
 {
@@ -33,23 +31,15 @@ namespace ShowveoService.Service.Modules
 		/// </summary>
 		private static void OnBeginRequest(object sender, EventArgs e)
 		{
-			var context = ((HttpApplication) sender).Context;
-			ManagedWebSessionContext.Bind(context, SessionFactoryProvider.Factory.OpenSession());
+			SessionProvider.Open(((HttpApplication) sender).Context);
 		}
 
-		/// <summary>
+		/// <summary> 
 		/// Fired when the request ends.
 		/// </summary>
 		private static void OnEndRequest(object sender, EventArgs e)
 		{
-			var context = ((HttpApplication)sender).Context;
-			var factory = SessionFactoryProvider.Factory;
-			var session = ManagedWebSessionContext.Unbind(context, factory);
-
-			if (session == null)
-				return;
-
-			session.Close();
+			SessionProvider.Close(((HttpApplication)sender).Context);
 		}
 		#endregion
 	}

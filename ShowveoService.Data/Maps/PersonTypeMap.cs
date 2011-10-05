@@ -17,6 +17,8 @@ namespace ShowveoService.Data.Maps
 			Id(x => x.ID).GeneratedBy.Identity();
 
 			Map(x => x.Name).Not.Nullable();
+
+			HasMany(x => x.People).KeyColumn("Job_id");
 		}
 		#endregion
 	}

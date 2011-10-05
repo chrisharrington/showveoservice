@@ -1,0 +1,46 @@
+﻿@using ShowveoService.Extensions
+@using SquishIt.Framework
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Showveo</title>
+		@MvcHtmlString.Create(Bundle.Css().Add("~/CSS/Common.css").Add("~/CSS/Home.css").ForceRelease().Render("all.css"))
+		@MvcHtmlString.Create(Bundle.JavaScript().AddFolder("~/Resources").Add("~/Scripts/Setup.js").AddFolder("~/Scripts/Prereqs").AddFolder("~/Scripts/Home").Render("all.js"))
+	</head>
+    <body>
+        <div class="h">
+			<div class="m">
+				<span id="all" class="m s">All</span>
+				<span id="latest" class="m">Latest</span>
+				<span id="genres" class="m">Genres</span>
+				<i></i>
+				<span id="uncategorized" class="m">Uncategorized</span>
+				<div class="e">
+					<i></i>
+					<span>Currently encoding <b>file1.avi.</b></span>
+					<div>
+						<div></div>
+					</div>
+				</div>
+			</div>
+			<div class="s">
+				<input type="text" />
+			</div>
+		</div>
+        <div class="c">
+			<div class="m">
+				<div class="all"></div>
+				<div class="latest"></div>
+				<div class="genres"></div>
+				<div class="uncategorized"></div>
+			</div>
+		</div>
+
+		<div class="f">
+			<img alt="" src="/Images/modalclose.png" />
+			<span></span>
+		</div>
+    </body>
+</html>

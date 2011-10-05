@@ -31,13 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Iesi.Collections">
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate">
+    <Reference Include="NHibernate, Version=3.2.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\NHibernate.3.2.0.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -47,17 +48,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ConfigurationProvider.cs" />
+    <Compile Include="Encoding\EncoderFactory.cs" />
+    <Compile Include="Encoding\EncoderManager.cs" />
+    <Compile Include="Encoding\EncodingProgressContainer.cs" />
+    <Compile Include="Encoding\HandbrakeEncoder.cs" />
+    <Compile Include="Encoding\PhoneHandbrakeEncoder.cs" />
+    <Compile Include="Encoding\TabletHandbrakeEncoder.cs" />
+    <Compile Include="Encoding\TVHandbrakeEncoder.cs" />
+    <Compile Include="File\FolderWatcher.cs" />
     <Compile Include="Modules\ContextualSessionModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ShowveoService.Data\ShowveoService.Data.csproj">
       <Project>{CB7FBABB-07B5-4567-83C2-A363287EC850}</Project>
       <Name>ShowveoService.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ShowveoService.Web\ShowveoService.Web.csproj">
+      <Project>{B85586E6-6963-48C7-81F8-9561E58A391B}</Project>
+      <Name>ShowveoService.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShowveoService\ShowveoService.csproj">
+      <Project>{5D2D9856-78F6-45BB-8AE7-B1CEFE3D4E51}</Project>
+      <Name>ShowveoService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

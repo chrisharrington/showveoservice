@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace ShowveoService.Entities
 {
 	/// <summary>
@@ -8,6 +10,8 @@ namespace ShowveoService.Entities
 		#region Properties
 		public virtual int ID { get; set; }
 		public virtual string Name { get; set; }
+
+		public virtual IEnumerable<Person> People { get; set; }
 		#endregion
 	}
 }

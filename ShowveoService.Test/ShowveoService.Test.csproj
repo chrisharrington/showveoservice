@@ -21,6 +21,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,10 +34,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentNHibernate">
+    <Reference Include="FluentNHibernate, Version=1.3.0.717, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentNHibernate.1.3.0.717\lib\FluentNHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate">
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=3.2.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\NHibernate.3.2.0.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
@@ -48,6 +60,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\packages\System.Data.SQLite.1.0.75.0\lib\net40\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,8 +70,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\UncategorizedMovieRepositoryTest.cs" />
+    <Compile Include="Data\DataTest.cs" />
+    <Compile Include="Data\GenreRepositoryTest.cs" />
+    <Compile Include="Data\MovieRepositoryTest.cs" />
+    <Compile Include="Data\PersonRepositoryTest.cs" />
+    <Compile Include="Data\PersonTypeRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\Encoding\EncoderFactoryTest.cs" />
     <Compile Include="Test.cs" />
+    <Compile Include="TestConfigurationProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -70,6 +93,14 @@
     <ProjectReference Include="..\ShowveoService.MVCApplication\ShowveoService.MVCApplication.csproj">
       <Project>{C0A75970-6BCA-4E29-B295-D4EC1C519F69}</Project>
       <Name>ShowveoService.MVCApplication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShowveoService.Service\ShowveoService.Service.csproj">
+      <Project>{E0FCD01C-D658-429D-9941-DA91D3150DD4}</Project>
+      <Name>ShowveoService.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShowveoService.Web\ShowveoService.Web.csproj">
+      <Project>{B85586E6-6963-48C7-81F8-9561E58A391B}</Project>
+      <Name>ShowveoService.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShowveoService\ShowveoService.csproj">
       <Project>{5D2D9856-78F6-45BB-8AE7-B1CEFE3D4E51}</Project>

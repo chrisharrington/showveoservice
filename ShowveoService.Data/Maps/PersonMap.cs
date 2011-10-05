@@ -15,8 +15,9 @@ namespace ShowveoService.Data.Maps
 			Map(x => x.FirstName).Not.Nullable();
 			Map(x => x.LastName).Not.Nullable();
 
-			HasManyToMany(x => x.Movies).Table("MoviesToPeople");
 			References(x => x.Job);
+
+			HasManyToMany(x => x.Movies).Table("MoviesToPeople");
 		}
 	}
 }

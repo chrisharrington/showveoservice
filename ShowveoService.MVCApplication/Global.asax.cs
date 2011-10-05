@@ -2,6 +2,10 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using ShowveoService.MVCApplication.Load;
+using ShowveoService.Service.Logging;
+using ShowveoService.Web;
+using log4net;
+using log4net.Config;
 
 namespace ShowveoService.MVCApplication
 {
@@ -19,15 +23,6 @@ namespace ShowveoService.MVCApplication
 		{
 			filters.Add(new HandleErrorAttribute());
 		}
-
-		/// <summary>
-		/// Sets the routes for incoming requests.
-		/// </summary>
-		/// <param name="routes">A collection of routes.</param>
-		public static void RegisterRoutes(RouteCollection routes)
-		{
-			routes.MapRoute("Authenticate", "user/authenticate", new {controller = "User", action = "Authenticate"});
-		}
 		#endregion
 
 		#region Event Handlers
@@ -36,12 +31,14 @@ namespace ShowveoService.MVCApplication
 		/// </summary>
 		protected void Application_Start()
 		{
+			XmlConfigurator.Configure();
+
+			Loader.Start();
 			AreaRegistration.RegisterAllAreas();
 
 			RegisterGlobalFilters(GlobalFilters.Filters);
-			RegisterRoutes(RouteTable.Routes);
 
-			Loader.Start();
+			DR.Get<IRouteManager>().DefineRoutes(RouteTable.Routes);
 		}
 		#endregion
 	}
