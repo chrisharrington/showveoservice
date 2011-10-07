@@ -1,3 +1,15 @@
-2011-10-04 23:17:07,049 INFO  - Container building...
-2011-10-04 23:17:07,112 INFO  - Container built.
-2011-10-04 23:17:12,868 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\blah - Copy (2).mp4" -o e:\Media\Showveo\Encoded\84e538848d48474ea361b2909a9f3a49.mp4 -e x264 -S 500
+2011-10-05 22:48:01,714 INFO  - Container building...
+2011-10-05 22:48:01,753 ERROR - Error occurred while building the container.
+System.Reflection.ReflectionTypeLoadException: Unable to load one or more of the requested types. Retrieve the LoaderExceptions property for more information.
+   at System.Reflection.RuntimeModule.GetTypes(RuntimeModule module)
+   at System.Reflection.RuntimeModule.GetTypes()
+   at System.Reflection.Assembly.GetTypes()
+   at Autofac.Features.Scanning.ScanningRegistrationExtensions.<ScanAssemblies>b__5(Assembly a)
+   at System.Linq.Enumerable.<SelectManyIterator>d__14`2.MoveNext()
+   at System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
+   at Autofac.Features.Scanning.ScanningRegistrationExtensions.ScanAssemblies(IEnumerable`1 assemblies, IComponentRegistry cr, IRegistrationBuilder`3 rb)
+   at Autofac.Features.Scanning.ScanningRegistrationExtensions.<>c__DisplayClass1.<RegisterAssemblyTypes>b__0(IComponentRegistry cr)
+   at Autofac.ContainerBuilder.Build(IComponentRegistry componentRegistry, Boolean excludeDefaultModules)
+   at Autofac.ContainerBuilder.Build(ContainerBuildOptions options)
+   at ShowveoService.MVCApplication.Load.Loader.BuildContainer() in C:\Code\showveoservice\ShowveoService.MVCApplication\Load\Loader.cs:line 86
+   at ShowveoService.MVCApplication.Load.Loader.Start() in C:\Code\showveoservice\ShowveoService.MVCApplication\Load\Loader.cs:line 56

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using ShowveoService.Data;
@@ -121,7 +122,7 @@ namespace ShowveoService.MVCApplication.Controllers
 		{
 			try
 			{
-				return Json(EncodingProgressContainer.GetAll(), JsonRequestBehavior.AllowGet);
+				return Json(EncodingProgressContainer.GetAll().Select(x => new { x.ID, File = Path.GetFileName(x.File), x.PercentComplete }), JsonRequestBehavior.AllowGet);
 			}
 			catch (Exception ex)
 			{

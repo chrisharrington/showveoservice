@@ -44,6 +44,7 @@ Showveo.Controls.EncodingChecker = function (parameters) {
 		_components.panel = panel;
 		_components.panelProgress = panel.find(">div>div");
 		_components.labelFile = panel.find(">span>b");
+		_components.labelPercentage = panel.find(">b");
 	};
 
 	/*
@@ -54,8 +55,8 @@ Showveo.Controls.EncodingChecker = function (parameters) {
 			type: "GET",
 			url: "movies/encoding",
 			success: function (tasks) {
-				populate(tasks);
-				setTimeout(function() {
+				//populate(tasks);
+				setTimeout(function () {
 					checkContinuous();
 				}, 5000);
 			}
@@ -73,8 +74,11 @@ Showveo.Controls.EncodingChecker = function (parameters) {
 		}
 
 		var task = tasks[0];
-		_components.labelFile.text(task.File + " (" + task.PercentComplete + "%)");
+		if (task.File.length > 20)
+			task.File = task.File.substring(0, 17) + "...";
+		_components.labelFile.text(task.File);
 		_components.panelProgress.css("width", task.PercentComplete + "%");
+		_components.labelPercentage.text(Math.round(task.PercentComplete * 100) / 100);
 		_components.panel.fadeIn(200);
 	};
 

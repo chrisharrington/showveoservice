@@ -8,10 +8,11 @@ body>div.h>div.m>span.s {color:#FFF !important;}
 body>div.h>div.m>span.h {color:#4F87FF;}
 body>div.h>div.m>span:hover {background:#273A63 url(../Images/selectedmenu.png) repeat-x; color:#CCC;}
 body>div.h>div.m i {float:left; border-left:solid 1px #777; margin-top:9px; margin-left:5px; margin-right:4px; height:30px;}
-body>div.h>div.m>div.e {float:left; display:none;}
-body>div.h>div.m>div.e>span {float:left; margin-left:10px; margin-top:16px; font-size:13px; color:#DDD;}
+body>div.h>div.m>div.e {float:left; display:none; font-size:13px; color:#DDD;}
+body>div.h>div.m>div.e>span {float:left; margin-left:10px; margin-top:16px;}
 body>div.h>div.m>div.e>div {float:left; width:400px; height:21px; margin-left:15px; margin-top:14px; background-color:#666; border-radius:3px;}
 body>div.h>div.m>div.e>div>div {float:left; width:44%; height:100%; background-color:#3459A8; border-radius:3px;}
+body>div.h>div.m>div.e>b {float:left; margin-left:5px; margin-top:16px;}
 body>div.h>div.s {float:right;}
 body>div.h>div.s>input {float:left; width:200px; margin-right:25px; margin-top:11px; padding:3px; color:#AAA; border-radius:3px; border:solid 1px #AAA; text-transform:uppercase; font-family:Trebuchet MS;}
 
