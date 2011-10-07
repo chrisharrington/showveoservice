@@ -29,8 +29,8 @@ Showveo.Home.Movies = function (parameters) {
 		loadComponents(parameters.panel);
 		loadMovies();
 
-		_components.all.show();
-		_grid = _components.all;
+		_components.uncategorized.show();
+		_grid = _components.uncategorized;
 	};
 
 	//-------------------------------------------------------------------------------------
@@ -72,7 +72,12 @@ Showveo.Home.Movies = function (parameters) {
 			movieWidth: _movieWidth
 		});
 
-		_components.grids = new Array(_components.all, _components.latest);
+		_components.uncategorized = new Showveo.Home.UncategorizedMovieGrid({
+			panel: panel.find("div.uncategorized"),
+			movieWidth: _movieWidth
+		});
+
+		_components.grids = new Array(_components.all, _components.latest, _components.uncategorized);
 	};
 
 	/*
