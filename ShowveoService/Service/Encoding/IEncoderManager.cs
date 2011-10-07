@@ -18,13 +18,6 @@ namespace ShowveoService.Service.Encoding
 		void Encode(string file);
 
 		/// <summary>
-		/// Gets the percentage complete of an encoding task.
-		/// </summary>
-		/// <param name="id">The ID of the encoding task to check.</param>
-		/// <returns>The percentage complete.</returns>
-		EncodingMovieTask GetProgress(Guid id);
-
-		/// <summary>
 		/// Retrieves a collection of all currently encoding movie information.
 		/// </summary>
 		/// <returns>The information for all currently encoding movies.</returns>

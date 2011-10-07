@@ -1,3 +1,6 @@
-2011-10-02 23:12:18,493 INFO  - Container building...
-2011-10-02 23:12:19,438 INFO  - Container built.
-2011-10-02 23:12:25,116 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\blah - Copy.avi" -o e:\Media\Showveo\Encoded\a8fbf0b2c521435781c213ef7c0e6703.mp4 -e x264 -S 500
+2011-10-04 17:00:06,075 INFO  - Container building...
+2011-10-04 17:00:07,021 INFO  - Container built.
+2011-10-04 17:00:22,376 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\21[2008]DvDrip-aXXo.avi" -o e:\Media\Showveo\Encoded\ec715006909845e88c6b6e922d932922.mp4 -e x264 -S 500
+2011-10-04 17:01:51,541 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\21[2008]DvDrip-aXXo.avi" -o e:\Media\Showveo\Encoded\0d3c97222f724b38827a95482f1a3f3e.mp4 -e x264 -S 500
+2011-10-04 17:01:59,979 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\21[2008]DvDrip-aXXo.avi" -o e:\Media\Showveo\Encoded\75a0e222d3ca45a09e75d7a814fd2339.mp4 -e x264 -S 500
+2011-10-04 17:02:03,582 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\21[2008]DvDrip-aXXo - Copy.avi" -o e:\Media\Showveo\Encoded\e056c8ecc46d40bb97ebb88719ef604d.mp4 -e x264 -S 500

@@ -22,11 +22,6 @@ namespace ShowveoService.MVCApplication.Controllers
 		/// A container for uncategorized movie information.
 		/// </summary>
 		private readonly IUncategorizedMovieRepository _uncategorizedMovieRepository;
-
-		/// <summary>
-		/// Contains information on currently encoding movies.
-		/// </summary>
-		private readonly IEncoderManager _encoderManager;
 		#endregion
 
 		#region Constructors
@@ -35,20 +30,15 @@ namespace ShowveoService.MVCApplication.Controllers
 		/// </summary>
 		/// <param name="movieRepository">A container for movie information.</param>
 		/// <param name="uncategorizedMovieRepository">A container for uncategorized movie information.</param>
-		/// <param name="encoderManager">Contains information on currently encoding movies.</param>
-		public MovieController(IMovieRepository movieRepository, IUncategorizedMovieRepository uncategorizedMovieRepository,
-			IEncoderManager encoderManager)
+		public MovieController(IMovieRepository movieRepository, IUncategorizedMovieRepository uncategorizedMovieRepository)
 		{
 			if (movieRepository == null)
 				throw new ArgumentNullException("movieRepository");
 			if (uncategorizedMovieRepository == null)
 				throw new ArgumentNullException("uncategorizedMovieRepository");
-			if (encoderManager == null)
-				throw new ArgumentNullException("encoderManager");
 
 			_movieRepository = movieRepository;
 			_uncategorizedMovieRepository = uncategorizedMovieRepository;
-			_encoderManager = encoderManager;
 		}
 		#endregion
 
@@ -131,7 +121,7 @@ namespace ShowveoService.MVCApplication.Controllers
 		{
 			try
 			{
-				return Json(_encoderManager.GetAllTasks(), JsonRequestBehavior.AllowGet);
+				return Json(EncodingProgressContainer.GetAll(), JsonRequestBehavior.AllowGet);
 			}
 			catch (Exception ex)
 			{

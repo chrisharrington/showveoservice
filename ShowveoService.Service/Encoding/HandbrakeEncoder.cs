@@ -12,23 +12,30 @@ namespace ShowveoService.Service.Encoding
 	/// </summary>
 	public class HandbrakeEncoder
 	{
+		#region Data Members
+		/// <summary>
+		/// The percentage complete as recorded the last time progress was received.
+		/// </summary>
+		private double _previousPercentage;
+		#endregion
+
 		#region Public Methods
 		/// <summary>
 		/// Encodes a video and audio file.
 		/// </summary>
+		/// <param name="id">An ID used to track the item being encoded.</param>
 		/// <param name="file">The location of the file to encode.</param>
 		/// <param name="command">The command used to tell Handbrake how to encode the video.</param>
 		/// <param name="progress">The callback function fired when progress of a file's encoding is updated. The action is given the percentage complete.</param>
 		/// <param name="complete">The callback function fired when encoding is complete. The action is given the location of the encoded file.</param>
 		/// <returns>An ID used to track the item being encoded.</returns>
-		public Guid Encode(string file, string command, Action<EncodingMovieTask> progress, Action<EncodingMovieTask, string> complete)
+		public void Encode(Guid id, string file, string command, Action<EncodingMovieTask, double> progress, Action<EncodingMovieTask, string> complete)
 		{
 			if (string.IsNullOrEmpty(file))
 				throw new ArgumentNullException("file");
 			if (!System.IO.File.Exists(file))
 				throw new FileNotFoundException(file);
 
-			var id = Guid.NewGuid();
 			command = string.Format(command, "\"" + file + "\"", id.ToString("N"));
 
 			var task = new EncodingMovieTask {ID = id, File = file, PercentComplete = 0};
@@ -50,8 +57,6 @@ namespace ShowveoService.Service.Encoding
 
 				while (!process.HasExited) {}
 			}).Start();
-
-			return id;
 		}
 		#endregion
 
@@ -59,15 +64,17 @@ namespace ShowveoService.Service.Encoding
 		/// <summary>
 		/// Fired after data has been received from an encoding operation
 		/// </summary>
-		private void OnDataReceived(Action<EncodingMovieTask> progress, EncodingMovieTask task, DataReceivedEventArgs e)
+		private void OnDataReceived(Action<EncodingMovieTask, double> progress, EncodingMovieTask task, DataReceivedEventArgs e)
 		{
 			if (e.Data == null || !e.Data.Contains("%"))
 				return;
 
 			var begin = e.Data.IndexOf(",") + 1;
 			var end = e.Data.IndexOf("%") - 1;
-			task.PercentComplete = Convert.ToDouble(e.Data.Substring(begin, end - begin).Replace(" ", ""));
-			progress.Invoke(task);
+			var newPercent = Convert.ToDouble(e.Data.Substring(begin, end - begin).Replace(" ", ""));
+			progress.Invoke(task, newPercent - _previousPercentage);
+
+			_previousPercentage = newPercent;
 		}
 
 		/// <summary>

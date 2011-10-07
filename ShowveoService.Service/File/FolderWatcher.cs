@@ -44,8 +44,6 @@ namespace ShowveoService.Service.File
 					Thread.Sleep(250);
 				} while (!copied);
 
-				//Thread.Sleep(10000);
-
 				var extension = Path.GetExtension(e.FullPath);
 				if (extensions.Contains(extension))
 					callback.Invoke(e.FullPath);

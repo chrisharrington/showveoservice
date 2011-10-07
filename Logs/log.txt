@@ -1,3 +1,5 @@
-2011-10-04 23:17:07,049 INFO  - Container building...
-2011-10-04 23:17:07,112 INFO  - Container built.
-2011-10-04 23:17:12,868 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\blah - Copy (2).mp4" -o e:\Media\Showveo\Encoded\84e538848d48474ea361b2909a9f3a49.mp4 -e x264 -S 500
+2011-10-06 21:02:46,819 INFO  - Container building...
+2011-10-06 21:02:46,879 INFO  - Container built.
+2011-10-06 21:03:23,941 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\blah - Copy.mp4" -o e:\Media\Showveo\Encoded\a96fcaffcafc49f48946acc627d29109.mp4 -e x264 -S 500
+2011-10-06 21:03:38,436 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\blah - Copy.mp4" -o e:\Media\Showveo\Encoded\a96fcaffcafc49f48946acc627d29109.mp4 -e x264
+2011-10-06 21:03:46,416 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\blah - Copy.mp4" -o e:\Media\Showveo\Encoded\a96fcaffcafc49f48946acc627d29109.mp4 -e x264 -S 1000

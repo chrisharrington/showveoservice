@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ShowveoService.Service.Configuration;
 
 namespace ShowveoService.Service.Encoding
@@ -14,6 +15,16 @@ namespace ShowveoService.Service.Encoding
 		/// The application configuration.
 		/// </summary>
 		private readonly IConfigurationProvider _configuration;
+		#endregion
+
+		#region Properties
+		/// <summary>
+		/// Returns the number of available encoders.
+		/// </summary>
+		public int EncoderCount
+		{
+			get { return CreateAll().Count(); }
+		}
 		#endregion
 
 		#region Constructors
@@ -55,11 +66,11 @@ namespace ShowveoService.Service.Encoding
 		public IEnumerable<IEncoder> CreateAll()
 		{
 			return new List<IEncoder>
-			       	{
-			       		new PhoneHandbrakeEncoder(_configuration),
-			       		new TVHandbrakeEncoder(_configuration),
-			       		new TabletHandbrakeEncoder(_configuration)
-			       	};
+			        {
+			            new PhoneHandbrakeEncoder(_configuration),
+			            new TVHandbrakeEncoder(_configuration),
+			            new TabletHandbrakeEncoder(_configuration)
+			        };
 		}
 		#endregion
 	}

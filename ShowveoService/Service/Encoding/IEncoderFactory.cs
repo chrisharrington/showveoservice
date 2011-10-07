@@ -7,6 +7,13 @@ namespace ShowveoService.Service.Encoding
 	/// </summary>
 	public interface IEncoderFactory
 	{
+		#region Properties
+		/// <summary>
+		/// Returns the number of available encoders.
+		/// </summary>
+		int EncoderCount { get; }
+		#endregion
+
 		#region Public Methods
 		/// <summary>
 		/// Creates an encoder based on a preset.

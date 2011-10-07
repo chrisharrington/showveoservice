@@ -33,9 +33,15 @@ namespace ShowveoService.Service.Encoding
 		/// Adds or updates the encoding movie task to the progress list.
 		/// </summary>
 		/// <param name="task">The task to add or update.</param>
-		public static void AddOrUpdate(EncodingMovieTask task)
+		/// <param name="percentChanged">The amount by which the task has completed.</param>
+		public static void AddOrUpdate(EncodingMovieTask task, double percentChanged = 0)
 		{
-			_progress.AddOrUpdate(task.ID, task, (key, value) => task);
+			if (!_progress.ContainsKey(task.ID))
+				_progress[task.ID] = task;
+
+			_progress[task.ID].PercentComplete += percentChanged;
+			if (_progress[task.ID].PercentComplete > 100)
+				_progress[task.ID].PercentComplete = 100;
 		}
 
 		/// <summary>

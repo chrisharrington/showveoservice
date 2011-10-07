@@ -82,7 +82,6 @@ namespace ShowveoService.MVCApplication.Load
 			_builder.RegisterAssemblyTypes(typeof(RouteManager).Assembly).AsImplementedInterfaces();
 			_builder.RegisterAssemblyTypes(typeof (FolderWatcher).Assembly).AsImplementedInterfaces();
 			_builder.RegisterControllers(typeof(UserController).Assembly);
-
 			return _builder.Build();
 		}
 

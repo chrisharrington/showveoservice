@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using ShowveoService.Data;
 using ShowveoService.Entities;
 
@@ -21,6 +22,11 @@ namespace ShowveoService.Service.Encoding
 		/// A container for uncategorized movie information.
 		/// </summary>
 		private readonly IUncategorizedMovieRepository _uncategorizedMovieRepository;
+
+		/// <summary>
+		/// The collection of encoding tasks to complete.
+		/// </summary>
+		private IList<Action> _tasks;
 		#endregion
 
 		#region Constructors
@@ -38,6 +44,7 @@ namespace ShowveoService.Service.Encoding
 
 			_factory = factory;
 			_uncategorizedMovieRepository = uncategorizedMovieRepository;
+			_tasks = new List<Action>();
 		}
 		#endregion
 
@@ -54,19 +61,18 @@ namespace ShowveoService.Service.Encoding
 			if (!System.IO.File.Exists(file))
 				throw new FileNotFoundException(file);
 
-			var id = _factory.Create(EncodingPreset.Phone).Encode(file, OnProgressReceived, OnEncodingCompleted);
+			var id = Guid.NewGuid();
+			_tasks = new List<Action>();
+			foreach (var encoder in _factory.CreateAll())
+			{
+				var localEncoder = encoder;
+				_tasks.Add(() => localEncoder.Encode(id, file, OnProgressReceived, OnEncodingCompleted));
+			}
+
 			var task = new EncodingMovieTask {File = file, ID = id, PercentComplete = 0};
 			EncodingProgressContainer.AddOrUpdate(task);
-		}
 
-		/// <summary>
-		/// Gets the percentage complete of an encoding task.
-		/// </summary>
-		/// <param name="id">The ID of the encoding task to check.</param>
-		/// <returns>The percentage complete.</returns>
-		public EncodingMovieTask GetProgress(Guid id)
-		{
-			return EncodingProgressContainer.Get(id);
+			_tasks.First().Invoke();
 		}
 
 		/// <summary>
@@ -84,9 +90,11 @@ namespace ShowveoService.Service.Encoding
 		/// Fired after progress has been received for an encoding operation.
 		/// </summary>
 		/// <param name="task">The encoding movie task for which progress should be updated.</param>
-		private void OnProgressReceived(EncodingMovieTask task)
+		/// <param name="percentChanged">The amount by which the task has completed.</param>
+		private void OnProgressReceived(EncodingMovieTask task, double percentChanged)
 		{
-			EncodingProgressContainer.AddOrUpdate(task);
+			percentChanged /= _factory.EncoderCount;
+			EncodingProgressContainer.AddOrUpdate(task, percentChanged);
 		}
 
 		/// <summary>
@@ -96,8 +104,14 @@ namespace ShowveoService.Service.Encoding
 		/// <param name="filename">The name of the encoded file.</param>
 		private void OnEncodingCompleted(EncodingMovieTask task, string filename)
 		{
-			task.PercentComplete = 100;
-			EncodingProgressContainer.AddOrUpdate(task);
+			_tasks.RemoveAt(0);
+			if (_tasks.Count > 0)
+			{
+				_tasks.First().Invoke();
+				return;
+			}
+
+			EncodingProgressContainer.AddOrUpdate(task, 100);
 			_uncategorizedMovieRepository.Insert(new UncategorizedMovie {OriginalFile = task.File, EncodedFile = filename});
 		}
 		#endregion
