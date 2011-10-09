@@ -51,8 +51,10 @@ namespace ShowveoService.Web.Routing
 
 			_routes.MapRoute("GetAllMovies", "movies/all", new { controller = "Movie", action = "GetAll" });
 			_routes.MapRoute("GetLatestMovies", "movies/latest", new { controller = "Movie", action = "GetLatest" });
-			_routes.MapRoute("GetUncategorizedMovieCount", "movies/uncategorizedcount", new { controller = "Movie", action = "GetUncategorizedMovieCount" });
 			_routes.MapRoute("GetEncodingMovies", "movies/encoding", new {controller = "Movie", action = "GetEncodingMovies"});
+
+			_routes.MapRoute("GetUncategorizedMovieCount", "uncategorized/count", new { controller = "UncategorizedMovie", action = "GetUncategorizedMovieCount" });
+			_routes.MapRoute("GetUncategorizedMovies", "uncategorized/all", new { controller = "UncategorizedMovie", action = "GetUncategorizedMovies" });
 		}
 		#endregion
 	}

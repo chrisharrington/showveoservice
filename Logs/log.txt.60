@@ -1,3 +1,3 @@
-2011-10-02 23:02:51,836 INFO  - Container building...
-2011-10-02 23:02:52,712 INFO  - Container built.
-2011-10-02 23:02:54,840 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\21[2008]DvDrip-aXXo (2) - Copy - Copy - Copy.avi" -o e:\Media\Showveo\Encoded\facbea01b2cf4e09a9264297be7d12a6.mp4 -e x264 -S 500
+2011-10-02 23:16:49,623 INFO  - Container building...
+2011-10-02 23:16:50,564 INFO  - Container built.
+2011-10-02 23:16:53,149 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\blah - Copy.avi" -o e:\Media\Showveo\Encoded\c3897d1326244ad1aad0a8f1eae67c51.mp4 -e x264 -S 500

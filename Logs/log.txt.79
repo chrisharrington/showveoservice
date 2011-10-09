@@ -1,4 +1,2 @@
-2011-10-02 00:27:20,417 [12] INFO  Showveo [(null)] - success!
-2011-10-02 00:27:20,427 [12] INFO  logger [(null)] - Container building...
-2011-10-02 00:27:20,482 [12] INFO  logger [(null)] - Container built.
-2011-10-02 00:27:21,789 [5] INFO  logger [(null)] - Retrieving all movies.
+2011-10-02 14:00:18,906 INFO  - Container building...
+2011-10-02 14:00:18,967 INFO  - Container built.

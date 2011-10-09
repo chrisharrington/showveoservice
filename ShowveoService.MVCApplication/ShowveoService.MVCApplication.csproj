@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
+    <Compile Include="Controllers\UncategorizedMovieController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -104,6 +105,8 @@
     <Content Include="Images\headergradient.jpg" />
     <Content Include="Images\modalclose.png" />
     <Content Include="Images\selectedmenu.png" />
+    <Content Include="Images\umcgradient.png" />
+    <Content Include="Images\umcgradienthover.png" />
     <Content Include="Resources\HandBrakeCLI.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -111,6 +114,8 @@
     <Content Include="Scripts\Home\Home.js" />
     <Content Include="Scripts\Home\MovieCreator.js" />
     <Content Include="Scripts\Home\Movies.js" />
+    <Content Include="Scripts\Home\UncategorizedMovies\List.js" />
+    <Content Include="Scripts\Home\UncategorizedMovies\UncategorizedMovies.js" />
     <Content Include="Scripts\Prereqs\Controls\EncodingChecker.js" />
     <Content Include="Scripts\Prereqs\Controls\Header.js" />
     <Content Include="Scripts\Prereqs\Controls\UncategorizedMovies.js" />
@@ -156,6 +161,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\Home\MovieGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\umcpanelgradient.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

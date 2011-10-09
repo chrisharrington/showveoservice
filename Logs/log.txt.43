@@ -1,3 +1,3 @@
-2011-10-04 17:14:18,658 INFO  - Container building...
-2011-10-04 17:14:19,601 INFO  - Container built.
-2011-10-04 17:14:36,915 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\Air.Force.One.1997.BRrip.720p.Dual.Audio.Eng-Hindi~MSBHATTI.mkv" -o e:\Media\Showveo\Encoded\0b239be0a6814eb5b2cced46b4f2080b.mp4 -e x264 -S 500
+2011-10-04 17:28:04,885 INFO  - Container building...
+2011-10-04 17:28:05,755 INFO  - Container built.
+2011-10-04 17:28:14,009 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\Air.Force.One.1997.BRrip.720p.Dual.Audio.Eng-Hindi~MSBHATTI - Copy - Copy.mkv" -o e:\Media\Showveo\Encoded\bca7d87d5eb9411baedb61064053a81f.mp4 -e x264 -S 500

@@ -72,7 +72,7 @@ Showveo.Home.Movies = function (parameters) {
 			movieWidth: _movieWidth
 		});
 
-		_components.uncategorized = new Showveo.Home.UncategorizedMovieGrid({
+		_components.uncategorized = new Showveo.Home.UncategorizedMovies.UncategorizedMovies({
 			panel: panel.find("div.uncategorized"),
 			movieWidth: _movieWidth
 		});

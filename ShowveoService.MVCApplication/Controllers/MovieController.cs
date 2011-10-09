@@ -18,11 +18,6 @@ namespace ShowveoService.MVCApplication.Controllers
 		/// A container for movie information.
 		/// </summary>
 		private readonly IMovieRepository _movieRepository;
-
-		/// <summary>
-		/// A container for uncategorized movie information.
-		/// </summary>
-		private readonly IUncategorizedMovieRepository _uncategorizedMovieRepository;
 		#endregion
 
 		#region Constructors
@@ -30,16 +25,12 @@ namespace ShowveoService.MVCApplication.Controllers
 		/// The default constructor.
 		/// </summary>
 		/// <param name="movieRepository">A container for movie information.</param>
-		/// <param name="uncategorizedMovieRepository">A container for uncategorized movie information.</param>
-		public MovieController(IMovieRepository movieRepository, IUncategorizedMovieRepository uncategorizedMovieRepository)
+		public MovieController(IMovieRepository movieRepository)
 		{
 			if (movieRepository == null)
 				throw new ArgumentNullException("movieRepository");
-			if (uncategorizedMovieRepository == null)
-				throw new ArgumentNullException("uncategorizedMovieRepository");
 
 			_movieRepository = movieRepository;
-			_uncategorizedMovieRepository = uncategorizedMovieRepository;
 		}
 		#endregion
 
@@ -93,23 +84,6 @@ namespace ShowveoService.MVCApplication.Controllers
 			catch (Exception ex)
 			{
 				Logger.Error("Error during MovieController.GetLatest.", ex);
-				throw;
-			}
-		}
-
-		/// <summary>
-		/// Retrieves the number of movies that have yet to be categorized.
-		/// </summary>
-		/// <returns>The uncategorized movie count.</returns>
-		public ActionResult GetUncategorizedMovieCount()
-		{
-			try
-			{
-				return Json(_uncategorizedMovieRepository.GetAll().Count(), JsonRequestBehavior.AllowGet);
-			}
-			catch (Exception ex)
-			{
-				Logger.Error("Error during MovieController.GetUncategorizedMovieCount.", ex);
 				throw;
 			}
 		}

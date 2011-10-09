@@ -45,7 +45,7 @@ Showveo.Controls.UncategorizedMovies = function (parameters) {
 	var loadUncategorizedMovieCount = function () {
 		$.ajax({
 			type: "GET",
-			url: "movies/uncategorizedcount",
+			url: "uncategorized/count",
 			success: function (count) {
 				if (count == 0)
 					_components.menu.text("Uncategorized");

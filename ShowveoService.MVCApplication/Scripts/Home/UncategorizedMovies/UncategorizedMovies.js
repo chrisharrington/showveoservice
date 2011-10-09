@@ -1,10 +1,12 @@
 ﻿if (!Showveo.Home)
-	Showveo.Home = { };
-
+	Showveo.Home = {};
+if (!Showveo.Home.UncategorizedMovies)
+	Showveo.Home.UncategorizedMovies = { };
+	
 /*
 * A class used to control the display and selection of uncategorized movies.
 */
-Showveo.Home.UncategorizedMovieGrid = function (parameters) {
+Showveo.Home.UncategorizedMovies.UncategorizedMovies = function (parameters) {
 
 	//-------------------------------------------------------------------------------------
 	/* Data Members */
@@ -14,6 +16,9 @@ Showveo.Home.UncategorizedMovieGrid = function (parameters) {
 
 	// The width of the movies displayed in the search results panel.
 	var _movieWidth;
+
+	// The movie that the user wishes to categorize.
+	var _movie;
 
 	//-------------------------------------------------------------------------------------
 	/* Constructors */
@@ -57,6 +62,15 @@ Showveo.Home.UncategorizedMovieGrid = function (parameters) {
 	//-------------------------------------------------------------------------------------
 	/* Event Handlers */
 
+	/*
+	* Fired after the user selected an uncategorized movie to categorize.
+	* movie: The uncategorized movie to categorize.
+	*/
+	var onMovieSelected = function (movie) {
+		_movie = movie;
+		//_components.list.hide(_components.search.show);
+	};
+
 	//-------------------------------------------------------------------------------------
 	/* Private Methods */
 
@@ -70,6 +84,13 @@ Showveo.Home.UncategorizedMovieGrid = function (parameters) {
 		_components.panelList = panel.find(">div.l");
 		_components.textSearch = panel.find(">div.s>input").clearbox("What's the name of this movie? Enter the year as well if you need to be specific.");
 
+		_components.list = new Showveo.Home.UncategorizedMovies.List({
+			panel: panel.find(">div.l"),
+			onMovieSelected: onMovieSelected
+		});
+
+		//_components.search = new Showveo.Home.UncategorizedMovies.Sear
+		
 		_components.selectionGrid = new Showveo.Home.MovieGrid({
 			panel: panel.find(">div.s"),
 			movieWidth: _movieWidth
