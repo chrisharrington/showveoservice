@@ -13,6 +13,7 @@ using ShowveoService.Entities;
 using ShowveoService.MVCApplication.Load;
 using ShowveoService.Service.Encoding;
 using ShowveoService.Test.Data;
+using ShowveoService.Web.Remote;
 using log4net.Config;
 
 namespace ShowveoService.Test
@@ -22,30 +23,27 @@ namespace ShowveoService.Test
 	{
 		private Random _random;
 
-		//[Test]
+		[Test]
 		public void Blah()
 		{
 			Loader.Start();
 			XmlConfigurator.Configure();
 
-			var factory = Fluently
-			    .Configure()
-			    .Database(MsSqlConfiguration.MsSql2008.ConnectionString(x => x.FromConnectionStringWithKey("Database")))
-			    .Mappings(x => x.FluentMappings.AddFromAssemblyOf<UserMap>())
-			    .BuildSessionFactory();
+			//var factory = Fluently
+			//    .Configure()
+			//    .Database(MsSqlConfiguration.MsSql2008.ConnectionString(x => x.FromConnectionStringWithKey("Database")))
+			//    .Mappings(x => x.FluentMappings.AddFromAssemblyOf<UserMap>())
+			//    .BuildSessionFactory();
 
-			var session = factory.OpenSession();
+			//var session = factory.OpenSession();
 
 			//var repository = new PersonRepository(session);
 			//var blah = repository.GetAll().ToArray();
 
 			//session.Close();
 
-			SessionProvider.CurrentSession = session;
-			var manager = new EncoderManager(new EncoderFactory(new TestConfigurationProvider()), new UncategorizedMovieRepository());
-			manager.Encode(@"e:\Media\Showveo\Movies\blah.avi");
-
-			
+			var repository = new RemoteMovieRepository(new TestConfigurationProvider());
+			var info = repository.Search("Moneyball");
 		}
 
 		[Test]

@@ -71,8 +71,8 @@
     <Compile Include="Service\Encoding\IEncoderManager.cs" />
     <Compile Include="Service\File\FileInfo.cs" />
     <Compile Include="Service\File\IFolderWatcher.cs" />
-    <Compile Include="Web\IRemoteMovieRepository.cs" />
-    <Compile Include="Web\IRouteManager.cs" />
+    <Compile Include="Web\Remote\IRemoteMovieRepository.cs" />
+    <Compile Include="Web\Routing\IRouteManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

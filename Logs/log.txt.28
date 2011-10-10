@@ -1,2 +1,15 @@
-2011-10-04 23:07:59,913 INFO  - Container building...
-2011-10-04 23:08:00,844 INFO  - Container built.
+2011-10-05 22:48:01,714 INFO  - Container building...
+2011-10-05 22:48:01,753 ERROR - Error occurred while building the container.
+System.Reflection.ReflectionTypeLoadException: Unable to load one or more of the requested types. Retrieve the LoaderExceptions property for more information.
+   at System.Reflection.RuntimeModule.GetTypes(RuntimeModule module)
+   at System.Reflection.RuntimeModule.GetTypes()
+   at System.Reflection.Assembly.GetTypes()
+   at Autofac.Features.Scanning.ScanningRegistrationExtensions.<ScanAssemblies>b__5(Assembly a)
+   at System.Linq.Enumerable.<SelectManyIterator>d__14`2.MoveNext()
+   at System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
+   at Autofac.Features.Scanning.ScanningRegistrationExtensions.ScanAssemblies(IEnumerable`1 assemblies, IComponentRegistry cr, IRegistrationBuilder`3 rb)
+   at Autofac.Features.Scanning.ScanningRegistrationExtensions.<>c__DisplayClass1.<RegisterAssemblyTypes>b__0(IComponentRegistry cr)
+   at Autofac.ContainerBuilder.Build(IComponentRegistry componentRegistry, Boolean excludeDefaultModules)
+   at Autofac.ContainerBuilder.Build(ContainerBuildOptions options)
+   at ShowveoService.MVCApplication.Load.Loader.BuildContainer() in C:\Code\showveoservice\ShowveoService.MVCApplication\Load\Loader.cs:line 86
+   at ShowveoService.MVCApplication.Load.Loader.Start() in C:\Code\showveoservice\ShowveoService.MVCApplication\Load\Loader.cs:line 56

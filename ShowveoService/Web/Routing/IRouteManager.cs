@@ -1,6 +1,6 @@
 ﻿using System.Web.Routing;
 
-namespace ShowveoService.Web
+namespace ShowveoService.Web.Routing
 {
 	/// <summary>
 	/// Defines a class used to manage url routes.

@@ -41,8 +41,13 @@
 	*/
 	this.success = function (message) {
 		showMessage("success", message);
-		if (!_components)
-			alert(message);
+	};
+
+	/*
+	* Clears the feedback control.
+	*/
+	this.clear = function () {
+		_components.panel.fadeOut(200);
 	};
 
 	//--------------------------------------------------------------------------------------------------------------

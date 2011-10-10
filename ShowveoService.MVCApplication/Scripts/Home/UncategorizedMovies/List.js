@@ -32,6 +32,28 @@ Showveo.Home.UncategorizedMovies.List = function (parameters) {
 	//-------------------------------------------------------------------------------------
 	/* Public Methods */
 
+	/*
+	* Shows this movie grid.
+	* callback: The optional callback method fired after the grid has been shown.
+	*/
+	this.show = function (callback) {
+		_components.panel.fadeIn(200, function () {
+			if (callback)
+				callback();
+		});
+	};
+
+	/*
+	* Hides this movie grid.
+	* callback: The optional callback method fired after the grid has been hidden.
+	*/
+	this.hide = function (callback) {
+		_components.panel.fadeOut(200, function () {
+			if (callback)
+				callback();
+		});
+	};
+	
 	//-------------------------------------------------------------------------------------
 	/* Event Handlers */
 

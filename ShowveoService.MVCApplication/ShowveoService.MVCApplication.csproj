@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
+    <Compile Include="Controllers\RemoteMoviesController.cs" />
     <Compile Include="Controllers\UncategorizedMovieController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -115,6 +116,7 @@
     <Content Include="Scripts\Home\MovieCreator.js" />
     <Content Include="Scripts\Home\Movies.js" />
     <Content Include="Scripts\Home\UncategorizedMovies\List.js" />
+    <Content Include="Scripts\Home\UncategorizedMovies\Search.js" />
     <Content Include="Scripts\Home\UncategorizedMovies\UncategorizedMovies.js" />
     <Content Include="Scripts\Prereqs\Controls\EncodingChecker.js" />
     <Content Include="Scripts\Prereqs\Controls\Header.js" />

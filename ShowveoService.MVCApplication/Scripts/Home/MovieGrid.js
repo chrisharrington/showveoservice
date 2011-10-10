@@ -38,6 +38,7 @@ Showveo.Home.MovieGrid = function (parameters) {
 	*/
 	this.load = function (movies) {
 		populateMovies(movies);
+		//_components 
 	};
 
 	/*

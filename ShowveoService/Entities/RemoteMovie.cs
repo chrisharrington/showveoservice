@@ -8,9 +8,9 @@ namespace ShowveoService.Entities
 	public class RemoteMovie
 	{
 		#region Properties
+		public int ID { get; set; }
 		public string Title { get; set; }
-		public Uri Thumbnail { get; set; }
-		public Uri Poster { get; set; }
+		public string PosterLocation { get; set; }
 		#endregion
 	}
 }

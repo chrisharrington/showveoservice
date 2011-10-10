@@ -68,7 +68,7 @@ Showveo.Home.UncategorizedMovies.UncategorizedMovies = function (parameters) {
 	*/
 	var onMovieSelected = function (movie) {
 		_movie = movie;
-		//_components.list.hide(_components.search.show);
+		_components.list.hide(_components.search.show);
 	};
 
 	//-------------------------------------------------------------------------------------
@@ -82,16 +82,13 @@ Showveo.Home.UncategorizedMovies.UncategorizedMovies = function (parameters) {
 		_components = {};
 		_components.panel = panel;
 		_components.panelList = panel.find(">div.l");
-		_components.textSearch = panel.find(">div.s>input").clearbox("What's the name of this movie? Enter the year as well if you need to be specific.");
 
 		_components.list = new Showveo.Home.UncategorizedMovies.List({
 			panel: panel.find(">div.l"),
 			onMovieSelected: onMovieSelected
 		});
 
-		//_components.search = new Showveo.Home.UncategorizedMovies.Sear
-		
-		_components.selectionGrid = new Showveo.Home.MovieGrid({
+		_components.search = new Showveo.Home.UncategorizedMovies.Search({
 			panel: panel.find(">div.s"),
 			movieWidth: _movieWidth
 		});

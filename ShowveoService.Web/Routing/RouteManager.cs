@@ -55,6 +55,8 @@ namespace ShowveoService.Web.Routing
 
 			_routes.MapRoute("GetUncategorizedMovieCount", "uncategorized/count", new { controller = "UncategorizedMovie", action = "GetUncategorizedMovieCount" });
 			_routes.MapRoute("GetUncategorizedMovies", "uncategorized/all", new { controller = "UncategorizedMovie", action = "GetUncategorizedMovies" });
+
+			_routes.MapRoute("Search", "remotemovies/search", new { controller = "RemoteMovies", action = "Search" });
 		}
 		#endregion
 	}
