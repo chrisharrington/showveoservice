@@ -9,8 +9,8 @@ Showveo.Home.Movies = function (parameters) {
 	//	The common components for the control.
 	var _components;
 
-	//	The width of each movie in a row.
-	var _movieWidth;
+	//	The number of movies to display in each row.
+	var _columns;
 
 	//	The currently shown grid.
 	var _grid;
@@ -21,10 +21,9 @@ Showveo.Home.Movies = function (parameters) {
 	/*
 	* The default constructor.
 	* panel: The panel containing the control elements.
-	* movieWidth: The width of each poster. Used in calculating how many movies should go in a row.
 	*/
 	this.initialize = function (parameters) {
-		_movieWidth = 160;
+		_columns = 10;
 
 		loadComponents(parameters.panel);
 		loadMovies();
@@ -64,17 +63,17 @@ Showveo.Home.Movies = function (parameters) {
 
 		_components.all = new Showveo.Home.MovieGrid({
 			panel: panel.find("div.all"),
-			movieWidth: _movieWidth
+			columns: _columns
 		});
 
 		_components.latest = new Showveo.Home.MovieGrid({
 			panel: panel.find("div.latest"),
-			movieWidth: _movieWidth
+			columns: _columns
 		});
 
 		_components.uncategorized = new Showveo.Home.UncategorizedMovies.UncategorizedMovies({
 			panel: panel.find("div.uncategorized"),
-			movieWidth: _movieWidth
+			columns: _columns
 		});
 
 		_components.grids = new Array(_components.all, _components.latest, _components.uncategorized);
@@ -88,14 +87,14 @@ Showveo.Home.Movies = function (parameters) {
 		$.ajax({
 			type: "GET",
 			url: "movies/all",
-			success: _components.all.load,
+			success: function(movies) { _components.all.load(movies); },
 			error: Showveo.Controls.Feedback.error
 		});
 
 		$.ajax({
 			type: "GET",
 			url: "movies/latest",
-			success: _components.latest.load,
+			success: function (movies) { _components.latest.load(movies); },
 			error: Showveo.Controls.Feedback.error
 		});
 	};

@@ -14,8 +14,8 @@ Showveo.Home.UncategorizedMovies.UncategorizedMovies = function (parameters) {
 	// The common components for the control.
 	var _components;
 
-	// The width of the movies displayed in the search results panel.
-	var _movieWidth;
+	// The number of movies to show on a row.
+	var _columns;
 
 	// The movie that the user wishes to categorize.
 	var _movie;
@@ -26,10 +26,10 @@ Showveo.Home.UncategorizedMovies.UncategorizedMovies = function (parameters) {
 	/*
 	* The default constructor.
 	* panel: The panel containing the control elements.
-	* movieWidth: The width of the movies displayed in the search results panel.
+	* columns: The number of movies to show on a row.
 	*/
 	this.initialize = function (parameters) {
-		_movieWidth = parameters.movieWidth;
+		_columns = parameters.columns;
 
 		loadComponents(parameters.panel);
 	};
@@ -66,9 +66,20 @@ Showveo.Home.UncategorizedMovies.UncategorizedMovies = function (parameters) {
 	* Fired after the user selected an uncategorized movie to categorize.
 	* movie: The uncategorized movie to categorize.
 	*/
-	var onMovieSelected = function (movie) {
+	var onUncategorizedMovieSelected = function (movie) {
 		_movie = movie;
 		_components.list.hide(_components.search.show);
+	};
+
+	/*
+	* Fired after the user has selected a movie that represents a search result selection.
+	* movie: The selected movie.
+	*/
+	var onSearchMovieSelected = function (movie) {
+		$.ajax({
+				type: "POST",
+				url: ""
+			})
 	};
 
 	//-------------------------------------------------------------------------------------
@@ -85,12 +96,13 @@ Showveo.Home.UncategorizedMovies.UncategorizedMovies = function (parameters) {
 
 		_components.list = new Showveo.Home.UncategorizedMovies.List({
 			panel: panel.find(">div.l"),
-			onMovieSelected: onMovieSelected
+			onMovieSelected: onUncategorizedMovieSelected
 		});
 
 		_components.search = new Showveo.Home.UncategorizedMovies.Search({
 			panel: panel.find(">div.s"),
-			movieWidth: _movieWidth
+			columns: _columns,
+			onMovieSelected: onSearchMovieSelected
 		});
 	};
 

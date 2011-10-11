@@ -29,7 +29,7 @@ namespace ShowveoService.Data.Repositories
 		/// <returns>The collection of all movies.</returns>
 		public IQueryable<Movie> GetAll()
 		{
-			return CurrentSession.Query<Movie>().Fetch(x => x.Genres).Fetch(x => x.Cast);
+			return CurrentSession.Query<Movie>().Fetch(x => x.Genres).Fetch(x => x.Actors);
 		}
 		#endregion
 	}

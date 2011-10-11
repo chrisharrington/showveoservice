@@ -4,6 +4,7 @@ body { background-color:#BDD8ED; height:100%; font-size:18px; font-family:Arial;
 button {text-transform:uppercase; color:#FFF; font-weight:bold; font-size:12px; font-family:Arial; border-radius:3px;}
 button.b {padding:5px; padding-top:6px;}
 button.s {background-color:#5C9648; border:solid 1px #2E5E1E;}
+button:active { background-color:#000;border:solid 1px #777;}
 
 body>div.f {display:none; position:absolute; z-index:2; top:75px; border-radius:5px; }
 body>div.f.error { background-color:#BF0808; box-shadow:2px 2px 2px #962424; }

@@ -11,8 +11,11 @@ Showveo.Home.UncategorizedMovies.Search = function (parameters) {
 	// The common components for the control.
 	var _components;
 
-	// The width of movies displayed in the search results panel.
-	var _movieWidth;
+	// The number of movies in each row of search results.
+	var _columns;
+
+	// The callback function to execute once the user has selected a movie.
+	var _onMovieSelected;
 
 	//-------------------------------------------------------------------------------------
 	/* Constructors */
@@ -20,10 +23,12 @@ Showveo.Home.UncategorizedMovies.Search = function (parameters) {
 	/*
 	* The default constructor.
 	* panel: The panel containing the control elements.
-	* movieWidth: The width of movies displayed in the search results panel.
+	* columns: The number of movies in each row of search results.
+	* onMovieSelected: The callback function to execute once the user has selected a movie.
 	*/
 	this.initialize = function (parameters) {
-		_movieWidth = parameters.movieWidth;
+		_columns = parameters.columns;
+		_onMovieSelected = parameters.onMovieSelected;
 
 		loadComponents(parameters.panel);
 	};
@@ -67,13 +72,22 @@ Showveo.Home.UncategorizedMovies.Search = function (parameters) {
 		}
 
 		Showveo.Controls.Feedback.clear();
+		_components.results.clear();
+		_components.imgLoader.show();
+		_components.textSearch.attr("disabled", true);
+		_components.buttonSearch.attr("disabled", true);
 
 		$.ajax({
 			type: "GET",
 			url: "remotemovies/search",
 			data: { query: _components.textSearch.val() },
 			success: populate,
-			error: Showveo.Controls.Feedback.error
+			error: function (error) {
+				Showveo.Controls.Feedback.error(error);
+				_components.imgLoader.hide();
+				_components.textSearch.attr("disabled", false);
+				_components.buttonSearch.attr("disabled", false);
+			}
 		});
 	};
 
@@ -89,10 +103,12 @@ Showveo.Home.UncategorizedMovies.Search = function (parameters) {
 		_components.panel = panel;
 		_components.textSearch = panel.find("input[type='text']");
 		_components.buttonSearch = panel.find("button").click(onSearchClicked);
+		_components.imgLoader = panel.find(">div.l");
 
 		_components.results = new Showveo.Home.MovieGrid({
 			panel: panel.find(">div.r"),
-			movieWidth: _movieWidth
+			columns: _columns,
+			onMovieSelected: _onMovieSelected
 		});
 	};
 
@@ -101,7 +117,12 @@ Showveo.Home.UncategorizedMovies.Search = function (parameters) {
 	* movies: The result of a search query.
 	*/
 	var populate = function (movies) {
-		_components.results.load(movies);
+		_components.results.load(movies, function () {
+			_components.imgLoader.hide();
+			_components.textSearch.attr("disabled", false);
+			_components.buttonSearch.attr("disabled", false);
+			_components.results.fade();
+		});
 	};
 
 	this.initialize(parameters);

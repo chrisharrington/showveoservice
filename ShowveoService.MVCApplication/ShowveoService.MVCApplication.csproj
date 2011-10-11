@@ -104,6 +104,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\bodygradient.jpg" />
     <Content Include="Images\headergradient.jpg" />
+    <Content Include="Images\loader.gif" />
     <Content Include="Images\modalclose.png" />
     <Content Include="Images\selectedmenu.png" />
     <Content Include="Images\umcgradient.png" />
@@ -197,4 +198,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>$(SolutionDir)Tools\nuget install $(ProjectDir)packages.config -o $(SolutionDir)packages</PreBuildEvent>
+  </PropertyGroup>
 </Project>

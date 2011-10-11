@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using ShowveoService.Service.Logging;
 using ShowveoService.Web;
+using ShowveoService.Web.Remote;
 
 namespace ShowveoService.MVCApplication.Controllers
 {

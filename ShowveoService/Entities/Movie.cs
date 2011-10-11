@@ -17,7 +17,9 @@ namespace ShowveoService.Entities
 		public virtual DateTime DateAdded { get; set; }
 		public virtual string FileLocation { get; set; }
 
-		public virtual IEnumerable<Person> Cast { get; set; }
+		public virtual Person Director { get; set; }
+		public virtual IEnumerable<Person> Producers { get; set; }
+		public virtual IEnumerable<Person> Actors { get; set; }
 		public virtual IEnumerable<Genre> Genres { get; set; } 
 		#endregion
 	}

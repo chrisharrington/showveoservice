@@ -1,6 +1,15 @@
-2011-10-04 17:40:32,114 INFO  - Container building...
-2011-10-04 17:40:33,045 INFO  - Container built.
-2011-10-04 17:40:51,342 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\boo - Copy - Copy (2).mkv" -o e:\Media\Showveo\Encoded\f071a9cee3a649318baf4fac4ed6bad7.mp4 -e x264 -S 500
-2011-10-04 17:41:39,074 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\small.mp4" -o e:\Media\Showveo\Encoded\4f7db56fd0654aa698928822323d2352.mp4 -e x264 -S 500
-2011-10-04 17:43:12,989 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\drop.avi" -o e:\Media\Showveo\Encoded\9ff965b3622e49338e334db7b161834c.mp4 -e x264 -S 500
-2011-10-04 18:02:59,108 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\blah.mp4" -o e:\Media\Showveo\Encoded\afd1d763f767435a80a683d575503bf1.mp4 -e x264 -S 500
+2011-10-04 23:09:50,715 INFO  - Container building...
+2011-10-04 23:09:50,755 ERROR - Error occurred while building the container.
+System.Reflection.ReflectionTypeLoadException: Unable to load one or more of the requested types. Retrieve the LoaderExceptions property for more information.
+   at System.Reflection.RuntimeModule.GetTypes(RuntimeModule module)
+   at System.Reflection.RuntimeModule.GetTypes()
+   at System.Reflection.Assembly.GetTypes()
+   at Autofac.Features.Scanning.ScanningRegistrationExtensions.<ScanAssemblies>b__5(Assembly a)
+   at System.Linq.Enumerable.<SelectManyIterator>d__14`2.MoveNext()
+   at System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
+   at Autofac.Features.Scanning.ScanningRegistrationExtensions.ScanAssemblies(IEnumerable`1 assemblies, IComponentRegistry cr, IRegistrationBuilder`3 rb)
+   at Autofac.Features.Scanning.ScanningRegistrationExtensions.<>c__DisplayClass1.<RegisterAssemblyTypes>b__0(IComponentRegistry cr)
+   at Autofac.ContainerBuilder.Build(IComponentRegistry componentRegistry, Boolean excludeDefaultModules)
+   at Autofac.ContainerBuilder.Build(ContainerBuildOptions options)
+   at ShowveoService.MVCApplication.Load.Loader.BuildContainer() in C:\Code\showveoservice\ShowveoService.MVCApplication\Load\Loader.cs:line 86
+   at ShowveoService.MVCApplication.Load.Loader.Start() in C:\Code\showveoservice\ShowveoService.MVCApplication\Load\Loader.cs:line 56
