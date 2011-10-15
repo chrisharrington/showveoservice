@@ -1,6 +1,3 @@
-2011-10-04 17:00:06,075 INFO  - Container building...
-2011-10-04 17:00:07,021 INFO  - Container built.
-2011-10-04 17:00:22,376 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\21[2008]DvDrip-aXXo.avi" -o e:\Media\Showveo\Encoded\ec715006909845e88c6b6e922d932922.mp4 -e x264 -S 500
-2011-10-04 17:01:51,541 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\21[2008]DvDrip-aXXo.avi" -o e:\Media\Showveo\Encoded\0d3c97222f724b38827a95482f1a3f3e.mp4 -e x264 -S 500
-2011-10-04 17:01:59,979 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\21[2008]DvDrip-aXXo.avi" -o e:\Media\Showveo\Encoded\75a0e222d3ca45a09e75d7a814fd2339.mp4 -e x264 -S 500
-2011-10-04 17:02:03,582 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\21[2008]DvDrip-aXXo - Copy.avi" -o e:\Media\Showveo\Encoded\e056c8ecc46d40bb97ebb88719ef604d.mp4 -e x264 -S 500
+2011-10-04 17:14:18,658 INFO  - Container building...
+2011-10-04 17:14:19,601 INFO  - Container built.
+2011-10-04 17:14:36,915 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\Air.Force.One.1997.BRrip.720p.Dual.Audio.Eng-Hindi~MSBHATTI.mkv" -o e:\Media\Showveo\Encoded\0b239be0a6814eb5b2cced46b4f2080b.mp4 -e x264 -S 500

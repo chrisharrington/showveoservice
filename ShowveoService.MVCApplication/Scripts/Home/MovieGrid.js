@@ -43,7 +43,16 @@ Showveo.Home.MovieGrid = function (parameters) {
 	* callback: The callback function to execute after all movies have been loaded.
 	*/
 	this.load = function (movies, callback) {
-		populateMovies(movies, callback);
+		_components.panel.find(">div").remove();
+		_components.labelEmpty.hide();
+
+		if (!movies || movies.length == 0) {
+			_components.labelEmpty.show();
+			if (callback)
+				callback();
+		}
+		else
+			populateMovies(movies, callback);
 	};
 
 	/*
@@ -108,6 +117,7 @@ Showveo.Home.MovieGrid = function (parameters) {
 	var loadComponents = function (panel) {
 		_components = {};
 		_components.panel = panel;
+		_components.labelEmpty = panel.find(">span.e");
 	};
 
 	/*
@@ -116,7 +126,6 @@ Showveo.Home.MovieGrid = function (parameters) {
 	* callback: The callback function to execute after all movies have been loaded.
 	*/
 	var populateMovies = function (movies, callback) {
-		_components.panel.empty();
 		var width = ((_components.panel.width() - 10) / _columns) - 10;
 		var count = 0;
 		var loaded = 0;
