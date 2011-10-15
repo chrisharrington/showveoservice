@@ -1,8 +1,40 @@
-2011-10-09 21:36:59,119 INFO  - Container building...
-2011-10-09 21:36:59,237 ERROR - Error occurred while building the container.
-System.ArgumentException: The directory name e:\Media\Showveo\Movies is invalid.
-   at System.IO.FileSystemWatcher..ctor(String path, String filter)
-   at System.IO.FileSystemWatcher..ctor(String path)
-   at ShowveoService.Service.File.FolderWatcher.WatchForAdditions(String folder, Action`1 callback, String[] extensions) in C:\Code\showveoservice\ShowveoService.Service\File\FolderWatcher.cs:line 29
-   at ShowveoService.MVCApplication.Load.Loader.Watch(IContainer container) in C:\Code\showveoservice\ShowveoService.MVCApplication\Load\Loader.cs:line 93
-   at ShowveoService.MVCApplication.Load.Loader.Start() in C:\Code\showveoservice\ShowveoService.MVCApplication\Load\Loader.cs:line 60
+2011-10-09 22:49:09,790 INFO  - Container building...
+2011-10-09 22:49:10,047 INFO  - Container built.
+2011-10-09 23:20:59,085 ERROR - Error during RemoteMoviesController.Search.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: The best overloaded method match for 'string.this[int]' has some invalid arguments
+   at CallSite.Target(Closure , CallSite , Object , String )
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute2[T0,T1,TRet](CallSite site, T0 arg0, T1 arg1)
+   at CallSite.Target(Closure , CallSite , Object , String )
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Adapt(Object response) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 80
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Search(String query) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 64
+   at ShowveoService.MVCApplication.Controllers.RemoteMoviesController.Search(String query) in C:\Code\showveoservice\ShowveoService.MVCApplication\Controllers\RemoteMoviesController.cs:line 47
+2011-10-09 23:21:00,238 ERROR - Error during RemoteMoviesController.Search.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: The best overloaded method match for 'string.this[int]' has some invalid arguments
+   at CallSite.Target(Closure , CallSite , Object , String )
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Adapt(Object response) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 80
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Search(String query) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 64
+   at ShowveoService.MVCApplication.Controllers.RemoteMoviesController.Search(String query) in C:\Code\showveoservice\ShowveoService.MVCApplication\Controllers\RemoteMoviesController.cs:line 47
+2011-10-09 23:21:01,243 ERROR - Error during RemoteMoviesController.Search.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: The best overloaded method match for 'string.this[int]' has some invalid arguments
+   at CallSite.Target(Closure , CallSite , Object , String )
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Adapt(Object response) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 80
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Search(String query) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 64
+   at ShowveoService.MVCApplication.Controllers.RemoteMoviesController.Search(String query) in C:\Code\showveoservice\ShowveoService.MVCApplication\Controllers\RemoteMoviesController.cs:line 47
+2011-10-09 23:21:02,242 ERROR - Error during RemoteMoviesController.Search.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: The best overloaded method match for 'string.this[int]' has some invalid arguments
+   at CallSite.Target(Closure , CallSite , Object , String )
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Adapt(Object response) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 80
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Search(String query) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 64
+   at ShowveoService.MVCApplication.Controllers.RemoteMoviesController.Search(String query) in C:\Code\showveoservice\ShowveoService.MVCApplication\Controllers\RemoteMoviesController.cs:line 47
+2011-10-09 23:21:19,511 ERROR - Error during RemoteMoviesController.Search.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: The best overloaded method match for 'string.this[int]' has some invalid arguments
+   at CallSite.Target(Closure , CallSite , Object , String )
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Adapt(Object response) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 80
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Search(String query) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 64
+   at ShowveoService.MVCApplication.Controllers.RemoteMoviesController.Search(String query) in C:\Code\showveoservice\ShowveoService.MVCApplication\Controllers\RemoteMoviesController.cs:line 47
+2011-10-09 23:22:10,249 ERROR - Error during RemoteMoviesController.Search.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: The best overloaded method match for 'string.this[int]' has some invalid arguments
+   at CallSite.Target(Closure , CallSite , Object , String )
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Adapt(Object response) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 80
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Search(String query) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 64
+   at ShowveoService.MVCApplication.Controllers.RemoteMoviesController.Search(String query) in C:\Code\showveoservice\ShowveoService.MVCApplication\Controllers\RemoteMoviesController.cs:line 47

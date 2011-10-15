@@ -62,14 +62,12 @@
     <Compile Include="Data\IGenreRepository.cs" />
     <Compile Include="Data\IMovieRepository.cs" />
     <Compile Include="Data\IPersonRepository.cs" />
-    <Compile Include="Data\IPersonTypeRepository.cs" />
     <Compile Include="Data\IUncategorizedMovieRepository.cs" />
     <Compile Include="Data\IUserRepository.cs" />
     <Compile Include="Entities\EncodingMovieTask.cs" />
     <Compile Include="Entities\Genre.cs" />
     <Compile Include="Entities\Movie.cs" />
     <Compile Include="Entities\Person.cs" />
-    <Compile Include="Entities\PersonType.cs" />
     <Compile Include="Entities\RemoteMovie.cs" />
     <Compile Include="Entities\UncategorizedMovie.cs" />
     <Compile Include="Entities\User.cs" />

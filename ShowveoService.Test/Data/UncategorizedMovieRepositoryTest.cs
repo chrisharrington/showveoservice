@@ -50,7 +50,7 @@ namespace ShowveoService.Test.Data
 		[Test]
 		public void ShouldRetrieveInsertedUncategorizedMovieAfterInsert()
 		{
-			var uncategorizedMovie = new UncategorizedMovie {EncodedFile = "bromance"};
+			var uncategorizedMovie = new UncategorizedMovie {EncodedFile = "bromance", OriginalFile = "orig"};
 			_sut.Insert(uncategorizedMovie);
 
 			var retrieved = InMemorySession.Query<UncategorizedMovie>().ToArray();
@@ -64,7 +64,7 @@ namespace ShowveoService.Test.Data
 		[Test]
 		public void ShouldRetrievePreviouslyInsertedUncategorizedMoviesOnGetAll()
 		{
-			var uncategorizedMovie = new UncategorizedMovie { EncodedFile = "bromance" };
+			var uncategorizedMovie = new UncategorizedMovie { EncodedFile = "bromance", OriginalFile = "orig"};
 			using (var transaction = InMemorySession.BeginTransaction())
 			{
 				InMemorySession.Save(uncategorizedMovie);

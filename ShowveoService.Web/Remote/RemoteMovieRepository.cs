@@ -158,7 +158,7 @@ namespace ShowveoService.Web.Remote
 		/// </summary>
 		/// <param name="info">The retrieved information.</param>
 		/// <returns>The adapted information.</returns>
-		private static Movie AdaptDetails(dynamic info)
+		private Movie AdaptDetails(dynamic info)
 		{
 			var data = info[0];
 			var year = new DateTime(Convert.ToInt32(data["released"].Substring(0, 4)), 1, 1);
@@ -171,27 +171,19 @@ namespace ShowveoService.Web.Remote
 				Year = year
 			};
 
-			SetCast(movie, data["cast"]);
-
-			return movie;
-		}
-
-		/// <summary>
-		/// Sets the cast for a movie.
-		/// </summary>
-		/// <param name="movie">The movie.</param>
-		/// <param name="cast">The cast.</param>
-		private void SetCast(Movie movie, dynamic cast)
-		{
-			foreach (var member in cast)
+			var cast = data["cast"];
+			var actors = new List<Person>();
+			var producers = new List<Person>();
+			foreach (IDictionary<string, object> member in cast)
 			{
-				var person = _personRepository.GetByName(cast["name"]);
+				var person = _personRepository.GetByName(member["name"] as string);
 				if (person == null)
-					person = new Person { FirstName = ((string)cast["name"]).Split(' ')[0], LastName = ((string)cast["name"]).Split(' ')[1] };
+				{
+					person = new Person {FirstName = ((string) member["name"]).Split(' ')[0], LastName = ((string) member["name"]).Split(' ')[1]};
+					_personRepository.SaveOrUpdate(person);
+				}
 
-				var actors = new List<Person>();
-				var producers = new List<Person>();
-				switch ((string) member["job"])
+				switch ((string)member["job"])
 				{
 					case "Director":
 						movie.Director = person;
@@ -203,10 +195,22 @@ namespace ShowveoService.Web.Remote
 						actors.Add(person);
 						break;
 				}
-
-				movie.Producers = producers;
-				movie.Actors = actors;
 			}
+
+			movie.Producers = producers;
+			movie.Actors = actors;
+
+			return movie;
+		}
+
+		/// <summary>
+		/// Sets the cast for a movie.
+		/// </summary>
+		/// <param name="movie">The movie.</param>
+		/// <param name="cast">The cast.</param>
+		private void SetCast(Movie movie, IDictionary<string, dynamic> cast)
+		{
+			
 		}
 		#endregion
 	}

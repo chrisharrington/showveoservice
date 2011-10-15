@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using NHibernate.Linq;
 using NUnit.Framework;
@@ -35,27 +36,53 @@ namespace ShowveoService.Test.Data
 
 		#region Tests
 		/// <summary>
-		/// Tests that the Insert method fails gracefully when given an invalid person.
+		/// Tests that the SaveOrUpdate method fails gracefully when given an invalid person.
 		/// </summary>
 		[Test]
 		public void ShouldFailWithInvalidPersonOnInsert()
 		{
-			Assert.Throws<ArgumentNullException>(() => _sut.Insert(null));
+			Assert.Throws<ArgumentNullException>(() => _sut.SaveOrUpdate(null));
 		}
 
 		/// <summary>
-		/// Tests that the Insert method successfully inserts a person by calling Insert, then querying the session
+		/// Tests that the SaveOrUpdate method successfully inserts a person by calling SaveOrUpdate, then querying the session
 		/// to ensure that the person was actually inserted.
 		/// </summary>
 		[Test]
 		public void ShouldRetrieveInsertedPersonAfterInsert()
 		{
 			var person = new Person { FirstName = "steve", LastName = "blah" };
-			_sut.Insert(person);
+			_sut.SaveOrUpdate(person);
 
 			var retrieved = InMemorySession.Query<Person>().ToArray();
 			Assert.AreEqual(retrieved.Length, 1);
 			Assert.AreEqual(retrieved.First().FirstName, person.FirstName);
+		}
+
+		/// <summary>
+		/// Tests that the SaveOrUpdate method updates a person instead of inserting it on the second attempt.
+		/// </summary>
+		[Test]
+		public void ShouldUpdateNotInsertOnSaveOrUpdate()
+		{
+			var person = new Person {FirstName = "steve", LastName = "blah"};
+			using (var transaction = InMemorySession.BeginTransaction())
+			{
+				InMemorySession.Save(person);
+				transaction.Commit();
+			}
+
+			var retrieved = InMemorySession.Query<Person>().First();
+			retrieved.FirstName = "john";
+
+			using (var transaction = InMemorySession.BeginTransaction())
+			{
+				_sut.SaveOrUpdate(retrieved);
+				transaction.Commit();
+			}
+
+			Assert.AreEqual(1, InMemorySession.Query<Person>().Count());
+			Assert.AreEqual(retrieved.FirstName, InMemorySession.Query<Person>().First().FirstName);
 		}
 
 		/// <summary>

@@ -34,15 +34,15 @@ namespace ShowveoService.Data.Repositories
 		}
 
 		/// <summary>
-		/// Inserts a person into the repository.
+		/// Inserts or updates a person.
 		/// </summary>
-		/// <param name="person">The person to insert.</param>
-		public void Insert(Person person)
+		/// <param name="person">The person to persist.</param>
+		public void SaveOrUpdate(Person person)
 		{
 			if (person == null)
 				throw new ArgumentNullException("person");
 
-			CurrentSession.Save(person);
+			CurrentSession.SaveOrUpdate(person);
 		}
 		#endregion
 	}

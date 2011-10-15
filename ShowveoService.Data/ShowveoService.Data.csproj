@@ -53,7 +53,6 @@
     <Compile Include="Maps\GenreMap.cs" />
     <Compile Include="Maps\MovieMap.cs" />
     <Compile Include="Maps\PersonMap.cs" />
-    <Compile Include="Maps\PersonTypeMap.cs" />
     <Compile Include="Maps\UncategorizedMovieMap.cs" />
     <Compile Include="Maps\UserMap.cs" />
     <Compile Include="Maps\UserMovieMap.cs" />
@@ -61,7 +60,6 @@
     <Compile Include="Repositories\GenreRepository.cs" />
     <Compile Include="Repositories\MovieRepository.cs" />
     <Compile Include="Repositories\PersonRepository.cs" />
-    <Compile Include="Repositories\PersonTypeRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\UncategorizedMovieRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />

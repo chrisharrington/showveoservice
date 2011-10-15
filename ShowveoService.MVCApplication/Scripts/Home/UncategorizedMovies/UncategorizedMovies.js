@@ -76,10 +76,10 @@ Showveo.Home.UncategorizedMovies.UncategorizedMovies = function (parameters) {
 	* movie: The selected movie.
 	*/
 	var onSearchMovieSelected = function (movie) {
-		$.ajax({
-				type: "POST",
-				url: ""
-			})
+		//		$.ajax({
+		//				type: "POST",
+		//				url: ""
+		//			})
 	};
 
 	//-------------------------------------------------------------------------------------

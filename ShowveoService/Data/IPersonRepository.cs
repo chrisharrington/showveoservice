@@ -23,10 +23,10 @@ namespace ShowveoService.Data
 		IQueryable<Person> GetAll();
 
 		/// <summary>
-		/// Inserts a person into the repository.
+		/// Inserts or updates a person.
 		/// </summary>
-		/// <param name="person">The person to insert.</param>
-		void Insert(Person person);
+		/// <param name="person">The person to persist.</param>
+		void SaveOrUpdate(Person person);
 		#endregion
 	}
 }

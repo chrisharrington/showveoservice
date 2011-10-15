@@ -1,8 +1,28 @@
-2011-10-09 21:50:24,830 INFO  - Container building...
-2011-10-09 21:50:25,005 ERROR - Error occurred while building the container.
-System.ArgumentException: The directory name c:\Showveo\Movies is invalid.
-   at System.IO.FileSystemWatcher..ctor(String path, String filter)
-   at System.IO.FileSystemWatcher..ctor(String path)
-   at ShowveoService.Service.File.FolderWatcher.WatchForAdditions(String folder, Action`1 callback, String[] extensions) in C:\Code\showveoservice\ShowveoService.Service\File\FolderWatcher.cs:line 29
-   at ShowveoService.MVCApplication.Load.Loader.Watch(IContainer container) in C:\Code\showveoservice\ShowveoService.MVCApplication\Load\Loader.cs:line 93
-   at ShowveoService.MVCApplication.Load.Loader.Start() in C:\Code\showveoservice\ShowveoService.MVCApplication\Load\Loader.cs:line 60
+2011-10-09 23:22:36,801 INFO  - Container building...
+2011-10-09 23:22:36,960 INFO  - Container built.
+2011-10-09 23:24:14,052 ERROR - Error during RemoteMoviesController.Search.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: Operator '==' cannot be applied to operands of type 'System.Collections.Generic.Dictionary<string,object>' and 'string'
+   at CallSite.Target(Closure , CallSite , Object , String )
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute2[T0,T1,TRet](CallSite site, T0 arg0, T1 arg1)
+   at CallSite.Target(Closure , CallSite , Object , String )
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Adapt(Object response) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 79
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Search(String query) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 64
+   at ShowveoService.MVCApplication.Controllers.RemoteMoviesController.Search(String query) in C:\Code\showveoservice\ShowveoService.MVCApplication\Controllers\RemoteMoviesController.cs:line 47
+2011-10-09 23:24:15,058 ERROR - Error during RemoteMoviesController.Search.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: Operator '==' cannot be applied to operands of type 'System.Collections.Generic.Dictionary<string,object>' and 'string'
+   at CallSite.Target(Closure , CallSite , Object , String )
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Adapt(Object response) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 79
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Search(String query) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 64
+   at ShowveoService.MVCApplication.Controllers.RemoteMoviesController.Search(String query) in C:\Code\showveoservice\ShowveoService.MVCApplication\Controllers\RemoteMoviesController.cs:line 47
+2011-10-09 23:24:16,387 ERROR - Error during RemoteMoviesController.Search.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: Operator '==' cannot be applied to operands of type 'System.Collections.Generic.Dictionary<string,object>' and 'string'
+   at CallSite.Target(Closure , CallSite , Object , String )
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Adapt(Object response) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 79
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Search(String query) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 64
+   at ShowveoService.MVCApplication.Controllers.RemoteMoviesController.Search(String query) in C:\Code\showveoservice\ShowveoService.MVCApplication\Controllers\RemoteMoviesController.cs:line 47
+2011-10-09 23:24:37,849 ERROR - Error during RemoteMoviesController.Search.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: Operator '==' cannot be applied to operands of type 'System.Collections.Generic.Dictionary<string,object>' and 'string'
+   at CallSite.Target(Closure , CallSite , Object , String )
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Adapt(Object response) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 79
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Search(String query) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 64
+   at ShowveoService.MVCApplication.Controllers.RemoteMoviesController.Search(String query) in C:\Code\showveoservice\ShowveoService.MVCApplication\Controllers\RemoteMoviesController.cs:line 47

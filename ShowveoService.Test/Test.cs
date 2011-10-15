@@ -97,18 +97,6 @@ namespace ShowveoService.Test
 				transaction.Commit();
 			}
 
-			var jobs = new List<PersonType>();
-			using (var transaction = session.BeginTransaction())
-			{
-				var repository = new PersonTypeRepository();
-				jobs.Add(new PersonType { Name = "Actor" });
-				jobs.Add(new PersonType { Name = "Producer" });
-				jobs.Add(new PersonType { Name = "Director" });
-				foreach (var job in jobs)
-					repository.Insert(job);
-				transaction.Commit();
-			}
-
 			var people = new List<Person>();
 			using (var transaction = session.BeginTransaction())
 			{
@@ -121,7 +109,7 @@ namespace ShowveoService.Test
 				people.Add(new Person { FirstName = "Val", LastName = "Kilmer" });
 				people.Add(new Person { FirstName = "George", LastName = "Clooney" });
 				foreach (var person in people)
-					repository.Insert(person);
+					repository.SaveOrUpdate(person);
 				transaction.Commit();
 			}
 
