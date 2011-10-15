@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web.Mvc;
 using ShowveoService.Data;
 using ShowveoService.Service.Logging;
+using ShowveoService.Web;
+using ShowveoService.Web.Remote;
 
 namespace ShowveoService.MVCApplication.Controllers
 {
@@ -17,6 +19,16 @@ namespace ShowveoService.MVCApplication.Controllers
 		/// A container for uncategorized movie information.
 		/// </summary>
 		private readonly IUncategorizedMovieRepository _uncategorizedMovieRepository;
+
+		/// <summary>
+		/// A container for remote movie information.
+		/// </summary>
+		private readonly IRemoteMovieRepository _remoteMovieRepository;
+
+		/// <summary>
+		/// A container for movie information.
+		/// </summary>
+		private readonly IMovieRepository _movieRepository;
 		#endregion
 
 		#region Constructors
@@ -24,12 +36,19 @@ namespace ShowveoService.MVCApplication.Controllers
 		/// The default constructor.
 		/// </summary>
 		/// <param name="uncategorizedMovieRepository">A container for uncategorized movie information.</param>
-		public UncategorizedMovieController(IUncategorizedMovieRepository uncategorizedMovieRepository)
+		/// <param name="remoteMovieRepository">A container for remote movie information.</param>
+		/// <param name="movieRepository">A container for movie information.</param>
+		public UncategorizedMovieController(IUncategorizedMovieRepository uncategorizedMovieRepository, IRemoteMovieRepository remoteMovieRepository,
+			IMovieRepository movieRepository)
 		{
 			if (uncategorizedMovieRepository == null)
 				throw new ArgumentNullException("uncategorizedMovieRepository");
+			if (remoteMovieRepository == null)
+				throw new ArgumentNullException("remoteMovieRepository");
 
 			_uncategorizedMovieRepository = uncategorizedMovieRepository;
+			_remoteMovieRepository = remoteMovieRepository;
+			_movieRepository = movieRepository;
 		}
 		#endregion
 
@@ -68,6 +87,27 @@ namespace ShowveoService.MVCApplication.Controllers
 			catch (Exception ex)
 			{
 				Logger.Error("Error during UncategorizedMovieController.GetUncategorizedMovies.", ex);
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// Categorizes a movie.
+		/// </summary>
+		public void CategorizeMovie(int uncategorizedMovieID, int categorizedMovieID)
+		{
+			try
+			{
+				if (uncategorizedMovieID < 1)
+					throw new ArgumentOutOfRangeException("uncategorizedMovieID");
+				if (categorizedMovieID < 1)
+					throw new ArgumentOutOfRangeException("categorizedMovieID");
+
+				var details = _remoteMovieRepository.GetDetails(categorizedMovieID);
+			}
+			catch (Exception ex)
+			{
+				Logger.Error("Error during UncategorizedMovieController.CategorizeMovie", ex);
 				throw;
 			}
 		}

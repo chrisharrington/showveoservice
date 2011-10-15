@@ -23,7 +23,10 @@ namespace ShowveoService.Data.Maps
 			Map(x => x.DateAdded).Not.Nullable();
 			Map(x => x.FileLocation).Not.Nullable();
 
-			HasManyToMany(x => x.Cast).Table("MoviesToPeople");
+			References(x => x.Director);
+
+			HasManyToMany(x => x.Producers).Table("MoviesToPeople");
+			HasManyToMany(x => x.Actors).Table("MoviesToPeople");
 			HasManyToMany(x => x.Genres).Table("MoviesToGenres");
 		}
 		#endregion

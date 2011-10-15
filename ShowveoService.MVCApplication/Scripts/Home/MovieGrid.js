@@ -12,8 +12,11 @@ Showveo.Home.MovieGrid = function (parameters) {
 	// The common components for the control.
 	var _components;
 
-	// The width of each movie poster.
-	var _movieWidth;
+	// The number of movies to show on a row.
+	var _columns;
+
+	// The callback function to fire after the user has selected a movie.
+	var _onMovieSelected;
 
 	//-------------------------------------------------------------------------------------
 	/* Constructors */
@@ -21,10 +24,12 @@ Showveo.Home.MovieGrid = function (parameters) {
 	/*
 	* The default constructor.
 	* panel: The panel containing the control elements.
-	* movieWidth: The width of each movie poster.
+	* columns: The number of columns in each row of movies.
+	* onMovieSelected: The callback function to fire after the user has selected a movie.
 	*/
 	this.initialize = function (parameters) {
-		_movieWidth = parameters.movieWidth;
+		_columns = parameters.columns;
+		_onMovieSelected = parameters.onMovieSelected;
 
 		loadComponents(parameters.panel);
 	};
@@ -35,10 +40,10 @@ Showveo.Home.MovieGrid = function (parameters) {
 	/*
 	* Loads the movie grid with a collection of movies.
 	* movies: The movies to load into the grid.
+	* callback: The callback function to execute after all movies have been loaded.
 	*/
-	this.load = function (movies) {
-		populateMovies(movies);
-		//_components 
+	this.load = function (movies, callback) {
+		populateMovies(movies, callback);
 	};
 
 	/*
@@ -63,6 +68,33 @@ Showveo.Home.MovieGrid = function (parameters) {
 		});
 	};
 
+	/*
+	* Shows the movies in the movie grid by fading each movie in one at a time.
+	*/
+	this.fade = function () {
+		_components.panel.show().find("img").hide();
+		_components.panel.find("img").each(function () {
+			var poster = $(this);
+			setTimeout(function () {
+				poster.fadeIn(250);
+			}, Math.random() * 1000);
+		});
+	};
+
+	/*
+	* Shows the movie grid by sliding it down.
+	*/
+	this.slide = function () {
+		_components.panel.slideDown(200);
+	};
+
+	/*
+	* Clears any movies from the grid.
+	*/
+	this.clear = function () {
+		_components.panel.hide().find(">div").remove();
+	};
+
 	//-------------------------------------------------------------------------------------
 	/* Event Handlers */
 
@@ -81,43 +113,26 @@ Showveo.Home.MovieGrid = function (parameters) {
 	/*
 	* Populates a movie panel with a given list of movies.
 	* movies: The list of movies used to populate the movies panel.
+	* callback: The callback function to execute after all movies have been loaded.
 	*/
-	var populateMovies = function (movies) {
+	var populateMovies = function (movies, callback) {
 		_components.panel.empty();
-		var columns = calculateColumns(_movieWidth);
+		var width = ((_components.panel.width() - 10) / _columns) - 10;
 		var count = 0;
+		var loaded = 0;
 		while (count < movies.length) {
 			var row = $("<div></div>");
-			var min = Math.min(movies.length - count, columns);
+			var min = Math.min(movies.length - count, _columns);
 			for (var i = 0; i < min; i++) {
-				row.append(Showveo.Home.MovieCreator.create(movies[count], _movieWidth));
+				row.append(Showveo.Home.MovieCreator.create(movies[count], width, _onMovieSelected));
 				count++;
 			}
 			_components.panel.append(row);
 		}
 
-		fadeInMovies();
-	};
-
-	/*
-	* Calculates the number of columns used to display movies by taking the screen width and
-	* dividing it by the individual movie width, and adding padding.
-	* width: The width of a movie panel.
-	* Returns: The calculated number of columns.
-	*/
-	var calculateColumns = function (width) {
-		return Math.floor($(window).width() / (width + 10));
-	};
-
-	/*
-	* Iterates through all of the added movies and fades in the posters in a random fashion.
-	*/
-	var fadeInMovies = function () {
 		_components.panel.find("img").load(function () {
-			var poster = $(this);
-			setTimeout(function () {
-				poster.fadeIn(250);
-			}, Math.random() * 1000);
+			if (++loaded == movies.length && callback)
+				callback();
 		});
 	};
 

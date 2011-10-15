@@ -11,7 +11,6 @@ namespace ShowveoService.Entities
 		public virtual int ID { get; set; }
 		public virtual string FirstName { get; set; }
 		public virtual string LastName { get; set; }
-		public virtual PersonType Job { get; set; }
 		public virtual IEnumerable<Movie> Movies { get; set; }
 		#endregion
 	}

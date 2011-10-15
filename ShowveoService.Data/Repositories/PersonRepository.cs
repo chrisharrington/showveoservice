@@ -12,6 +12,19 @@ namespace ShowveoService.Data.Repositories
 	{
 		#region Public Methods
 		/// <summary>
+		/// Retrieves a person by name.
+		/// </summary>
+		/// <param name="name">The name of the person.</param>
+		/// <returns>The retrieved person or null.</returns>
+		public Person GetByName(string name)
+		{
+			if (string.IsNullOrEmpty(name))
+				throw new ArgumentNullException("name");
+
+			return CurrentSession.Query<Person>().Where(x => x.FirstName + " " + x.LastName == name).FirstOrDefault();
+		}
+
+		/// <summary>
 		/// Retrieves a collection of all people.
 		/// </summary>
 		/// <returns>The collection of person information.</returns>
