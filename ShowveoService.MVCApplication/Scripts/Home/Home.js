@@ -1,4 +1,4 @@
-﻿Showveo.Home.Home = new function (parameters) {
+﻿Showveo.Home.Home = new function () {
 
 	//--------------------------------------------------------------------------------------------------------------
 	/* Data Members */
@@ -12,19 +12,8 @@
 	/*
 	* The default constructor.
 	*/
-	this.initialize = function (parameters) {
+	this.initialize = function () {
 		loadComponents();
-	};
-
-	//--------------------------------------------------------------------------------------------------------------
-	/* Event Handlers */
-
-	/*
-	* Fired after the user has selected a menu item.
-	* menu: The menu item to show.
-	*/
-	var onMenuSelected = function (menu) {
-		_components.movies.show(menu);
 	};
 
 	//--------------------------------------------------------------------------------------------------------------
@@ -38,13 +27,16 @@
 		_components.panel = $("div.c");
 
 		_components.header = new Showveo.Controls.Header({
-			panel: $("body>div.h"),
-			onMenuItemSelected: onMenuSelected
+			panel: $("body>div.h")
 		});
 
 		_components.movies = new Showveo.Home.Movies({
-			panel: _components.panel.find("div.m"),
-			selectMenu: _components.header.select
+			panel: _components.panel.find("div.m")
+		});
+
+		Showveo.LocationManager.initialize({
+			header: _components.header,
+			movies: _components.movies
 		});
 	};
 

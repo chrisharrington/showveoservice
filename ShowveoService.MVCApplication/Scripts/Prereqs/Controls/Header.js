@@ -6,9 +6,6 @@
 	//	The common components for the control.
 	var _components;
 
-	//	The callback function to execute after the user has selected a menu item.
-	var _onMenuItemSelected;
-
 	//--------------------------------------------------------------------------------------------------------------
 	/* Public Methods */
 
@@ -18,8 +15,6 @@
 	* onMenuItemSelected: The callback function to execute after the user has selected a menu item.
 	*/
 	this.initialize = function (parameters) {
-		_onMenuItemSelected = parameters.onMenuItemSelected;
-
 		loadComponents(parameters.panel);
 	};
 
@@ -43,11 +38,7 @@
 		if (menu.hasClass("s"))
 			return;
 
-		menu.parent().find(".s").removeClass("s");
-		menu.addClass("s");
-
-		if (_onMenuItemSelected)
-			_onMenuItemSelected(menu.attr("id"));
+		Showveo.LocationManager.navigate(menu.attr("id"));
 	};
 
 	//--------------------------------------------------------------------------------------------------------------

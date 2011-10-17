@@ -15,20 +15,15 @@ Showveo.Home.Movies = function (parameters) {
 	//	The currently shown grid.
 	var _grid;
 
-	// Fired when the user wants to select a menu item.
-	var _selectMenu;
-
 	//-------------------------------------------------------------------------------------
 	/* Constructors */
 
 	/*
 	* The default constructor.
 	* panel: The panel containing the control elements.
-	* showMenu: Fired after the user has selected a menu item.
 	*/
 	this.initialize = function (parameters) {
 		_columns = 10;
-		_selectMenu = parameters.selectMenu;
 
 		loadComponents(parameters.panel);
 		loadMovies();
@@ -44,7 +39,7 @@ Showveo.Home.Movies = function (parameters) {
 	* Shows the appropriate movie grid control.
 	* grid: The name of the movie grid to show.
 	*/
-	this.show = function (grid) {
+	this.select = function (grid) {
 		if (_grid) {
 			_grid.hide(function () {
 				if (_components[grid])
@@ -84,7 +79,8 @@ Showveo.Home.Movies = function (parameters) {
 				_components.uncategorized.hide(function () {
 					_components.latest.show();
 				});
-				_selectMenu("latest");
+
+				Showveo.LocationManager.navigate("latest");
 			}
 		});
 
