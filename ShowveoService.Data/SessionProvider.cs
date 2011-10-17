@@ -70,7 +70,7 @@ namespace ShowveoService.Data
 		/// Unbinds a session from an http context.
 		/// </summary>
 		/// <param name="context">The http context.</param>
-		public static void Close(HttpContext context)
+		public static void Commit(HttpContext context)
 		{
 			if (context == null)
 				return;
@@ -81,6 +81,24 @@ namespace ShowveoService.Data
 
 			if (session.Transaction != null)
 				session.Transaction.Commit();
+			session.Close();
+		}
+
+		/// <summary>
+		/// Unbinds a session from an http context and rolls back the transaction.
+		/// </summary>
+		/// <param name="context"></param>
+		public static void Rollback(HttpContext context)
+		{
+			if (context == null)
+				return;
+
+			var session = context.Items["currentsession"] as ISession;
+			if (session == null)
+				return;
+
+			if (session.Transaction != null)
+				session.Transaction.Rollback();
 			session.Close();
 		}
 		#endregion

@@ -1,8 +1,2 @@
-2011-10-09 21:50:24,830 INFO  - Container building...
-2011-10-09 21:50:25,005 ERROR - Error occurred while building the container.
-System.ArgumentException: The directory name c:\Showveo\Movies is invalid.
-   at System.IO.FileSystemWatcher..ctor(String path, String filter)
-   at System.IO.FileSystemWatcher..ctor(String path)
-   at ShowveoService.Service.File.FolderWatcher.WatchForAdditions(String folder, Action`1 callback, String[] extensions) in C:\Code\showveoservice\ShowveoService.Service\File\FolderWatcher.cs:line 29
-   at ShowveoService.MVCApplication.Load.Loader.Watch(IContainer container) in C:\Code\showveoservice\ShowveoService.MVCApplication\Load\Loader.cs:line 93
-   at ShowveoService.MVCApplication.Load.Loader.Start() in C:\Code\showveoservice\ShowveoService.MVCApplication\Load\Loader.cs:line 60
+2011-10-14 19:14:00,474 INFO  - Container building...
+2011-10-14 19:14:00,541 INFO  - Container built.

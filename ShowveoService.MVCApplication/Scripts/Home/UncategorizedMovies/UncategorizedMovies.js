@@ -83,7 +83,7 @@ Showveo.Home.UncategorizedMovies.UncategorizedMovies = function (parameters) {
 	var onSearchMovieSelected = function (movie) {
 		$.ajax({
 			type: "POST",
-			url: "/uncategorizedmovie/categorize/" + _movie.ID + "/" + movie.ID,
+			url: "/uncategorized/categorize/" + _movie.ID + "/" + movie.ID,
 			success: _onMovieCategorized,
 			error: Showveo.Controls.Feedback.error
 		});

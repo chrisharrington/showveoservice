@@ -17,6 +17,7 @@ namespace ShowveoService.Service.Modules
 		{
 			context.BeginRequest += OnBeginRequest;
 			context.EndRequest += OnEndRequest;
+			context.Error += OnError;
 		}
 
 		/// <summary>
@@ -39,7 +40,15 @@ namespace ShowveoService.Service.Modules
 		/// </summary>
 		private static void OnEndRequest(object sender, EventArgs e)
 		{
-			SessionProvider.Close(((HttpApplication)sender).Context);
+			SessionProvider.Commit(((HttpApplication)sender).Context);
+		}
+
+		/// <summary>
+		/// Fired when an error occurs.
+		/// </summary>
+		private static void OnError(object sender, EventArgs e)
+		{
+			SessionProvider.Rollback(((HttpApplication) sender).Context);
 		}
 		#endregion
 	}

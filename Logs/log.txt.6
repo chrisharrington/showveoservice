@@ -1,2 +1,32 @@
-2011-10-14 19:14:00,474 INFO  - Container building...
-2011-10-14 19:14:00,541 INFO  - Container built.
+2011-10-16 21:57:41,175 INFO  - Container building...
+2011-10-16 21:57:41,349 INFO  - Container built.
+2011-10-16 21:57:56,002 ERROR - Error during UncategorizedMovieController.CategorizeMovie
+NHibernate.PropertyValueException: not-null property references a null or transient value ShowveoService.Entities.Movie.FileLocation
+   at NHibernate.Engine.Nullability.CheckNullability(Object[] values, IEntityPersister persister, Boolean isUpdate)
+   at NHibernate.Event.Default.AbstractSaveEventListener.PerformSaveOrReplicate(Object entity, EntityKey key, IEntityPersister persister, Boolean useIdentityColumn, Object anything, IEventSource source, Boolean requiresImmediateIdAccess)
+   at NHibernate.Event.Default.AbstractSaveEventListener.PerformSave(Object entity, Object id, IEntityPersister persister, Boolean useIdentityColumn, Object anything, IEventSource source, Boolean requiresImmediateIdAccess)
+   at NHibernate.Event.Default.AbstractSaveEventListener.SaveWithGeneratedId(Object entity, String entityName, Object anything, IEventSource source, Boolean requiresImmediateIdAccess)
+   at NHibernate.Event.Default.DefaultSaveOrUpdateEventListener.SaveWithGeneratedOrRequestedId(SaveOrUpdateEvent event)
+   at NHibernate.Event.Default.DefaultSaveEventListener.SaveWithGeneratedOrRequestedId(SaveOrUpdateEvent event)
+   at NHibernate.Event.Default.DefaultSaveOrUpdateEventListener.EntityIsTransient(SaveOrUpdateEvent event)
+   at NHibernate.Event.Default.DefaultSaveEventListener.PerformSaveOrUpdate(SaveOrUpdateEvent event)
+   at NHibernate.Event.Default.DefaultSaveOrUpdateEventListener.OnSaveOrUpdate(SaveOrUpdateEvent event)
+   at NHibernate.Impl.SessionImpl.FireSave(SaveOrUpdateEvent event)
+   at NHibernate.Impl.SessionImpl.Save(Object obj)
+   at ShowveoService.Data.Repositories.MovieRepository.Insert(Movie movie) in C:\Code\showveoservice\ShowveoService.Data\Repositories\MovieRepository.cs:line 23
+   at ShowveoService.MVCApplication.Controllers.UncategorizedMovieController.CategorizeMovie(Int32 uncategorizedMovieID, Int32 categorizedMovieID) in C:\Code\showveoservice\ShowveoService.MVCApplication\Controllers\UncategorizedMovieController.cs:line 107
+2011-10-16 22:00:10,600 ERROR - Error during UncategorizedMovieController.CategorizeMovie
+NHibernate.PropertyValueException: not-null property references a null or transient value ShowveoService.Entities.Movie.FileLocation
+   at NHibernate.Engine.Nullability.CheckNullability(Object[] values, IEntityPersister persister, Boolean isUpdate)
+   at NHibernate.Event.Default.AbstractSaveEventListener.PerformSaveOrReplicate(Object entity, EntityKey key, IEntityPersister persister, Boolean useIdentityColumn, Object anything, IEventSource source, Boolean requiresImmediateIdAccess)
+   at NHibernate.Event.Default.AbstractSaveEventListener.PerformSave(Object entity, Object id, IEntityPersister persister, Boolean useIdentityColumn, Object anything, IEventSource source, Boolean requiresImmediateIdAccess)
+   at NHibernate.Event.Default.AbstractSaveEventListener.SaveWithGeneratedId(Object entity, String entityName, Object anything, IEventSource source, Boolean requiresImmediateIdAccess)
+   at NHibernate.Event.Default.DefaultSaveOrUpdateEventListener.SaveWithGeneratedOrRequestedId(SaveOrUpdateEvent event)
+   at NHibernate.Event.Default.DefaultSaveEventListener.SaveWithGeneratedOrRequestedId(SaveOrUpdateEvent event)
+   at NHibernate.Event.Default.DefaultSaveOrUpdateEventListener.EntityIsTransient(SaveOrUpdateEvent event)
+   at NHibernate.Event.Default.DefaultSaveEventListener.PerformSaveOrUpdate(SaveOrUpdateEvent event)
+   at NHibernate.Event.Default.DefaultSaveOrUpdateEventListener.OnSaveOrUpdate(SaveOrUpdateEvent event)
+   at NHibernate.Impl.SessionImpl.FireSave(SaveOrUpdateEvent event)
+   at NHibernate.Impl.SessionImpl.Save(Object obj)
+   at ShowveoService.Data.Repositories.MovieRepository.Insert(Movie movie) in C:\Code\showveoservice\ShowveoService.Data\Repositories\MovieRepository.cs:line 23
+   at ShowveoService.MVCApplication.Controllers.UncategorizedMovieController.CategorizeMovie(Int32 uncategorizedMovieID, Int32 categorizedMovieID) in C:\Code\showveoservice\ShowveoService.MVCApplication\Controllers\UncategorizedMovieController.cs:line 107

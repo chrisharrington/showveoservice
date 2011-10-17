@@ -1,2 +1,12 @@
-2011-10-05 23:00:19,463 INFO  - Container building...
-2011-10-05 23:00:19,524 INFO  - Container built.
+2011-10-09 18:37:03,873 INFO  - Container building...
+2011-10-09 18:37:03,935 INFO  - Container built.
+2011-10-09 18:37:07,913 ERROR - Error during RemoteMoviesController.Search.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: Cannot implicitly convert type 'string' to 'System.Uri'
+   at CallSite.Target(Closure , CallSite , Object )
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0)
+   at ShowveoService.Web.Remote.RemoteMovieRepository.DerivePoster(Object movie) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 106
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute2[T0,T1,TRet](CallSite site, T0 arg0, T1 arg1)
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Adapt(Object response) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 80
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute2[T0,T1,TRet](CallSite site, T0 arg0, T1 arg1)
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Search(String query) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 43
+   at ShowveoService.MVCApplication.Controllers.RemoteMoviesController.Search(String query) in C:\Code\showveoservice\ShowveoService.MVCApplication\Controllers\RemoteMoviesController.cs:line 47

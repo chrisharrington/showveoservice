@@ -37,7 +37,7 @@ namespace ShowveoService.Test
 			var session = factory.OpenSession();
 			SessionProvider.CurrentSession = session;
 
-			var repository = new RemoteMovieRepository(new TestConfigurationProvider(), new PersonRepository());
+			var repository = new RemoteMovieRepository(new TestConfigurationProvider(), new PersonRepository(), new GenreRepository());
 			var info = repository.GetDetails(1374);
 
 			session.Close();

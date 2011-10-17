@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web.Mvc;
 using ShowveoService.Data;
 using ShowveoService.Service.Logging;
-using ShowveoService.Web;
 using ShowveoService.Web.Remote;
 
 namespace ShowveoService.MVCApplication.Controllers
@@ -105,6 +104,15 @@ namespace ShowveoService.MVCApplication.Controllers
 					throw new ArgumentOutOfRangeException("categorizedMovieID");
 
 				var details = _remoteMovieRepository.GetDetails(categorizedMovieID);
+				if (details == null)
+					throw new InvalidOperationException("An error occurred while retrieving the details for the movie with ID " + categorizedMovieID + ".");
+
+				var uncategorizedMovie = _uncategorizedMovieRepository.GetAll().Where(x => x.ID == uncategorizedMovieID).FirstOrDefault();
+				if (uncategorizedMovie == null)
+					throw new InvalidOperationException("The uncategorized movie ID " + uncategorizedMovieID + " corresponds to no uncategorized movie.");
+
+				details.FileLocation = uncategorizedMovie.EncodedFile;
+
 				_movieRepository.Insert(details);
 				_uncategorizedMovieRepository.Remove(uncategorizedMovieID);
 			}

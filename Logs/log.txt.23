@@ -1,2 +1,80 @@
-2011-10-06 21:57:43,663 INFO  - Container building...
-2011-10-06 21:57:43,761 INFO  - Container built.
+2011-10-14 18:54:53,172 INFO  - Container building...
+2011-10-14 18:54:53,241 INFO  - Container built.
+2011-10-14 18:54:55,032 ERROR - Error during MovieController.GetAll.
+NHibernate.Exceptions.GenericADOException: could not execute query
+[ select movie0_.ID as ID2_0_, genre2_.ID as ID0_1_, person4_.ID as ID4_2_, movie0_.Description as Descript2_2_0_, movie0_.Name as Name2_0_, movie0_.Year as Year2_0_, movie0_.PosterLocation as PosterLo5_2_0_, movie0_.DateAdded as DateAdded2_0_, movie0_.FileLocation as FileLoca7_2_0_, movie0_.Director_id as Director8_2_0_, genre2_.Name as Name0_1_, genres1_.Movie_id as Movie2_0__, genres1_.Genre_id as Genre1_0__, person4_.FirstName as FirstName4_2_, person4_.LastName as LastName4_2_, actors3_.Movie_id as Movie1_1__, actors3_.Person_id as Person2_1__ from [Movie] movie0_ left outer join MoviesToGenres genres1_ on movie0_.ID=genres1_.Movie_id left outer join [Genre] genre2_ on genres1_.Genre_id=genre2_.ID left outer join MoviesToPeople actors3_ on movie0_.ID=actors3_.Movie_id left outer join [Person] person4_ on actors3_.Person_id=person4_.ID ]
+[SQL: select movie0_.ID as ID2_0_, genre2_.ID as ID0_1_, person4_.ID as ID4_2_, movie0_.Description as Descript2_2_0_, movie0_.Name as Name2_0_, movie0_.Year as Year2_0_, movie0_.PosterLocation as PosterLo5_2_0_, movie0_.DateAdded as DateAdded2_0_, movie0_.FileLocation as FileLoca7_2_0_, movie0_.Director_id as Director8_2_0_, genre2_.Name as Name0_1_, genres1_.Movie_id as Movie2_0__, genres1_.Genre_id as Genre1_0__, person4_.FirstName as FirstName4_2_, person4_.LastName as LastName4_2_, actors3_.Movie_id as Movie1_1__, actors3_.Person_id as Person2_1__ from [Movie] movie0_ left outer join MoviesToGenres genres1_ on movie0_.ID=genres1_.Movie_id left outer join [Genre] genre2_ on genres1_.Genre_id=genre2_.ID left outer join MoviesToPeople actors3_ on movie0_.ID=actors3_.Movie_id left outer join [Person] person4_ on actors3_.Person_id=person4_.ID] ---> System.Data.SqlClient.SqlException: Invalid column name 'Director_id'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader()
+   at NHibernate.AdoNet.AbstractBatcher.ExecuteReader(IDbCommand cmd)
+   at NHibernate.Loader.Loader.GetResultSet(IDbCommand st, Boolean autoDiscoverTypes, Boolean callable, RowSelection selection, ISessionImplementor session)
+   at NHibernate.Loader.Loader.DoQuery(ISessionImplementor session, QueryParameters queryParameters, Boolean returnProxies)
+   at NHibernate.Loader.Loader.DoQueryAndInitializeNonLazyCollections(ISessionImplementor session, QueryParameters queryParameters, Boolean returnProxies)
+   at NHibernate.Loader.Loader.DoList(ISessionImplementor session, QueryParameters queryParameters)
+   --- End of inner exception stack trace ---
+   at NHibernate.Loader.Loader.DoList(ISessionImplementor session, QueryParameters queryParameters)
+   at NHibernate.Loader.Loader.ListIgnoreQueryCache(ISessionImplementor session, QueryParameters queryParameters)
+   at NHibernate.Loader.Loader.List(ISessionImplementor session, QueryParameters queryParameters, ISet`1 querySpaces, IType[] resultTypes)
+   at NHibernate.Hql.Ast.ANTLR.Loader.QueryLoader.List(ISessionImplementor session, QueryParameters queryParameters)
+   at NHibernate.Hql.Ast.ANTLR.QueryTranslatorImpl.List(ISessionImplementor session, QueryParameters queryParameters)
+   at NHibernate.Engine.Query.HQLQueryPlan.PerformList(QueryParameters queryParameters, ISessionImplementor session, IList results)
+   at NHibernate.Impl.SessionImpl.List(IQueryExpression queryExpression, QueryParameters queryParameters, IList results)
+   at NHibernate.Impl.AbstractSessionImpl.List(IQueryExpression queryExpression, QueryParameters parameters)
+   at NHibernate.Impl.ExpressionQueryImpl.List()
+   at NHibernate.Linq.DefaultQueryProvider.ExecuteQuery(NhLinqExpression nhLinqExpression, IQuery query, NhLinqExpression nhQuery)
+   at NHibernate.Linq.DefaultQueryProvider.Execute(Expression expression)
+   at NHibernate.Linq.DefaultQueryProvider.Execute[TResult](Expression expression)
+   at Remotion.Linq.QueryableBase`1.GetEnumerator()
+   at System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at ShowveoService.MVCApplication.Controllers.MovieController.GetAll() in C:\Code\showveoservice\ShowveoService.MVCApplication\Controllers\MovieController.cs:line 46
+2011-10-14 18:54:55,055 ERROR - Error during MovieController.GetLatest.
+NHibernate.Exceptions.GenericADOException: could not execute query
+[ select movie0_.ID as ID2_0_, genre2_.ID as ID0_1_, person4_.ID as ID4_2_, movie0_.Description as Descript2_2_0_, movie0_.Name as Name2_0_, movie0_.Year as Year2_0_, movie0_.PosterLocation as PosterLo5_2_0_, movie0_.DateAdded as DateAdded2_0_, movie0_.FileLocation as FileLoca7_2_0_, movie0_.Director_id as Director8_2_0_, genre2_.Name as Name0_1_, genres1_.Movie_id as Movie2_0__, genres1_.Genre_id as Genre1_0__, person4_.FirstName as FirstName4_2_, person4_.LastName as LastName4_2_, actors3_.Movie_id as Movie1_1__, actors3_.Person_id as Person2_1__ from [Movie] movie0_ left outer join MoviesToGenres genres1_ on movie0_.ID=genres1_.Movie_id left outer join [Genre] genre2_ on genres1_.Genre_id=genre2_.ID left outer join MoviesToPeople actors3_ on movie0_.ID=actors3_.Movie_id left outer join [Person] person4_ on actors3_.Person_id=person4_.ID order by movie0_.DateAdded desc ]
+[SQL: select movie0_.ID as ID2_0_, genre2_.ID as ID0_1_, person4_.ID as ID4_2_, movie0_.Description as Descript2_2_0_, movie0_.Name as Name2_0_, movie0_.Year as Year2_0_, movie0_.PosterLocation as PosterLo5_2_0_, movie0_.DateAdded as DateAdded2_0_, movie0_.FileLocation as FileLoca7_2_0_, movie0_.Director_id as Director8_2_0_, genre2_.Name as Name0_1_, genres1_.Movie_id as Movie2_0__, genres1_.Genre_id as Genre1_0__, person4_.FirstName as FirstName4_2_, person4_.LastName as LastName4_2_, actors3_.Movie_id as Movie1_1__, actors3_.Person_id as Person2_1__ from [Movie] movie0_ left outer join MoviesToGenres genres1_ on movie0_.ID=genres1_.Movie_id left outer join [Genre] genre2_ on genres1_.Genre_id=genre2_.ID left outer join MoviesToPeople actors3_ on movie0_.ID=actors3_.Movie_id left outer join [Person] person4_ on actors3_.Person_id=person4_.ID order by movie0_.DateAdded desc] ---> System.Data.SqlClient.SqlException: Invalid column name 'Director_id'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader()
+   at NHibernate.AdoNet.AbstractBatcher.ExecuteReader(IDbCommand cmd)
+   at NHibernate.Loader.Loader.GetResultSet(IDbCommand st, Boolean autoDiscoverTypes, Boolean callable, RowSelection selection, ISessionImplementor session)
+   at NHibernate.Loader.Loader.DoQuery(ISessionImplementor session, QueryParameters queryParameters, Boolean returnProxies)
+   at NHibernate.Loader.Loader.DoQueryAndInitializeNonLazyCollections(ISessionImplementor session, QueryParameters queryParameters, Boolean returnProxies)
+   at NHibernate.Loader.Loader.DoList(ISessionImplementor session, QueryParameters queryParameters)
+   --- End of inner exception stack trace ---
+   at NHibernate.Loader.Loader.DoList(ISessionImplementor session, QueryParameters queryParameters)
+   at NHibernate.Loader.Loader.ListIgnoreQueryCache(ISessionImplementor session, QueryParameters queryParameters)
+   at NHibernate.Loader.Loader.List(ISessionImplementor session, QueryParameters queryParameters, ISet`1 querySpaces, IType[] resultTypes)
+   at NHibernate.Hql.Ast.ANTLR.Loader.QueryLoader.List(ISessionImplementor session, QueryParameters queryParameters)
+   at NHibernate.Hql.Ast.ANTLR.QueryTranslatorImpl.List(ISessionImplementor session, QueryParameters queryParameters)
+   at NHibernate.Engine.Query.HQLQueryPlan.PerformList(QueryParameters queryParameters, ISessionImplementor session, IList results)
+   at NHibernate.Impl.SessionImpl.List(IQueryExpression queryExpression, QueryParameters queryParameters, IList results)
+   at NHibernate.Impl.AbstractSessionImpl.List(IQueryExpression queryExpression, QueryParameters parameters)
+   at NHibernate.Impl.ExpressionQueryImpl.List()
+   at NHibernate.Linq.DefaultQueryProvider.ExecuteQuery(NhLinqExpression nhLinqExpression, IQuery query, NhLinqExpression nhQuery)
+   at NHibernate.Linq.DefaultQueryProvider.Execute(Expression expression)
+   at NHibernate.Linq.DefaultQueryProvider.Execute[TResult](Expression expression)
+   at Remotion.Linq.QueryableBase`1.GetEnumerator()
+   at System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at ShowveoService.MVCApplication.Controllers.MovieController.GetLatest() in C:\Code\showveoservice\ShowveoService.MVCApplication\Controllers\MovieController.cs:line 72

@@ -1,2 +1,28 @@
-2011-10-05 23:07:26,693 INFO  - Container building...
-2011-10-05 23:07:26,754 INFO  - Container built.
+2011-10-09 23:22:36,801 INFO  - Container building...
+2011-10-09 23:22:36,960 INFO  - Container built.
+2011-10-09 23:24:14,052 ERROR - Error during RemoteMoviesController.Search.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: Operator '==' cannot be applied to operands of type 'System.Collections.Generic.Dictionary<string,object>' and 'string'
+   at CallSite.Target(Closure , CallSite , Object , String )
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute2[T0,T1,TRet](CallSite site, T0 arg0, T1 arg1)
+   at CallSite.Target(Closure , CallSite , Object , String )
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Adapt(Object response) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 79
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Search(String query) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 64
+   at ShowveoService.MVCApplication.Controllers.RemoteMoviesController.Search(String query) in C:\Code\showveoservice\ShowveoService.MVCApplication\Controllers\RemoteMoviesController.cs:line 47
+2011-10-09 23:24:15,058 ERROR - Error during RemoteMoviesController.Search.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: Operator '==' cannot be applied to operands of type 'System.Collections.Generic.Dictionary<string,object>' and 'string'
+   at CallSite.Target(Closure , CallSite , Object , String )
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Adapt(Object response) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 79
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Search(String query) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 64
+   at ShowveoService.MVCApplication.Controllers.RemoteMoviesController.Search(String query) in C:\Code\showveoservice\ShowveoService.MVCApplication\Controllers\RemoteMoviesController.cs:line 47
+2011-10-09 23:24:16,387 ERROR - Error during RemoteMoviesController.Search.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: Operator '==' cannot be applied to operands of type 'System.Collections.Generic.Dictionary<string,object>' and 'string'
+   at CallSite.Target(Closure , CallSite , Object , String )
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Adapt(Object response) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 79
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Search(String query) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 64
+   at ShowveoService.MVCApplication.Controllers.RemoteMoviesController.Search(String query) in C:\Code\showveoservice\ShowveoService.MVCApplication\Controllers\RemoteMoviesController.cs:line 47
+2011-10-09 23:24:37,849 ERROR - Error during RemoteMoviesController.Search.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: Operator '==' cannot be applied to operands of type 'System.Collections.Generic.Dictionary<string,object>' and 'string'
+   at CallSite.Target(Closure , CallSite , Object , String )
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Adapt(Object response) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 79
+   at ShowveoService.Web.Remote.RemoteMovieRepository.Search(String query) in C:\Code\showveoservice\ShowveoService.Web\Remote\RemoteMovieRepository.cs:line 64
+   at ShowveoService.MVCApplication.Controllers.RemoteMoviesController.Search(String query) in C:\Code\showveoservice\ShowveoService.MVCApplication\Controllers\RemoteMoviesController.cs:line 47
