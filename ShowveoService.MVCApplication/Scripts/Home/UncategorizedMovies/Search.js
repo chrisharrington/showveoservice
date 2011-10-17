@@ -44,6 +44,7 @@ Showveo.Home.UncategorizedMovies.Search = function (parameters) {
 		_components.panel.fadeIn(200, function () {
 			if (callback)
 				callback();
+			_components.textSearch.focus();
 		});
 	};
 

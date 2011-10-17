@@ -126,7 +126,10 @@ Showveo.Home.MovieGrid = function (parameters) {
 	* callback: The callback function to execute after all movies have been loaded.
 	*/
 	var populateMovies = function (movies, callback) {
-		var width = ((_components.panel.width() - 10) / _columns) - 10;
+		var panelWidth = _components.panel.width();
+		if ($(window).height() <= $(document).height())
+			panelWidth -= 10;
+		var width = Math.floor((panelWidth / _columns) - 12);
 		var count = 0;
 		var loaded = 0;
 		while (count < movies.length) {

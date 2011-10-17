@@ -1,15 +1,6 @@
-2011-10-02 23:31:00,507 INFO  - Container building...
-2011-10-02 23:31:00,574 ERROR - Error occurred while building the container.
-System.Reflection.ReflectionTypeLoadException: Unable to load one or more of the requested types. Retrieve the LoaderExceptions property for more information.
-   at System.Reflection.RuntimeModule.GetTypes(RuntimeModule module)
-   at System.Reflection.RuntimeModule.GetTypes()
-   at System.Reflection.Assembly.GetTypes()
-   at Autofac.Features.Scanning.ScanningRegistrationExtensions.<ScanAssemblies>b__5(Assembly a)
-   at System.Linq.Enumerable.<SelectManyIterator>d__14`2.MoveNext()
-   at System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
-   at Autofac.Features.Scanning.ScanningRegistrationExtensions.ScanAssemblies(IEnumerable`1 assemblies, IComponentRegistry cr, IRegistrationBuilder`3 rb)
-   at Autofac.Features.Scanning.ScanningRegistrationExtensions.<>c__DisplayClass1.<RegisterAssemblyTypes>b__0(IComponentRegistry cr)
-   at Autofac.ContainerBuilder.Build(IComponentRegistry componentRegistry, Boolean excludeDefaultModules)
-   at Autofac.ContainerBuilder.Build(ContainerBuildOptions options)
-   at ShowveoService.MVCApplication.Load.Loader.BuildContainer() in C:\Code\showveoservice\ShowveoService.MVCApplication\Load\Loader.cs:line 86
-   at ShowveoService.MVCApplication.Load.Loader.Start() in C:\Code\showveoservice\ShowveoService.MVCApplication\Load\Loader.cs:line 56
+2011-10-04 17:00:06,075 INFO  - Container building...
+2011-10-04 17:00:07,021 INFO  - Container built.
+2011-10-04 17:00:22,376 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\21[2008]DvDrip-aXXo.avi" -o e:\Media\Showveo\Encoded\ec715006909845e88c6b6e922d932922.mp4 -e x264 -S 500
+2011-10-04 17:01:51,541 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\21[2008]DvDrip-aXXo.avi" -o e:\Media\Showveo\Encoded\0d3c97222f724b38827a95482f1a3f3e.mp4 -e x264 -S 500
+2011-10-04 17:01:59,979 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\21[2008]DvDrip-aXXo.avi" -o e:\Media\Showveo\Encoded\75a0e222d3ca45a09e75d7a814fd2339.mp4 -e x264 -S 500
+2011-10-04 17:02:03,582 INFO  - Beginning encoding: -i "e:\Media\Showveo\Movies\21[2008]DvDrip-aXXo - Copy.avi" -o e:\Media\Showveo\Encoded\e056c8ecc46d40bb97ebb88719ef604d.mp4 -e x264 -S 500

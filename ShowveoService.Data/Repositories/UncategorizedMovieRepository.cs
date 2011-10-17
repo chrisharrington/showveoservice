@@ -31,6 +31,22 @@ namespace ShowveoService.Data.Repositories
 
 			CurrentSession.Save(movie);
 		}
+
+		/// <summary>
+		/// Removes an uncategorized movie from the repository.
+		/// </summary>
+		/// <param name="id">The ID of the uncategorized movie to remove.</param>
+		public void Remove(int id)
+		{
+			if (id < 1)
+				throw new ArgumentOutOfRangeException("id");
+
+			var movie = CurrentSession.Query<UncategorizedMovie>().Where(x => x.ID == id).FirstOrDefault();
+			if (movie == null)
+				return;
+
+			CurrentSession.Delete(movie);
+		}
 		#endregion
 	}
 }

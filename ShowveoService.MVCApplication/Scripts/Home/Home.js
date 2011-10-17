@@ -43,7 +43,8 @@
 		});
 
 		_components.movies = new Showveo.Home.Movies({
-			panel: _components.panel.find("div.m")
+			panel: _components.panel.find("div.m"),
+			selectMenu: _components.header.select
 		});
 	};
 

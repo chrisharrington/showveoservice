@@ -202,16 +202,6 @@ namespace ShowveoService.Web.Remote
 
 			return movie;
 		}
-
-		/// <summary>
-		/// Sets the cast for a movie.
-		/// </summary>
-		/// <param name="movie">The movie.</param>
-		/// <param name="cast">The cast.</param>
-		private void SetCast(Movie movie, IDictionary<string, dynamic> cast)
-		{
-			
-		}
 		#endregion
 	}
 }

@@ -24,7 +24,7 @@ body>div.c>div.m div.mc>div>div {float:left; margin:5px; width:160px; height:240
 body>div.c>div.m div.mc>div>div>img {cursor:pointer;}
 body>div.c>div.m>div.umc>div {position:relative; padding:10px; margin:5px; background-color:#EEE; border-radius:5px; box-shadow:5px 5px 10px #888; display:none;}
 body>div.c>div.m>div.umc>div>div.l { float:left;width:100%;margin-top:15px;text-align:center;display:none;}
-body>div.c>div.m>div.umc>div.s {display:block;}
+body>div.c>div.m>div.umc>div.l {display:block;}
 body>div.c>div.m>div.umc>div>b {float:left; width:100%; font-size:14px; margin-bottom:5px;}
 body>div.c>div.m>div.umc>div.l>div.um {float:left; width:280px; margin:5px; font-size:12px; padding:8px 5px; border-radius:3px; overflow:hidden; background:#D0D0D0 url(../Images/umcgradient.png) repeat-x; cursor:pointer; box-shadow:2px 2px 5px #999;}
 body>div.c>div.m>div.umc>div.l>div.um:hover {background:#D5C86C url(../Images/umcgradienthover.png) repeat-x;}

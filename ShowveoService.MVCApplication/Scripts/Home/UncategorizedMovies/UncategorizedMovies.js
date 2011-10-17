@@ -20,6 +20,9 @@ Showveo.Home.UncategorizedMovies.UncategorizedMovies = function (parameters) {
 	// The movie that the user wishes to categorize.
 	var _movie;
 
+	// The callback function to execute after the user has categorized a movie.
+	var _onMovieCategorized;
+
 	//-------------------------------------------------------------------------------------
 	/* Constructors */
 
@@ -27,9 +30,11 @@ Showveo.Home.UncategorizedMovies.UncategorizedMovies = function (parameters) {
 	* The default constructor.
 	* panel: The panel containing the control elements.
 	* columns: The number of movies to show on a row.
+	* onMovieCategorized: The callback function to execute after the user has categorized a movie.
 	*/
 	this.initialize = function (parameters) {
 		_columns = parameters.columns;
+		_onMovieCategorized = parameters.onMovieCategorized;
 
 		loadComponents(parameters.panel);
 	};
@@ -76,10 +81,12 @@ Showveo.Home.UncategorizedMovies.UncategorizedMovies = function (parameters) {
 	* movie: The selected movie.
 	*/
 	var onSearchMovieSelected = function (movie) {
-		//		$.ajax({
-		//				type: "POST",
-		//				url: ""
-		//			})
+		$.ajax({
+			type: "POST",
+			url: "/uncategorizedmovie/categorize/" + _movie.ID + "/" + movie.ID,
+			success: _onMovieCategorized,
+			error: Showveo.Controls.Feedback.error
+		});
 	};
 
 	//-------------------------------------------------------------------------------------

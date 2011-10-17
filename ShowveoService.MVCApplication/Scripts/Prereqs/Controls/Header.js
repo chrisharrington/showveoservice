@@ -23,6 +23,15 @@
 		loadComponents(parameters.panel);
 	};
 
+	/*
+	* Sets a panel as selected.
+	* id: The ID of the panel to select.
+	*/
+	this.select = function (id) {
+		_components.panel.find("span.s").removeClass("s");
+		_components.panel.find("#" + id).addClass("s");
+	};
+
 	//--------------------------------------------------------------------------------------------------------------
 	/* Event Handlers */
 

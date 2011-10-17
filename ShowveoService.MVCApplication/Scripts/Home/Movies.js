@@ -15,21 +15,26 @@ Showveo.Home.Movies = function (parameters) {
 	//	The currently shown grid.
 	var _grid;
 
+	// Fired when the user wants to select a menu item.
+	var _selectMenu;
+
 	//-------------------------------------------------------------------------------------
 	/* Constructors */
 
 	/*
 	* The default constructor.
 	* panel: The panel containing the control elements.
+	* showMenu: Fired after the user has selected a menu item.
 	*/
 	this.initialize = function (parameters) {
 		_columns = 10;
+		_selectMenu = parameters.selectMenu;
 
 		loadComponents(parameters.panel);
 		loadMovies();
 
-		_components.uncategorized.show();
-		_grid = _components.uncategorized;
+		_components.all.show();
+		_grid = _components.all;
 	};
 
 	//-------------------------------------------------------------------------------------
@@ -73,7 +78,14 @@ Showveo.Home.Movies = function (parameters) {
 
 		_components.uncategorized = new Showveo.Home.UncategorizedMovies.UncategorizedMovies({
 			panel: panel.find("div.uncategorized"),
-			columns: _columns
+			columns: _columns,
+			onMovieCategorized: function () {
+				loadMovies();
+				_components.uncategorized.hide(function () {
+					_components.latest.show();
+				});
+				_selectMenu("latest");
+			}
 		});
 
 		_components.grids = new Array(_components.all, _components.latest, _components.uncategorized);
@@ -87,7 +99,7 @@ Showveo.Home.Movies = function (parameters) {
 		$.ajax({
 			type: "GET",
 			url: "movies/all",
-			success: function(movies) { _components.all.load(movies); },
+			success: function (movies) { _components.all.load(movies); },
 			error: Showveo.Controls.Feedback.error
 		});
 

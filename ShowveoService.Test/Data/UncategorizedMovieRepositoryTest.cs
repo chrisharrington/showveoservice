@@ -75,6 +75,48 @@ namespace ShowveoService.Test.Data
 			Assert.AreEqual(retrieved.Length, 1);
 			Assert.AreEqual(retrieved.First().EncodedFile, uncategorizedMovie.EncodedFile);
 		}
+
+		/// <summary>
+		/// Tests that the Remove method fails gracefully when given an invalid ID.
+		/// </summary>
+		[Test]
+		public void ShouldFailWithInvalidIDOnRemove()
+		{
+			Assert.Throws<ArgumentOutOfRangeException>(() => _sut.Remove(0));
+		}
+
+		/// <summary>
+		/// Tests that the Remove method does nothing when given an ID that corresponds to no movie.
+		/// </summary>
+		[Test]
+		public void ShouldDoNothingWhenGivenIDForNonExistantMovie()
+		{
+			_sut.Remove(29);
+
+			Assert.AreEqual(0, InMemorySession.Query<UncategorizedMovie>().Count());
+		}
+
+		/// <summary>
+		/// Tests that the Remove method successfully removes a movie.
+		/// </summary>
+		[Test]
+		public void ShouldRemoveMovie()
+		{
+			var movie = new UncategorizedMovie {EncodedFile = "encoded", OriginalFile = "original"};
+			using (var transaction = InMemorySession.BeginTransaction())
+			{
+				InMemorySession.Save(movie);
+				transaction.Commit();
+			}
+
+			using (var transaction = InMemorySession.BeginTransaction())
+			{
+				_sut.Remove(movie.ID);
+				transaction.Commit();
+			}
+
+			Assert.AreEqual(0, InMemorySession.Query<UncategorizedMovie>().Count());
+		}
 		#endregion
 	}
 }

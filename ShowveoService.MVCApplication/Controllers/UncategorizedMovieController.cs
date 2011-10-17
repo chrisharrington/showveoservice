@@ -94,6 +94,7 @@ namespace ShowveoService.MVCApplication.Controllers
 		/// <summary>
 		/// Categorizes a movie.
 		/// </summary>
+		[HttpPost]
 		public void CategorizeMovie(int uncategorizedMovieID, int categorizedMovieID)
 		{
 			try
@@ -104,6 +105,8 @@ namespace ShowveoService.MVCApplication.Controllers
 					throw new ArgumentOutOfRangeException("categorizedMovieID");
 
 				var details = _remoteMovieRepository.GetDetails(categorizedMovieID);
+				_movieRepository.Insert(details);
+				_uncategorizedMovieRepository.Remove(uncategorizedMovieID);
 			}
 			catch (Exception ex)
 			{

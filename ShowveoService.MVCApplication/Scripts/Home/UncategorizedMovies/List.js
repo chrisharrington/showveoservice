@@ -12,7 +12,7 @@ Showveo.Home.UncategorizedMovies.List = function (parameters) {
 	var _components;
 
 	// The callback method to fire after the user has selected a movie to categorize.
-	var onMovieSelected;
+	var _onMovieSelected;
 
 	//-------------------------------------------------------------------------------------
 	/* Constructors */

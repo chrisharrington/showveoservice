@@ -20,6 +20,12 @@ namespace ShowveoService.Data
 		/// </summary>
 		/// <param name="movie">The uncategorized movie to insert.</param>
 		void Insert(UncategorizedMovie movie);
+
+		/// <summary>
+		/// Removes an uncategorized movie from the repository.
+		/// </summary>
+		/// <param name="id">The ID of the uncategorized movie to remove.</param>
+		void Remove(int id);
 		#endregion
 	}
 }
