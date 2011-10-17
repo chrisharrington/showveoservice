@@ -30,6 +30,7 @@ namespace ShowveoService.Data.Repositories
 				throw new ArgumentNullException("genre");
 
 			CurrentSession.Save(genre);
+			CurrentSession.Flush();
 		}
 		#endregion
 	}

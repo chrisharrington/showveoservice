@@ -79,7 +79,7 @@ namespace ShowveoService.Data
 			if (session == null)
 				return;
 
-			if (session.Transaction != null)
+			if (session.Transaction != null && session.Transaction.IsActive)
 				session.Transaction.Commit();
 			session.Close();
 		}

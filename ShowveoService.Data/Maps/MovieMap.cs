@@ -16,7 +16,7 @@ namespace ShowveoService.Data.Maps
 		{
 			Id(x => x.ID).GeneratedBy.Identity();
 
-			Map(x => x.Description).Not.Nullable();
+			Map(x => x.Description).Not.Nullable().Length(10000);
 			Map(x => x.Name).Not.Nullable();
 			Map(x => x.Year).Not.Nullable();
 			Map(x => x.PosterLocation);
@@ -25,9 +25,9 @@ namespace ShowveoService.Data.Maps
 
 			References(x => x.Director);
 
-			HasManyToMany(x => x.Producers).Table("MoviesToPeople");
-			HasManyToMany(x => x.Actors).Table("MoviesToPeople");
-			HasManyToMany(x => x.Genres).Table("MoviesToGenres");
+			HasManyToMany(x => x.Producers).Table("MoviesToPeople").Cascade.SaveUpdate();
+			HasManyToMany(x => x.Actors).Table("MoviesToPeople").Cascade.SaveUpdate();
+			HasManyToMany(x => x.Genres).Table("MoviesToGenres").Cascade.SaveUpdate();
 		}
 		#endregion
 	}
