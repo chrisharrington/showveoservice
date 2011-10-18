@@ -14,6 +14,8 @@
 	*/
 	this.initialize = function () {
 		loadComponents();
+
+		Showveo.LocationManager.navigate("all");
 	};
 
 	//--------------------------------------------------------------------------------------------------------------

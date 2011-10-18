@@ -27,9 +27,17 @@ Showveo.Home.Movies = function (parameters) {
 
 		loadComponents(parameters.panel);
 		loadMovies();
+	};
 
-		_components.all.show();
-		_grid = _components.all;
+	//-------------------------------------------------------------------------------------
+	/* Event Handlers */
+
+	/*
+	* Fired after the user has selected a movie.
+	* movie: The selected movie.
+	*/
+	var onMovieSelected = function(movie) {
+		
 	};
 
 	//-------------------------------------------------------------------------------------
@@ -46,6 +54,8 @@ Showveo.Home.Movies = function (parameters) {
 					_components[grid].show();
 			});
 		}
+		else if (_components[grid])
+			_components[grid].show();
 
 		_grid = _components[grid];
 	};
@@ -63,12 +73,14 @@ Showveo.Home.Movies = function (parameters) {
 
 		_components.all = new Showveo.Home.MovieGrid({
 			panel: panel.find("div.all"),
-			columns: _columns
+			columns: _columns,
+			onMovieSelected: onMovieSelected
 		});
 
 		_components.latest = new Showveo.Home.MovieGrid({
 			panel: panel.find("div.latest"),
-			columns: _columns
+			columns: _columns,
+			onMovieSelected: onMovieSelected
 		});
 
 		_components.uncategorized = new Showveo.Home.UncategorizedMovies.UncategorizedMovies({
