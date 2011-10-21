@@ -81,7 +81,8 @@ namespace ShowveoService.Data
 
 			if (session.Transaction != null && session.Transaction.IsActive)
 				session.Transaction.Commit();
-			session.Close();
+			if (session.IsOpen)
+				session.Close();
 		}
 
 		/// <summary>
@@ -99,7 +100,8 @@ namespace ShowveoService.Data
 
 			if (session.Transaction != null)
 				session.Transaction.Rollback();
-			session.Close();
+			if (session.IsOpen)
+				session.Close();
 		}
 		#endregion
 	}

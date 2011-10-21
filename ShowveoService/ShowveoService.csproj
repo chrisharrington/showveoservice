@@ -63,6 +63,7 @@
     <Compile Include="Data\IMovieRepository.cs" />
     <Compile Include="Data\IPersonRepository.cs" />
     <Compile Include="Data\IUncategorizedMovieRepository.cs" />
+    <Compile Include="Data\IUserMovieRepository.cs" />
     <Compile Include="Data\IUserRepository.cs" />
     <Compile Include="Entities\EncodingMovieTask.cs" />
     <Compile Include="Entities\Genre.cs" />

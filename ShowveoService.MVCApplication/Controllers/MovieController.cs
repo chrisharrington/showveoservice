@@ -11,26 +11,26 @@ namespace ShowveoService.MVCApplication.Controllers
 	/// <summary>
 	/// A controller used to retrieve movie information.
 	/// </summary>
-	public class MovieController : Controller
+	public class MovieController : AuthenticatedController
 	{
 		#region Data Members
 		/// <summary>
-		/// A container for movie information.
+		/// A container for user-movie information.
 		/// </summary>
-		private readonly IMovieRepository _movieRepository;
+		private readonly IUserMovieRepository _userMovieRepository;
 		#endregion
 
 		#region Constructors
 		/// <summary>
 		/// The default constructor.
 		/// </summary>
-		/// <param name="movieRepository">A container for movie information.</param>
-		public MovieController(IMovieRepository movieRepository)
+		/// <param name="userMovieRepository">A container for user-movie information.</param>
+		public MovieController(IUserMovieRepository userMovieRepository)
 		{
-			if (movieRepository == null)
-				throw new ArgumentNullException("movieRepository");
+			if (userMovieRepository == null)
+				throw new ArgumentNullException("userMovieRepository");
 
-			_movieRepository = movieRepository;
+			_userMovieRepository = userMovieRepository;
 		}
 		#endregion
 
@@ -43,16 +43,15 @@ namespace ShowveoService.MVCApplication.Controllers
 		{
 			try
 			{
-				return Json(_movieRepository.GetAll().ToArray().Select(x => new
-				{
-					x.ID,
-					x.Name,
-					x.Description,
-					Cast = x.Actors.Select(y => new { y.ID, y.FirstName, y.LastName }),
-					Genres = x.Genres.Select(y => new { y.ID, y.Name }),
-					x.PosterLocation,
-					x.Year,
-					x.DateAdded
+				return Json(_userMovieRepository.GetForUser(User).Select(x => new {
+					x.Movie.ID,
+                    x.Movie.Name,
+					x.Movie.Description,
+					Cast = x.Movie.Actors.Select(y => new { y.ID, y.FirstName, y.LastName }),
+					Genres = x.Movie.Genres.Select(y => new { y.ID, y.Name }),
+					x.Movie.PosterLocation,
+					x.Movie.Year,
+					x.Movie.DateAdded
 				}), JsonRequestBehavior.AllowGet);
 			} catch (Exception ex)
 			{
@@ -69,16 +68,16 @@ namespace ShowveoService.MVCApplication.Controllers
 		{
 			try
 			{
-				return Json(_movieRepository.GetAll().OrderByDescending(x => x.DateAdded).ToArray().Select(x => new
+				return Json(_userMovieRepository.GetForUser(User).OrderByDescending(x => x.Movie.DateAdded).Select(x => new
 				{
-					x.ID,
-					x.Name,
-					x.Description,
-					Cast = x.Actors.Select(y => new { y.ID, y.FirstName, y.LastName }),
-					Genres = x.Genres.Select(y => new { y.ID, y.Name }),
-					x.PosterLocation,
-					x.Year,
-					x.DateAdded
+					x.Movie.ID,
+					x.Movie.Name,
+					x.Movie.Description,
+					Cast = x.Movie.Actors.Select(y => new { y.ID, y.FirstName, y.LastName }),
+					Genres = x.Movie.Genres.Select(y => new { y.ID, y.Name }),
+					x.Movie.PosterLocation,
+					x.Movie.Year,
+					x.Movie.DateAdded
 				}), JsonRequestBehavior.AllowGet);
 			}
 			catch (Exception ex)

@@ -23,11 +23,11 @@ namespace ShowveoService.Data.Maps
 			Map(x => x.DateAdded).Not.Nullable();
 			Map(x => x.FileLocation).Not.Nullable();
 
-			References(x => x.Director);
+			References(x => x.Director).Nullable();
 
-			HasManyToMany(x => x.Producers).Table("MoviesToPeople").Cascade.SaveUpdate();
-			HasManyToMany(x => x.Actors).Table("MoviesToPeople").Cascade.SaveUpdate();
-			HasManyToMany(x => x.Genres).Table("MoviesToGenres").Cascade.SaveUpdate();
+			HasManyToMany(x => x.Producers).Table("MoviesToPeople").NotFound.Ignore().Cascade.SaveUpdate();
+			HasManyToMany(x => x.Actors).Table("MoviesToPeople").NotFound.Ignore().Cascade.SaveUpdate();
+			HasManyToMany(x => x.Genres).Table("MoviesToGenres").NotFound.Ignore().Cascade.SaveUpdate();
 		}
 		#endregion
 	}

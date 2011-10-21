@@ -61,9 +61,9 @@ namespace ShowveoService.Test
 
 			new SchemaExport(configuration).Execute(false, true, false);
 
+			var user = new User { EmailAddress = "chrisharrington99@gmail.com", FirstName = "Chris", Identity = "blah", LastName = "Harrington", Password = "" };
 			using (var transaction = session.BeginTransaction())
 			{
-				var user = new User { EmailAddress = "chrisharrington99@gmail.com", FirstName = "Chris", Identity = "", LastName = "Harrington", Password = "" };
 				session.Save(user);
 				transaction.Commit();
 			}
@@ -179,6 +179,15 @@ namespace ShowveoService.Test
 				repository.Insert(new Movie { Name = "Thor", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/61f/4e8057b65e73d6709300061f/thor-original.jpg", Genres = GenerateRandomGenres(genres), Actors = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
 				repository.Insert(new Movie { Name = "Star Wars: Episode IV - A New Hope", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/0ae/4bc90145017a3c57fe0000ae/star-wars-episode-iv-a-new-hope-original.jpg", Genres = GenerateRandomGenres(genres), Actors = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
 				repository.Insert(new Movie { Name = "Pirates of the Caribbean: On Stranger Tides", Description = "blah", Year = DateTime.Now.AddYears(-10), PosterLocation = "http://cf1.imgobject.com/posters/970/4e5e9a1b5e73d60b31006970/pirates-of-the-caribbean-on-stranger-tides-original.jpg", Genres = GenerateRandomGenres(genres), Actors = GenerateRandomPeople(people), DateAdded = GenerateRandomDate(), FileLocation = "blah" });
+				transaction.Commit();
+			}
+
+			using (var transaction = session.BeginTransaction())
+			{
+				var userMovieRepository = new UserMovieRepository();
+				var movieRepository = new MovieRepository();
+				foreach (var movie in movieRepository.GetAll())
+					userMovieRepository.Insert(new UserMovie {User = user, Movie = movie});
 				transaction.Commit();
 			}
 

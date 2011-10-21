@@ -1,7 +1,6 @@
 using System;
 using System.Web.Mvc;
 using ShowveoService.Data;
-using ShowveoService.Entities;
 
 namespace ShowveoService.MVCApplication.Controllers
 {
@@ -38,10 +37,9 @@ namespace ShowveoService.MVCApplication.Controllers
 		/// <param name="emailAddress">The potential user's email address.</param>
 		/// <param name="password">The potential user's encrypted password.</param>
 		/// <returns>The authenticated user or null.</returns>
-		[AcceptVerbs(HttpVerbs.Post)]
 		public ActionResult Authenticate(string emailAddress, string password)
 		{
-			return Json(_userRepository.Authenticate(emailAddress, password));
+			return Json(_userRepository.Authenticate(emailAddress, password), JsonRequestBehavior.AllowGet);
 		}
 		#endregion
 	}

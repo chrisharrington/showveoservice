@@ -10,7 +10,7 @@ namespace ShowveoService.Data.Maps
 	{
 		public UserMap()
 		{
-			Id(x => x.ID).GeneratedBy.Assigned();
+			Id(x => x.ID).GeneratedBy.Identity();
 
 			Map(x => x.EmailAddress).Not.Nullable();
 			Map(x => x.FirstName).Not.Nullable();

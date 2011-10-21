@@ -20,7 +20,8 @@ namespace ShowveoService.Entities
 		public virtual Person Director { get; set; }
 		public virtual IEnumerable<Person> Producers { get; set; }
 		public virtual IEnumerable<Person> Actors { get; set; }
-		public virtual IEnumerable<Genre> Genres { get; set; } 
+		public virtual IEnumerable<Genre> Genres { get; set; }
+		public virtual IEnumerable<UserMovie> UserMovies { get; set; } 
 		#endregion
 	}
 }

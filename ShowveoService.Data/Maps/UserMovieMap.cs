@@ -19,8 +19,8 @@ namespace ShowveoService.Data.Maps
 			Map(x => x.IsFavorite).Not.Nullable();
 			Map(x => x.LastWatched);
 
-			References(x => x.Movie);
-			References(x => x.User);
+			References(x => x.Movie).Not.Nullable();
+			References(x => x.User).Not.Nullable();
 		}
 		#endregion
 	}

@@ -86,6 +86,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AuthenticatedController.cs" />
+    <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Controllers\RemoteMoviesController.cs" />
@@ -119,6 +121,7 @@
     <Content Include="Scripts\Home\UncategorizedMovies\List.js" />
     <Content Include="Scripts\Home\UncategorizedMovies\Search.js" />
     <Content Include="Scripts\Home\UncategorizedMovies\UncategorizedMovies.js" />
+    <Content Include="Scripts\Prereqs\LocationManager.js" />
     <Content Include="Scripts\Prereqs\Controls\EncodingChecker.js" />
     <Content Include="Scripts\Prereqs\Controls\Header.js" />
     <Content Include="Scripts\Prereqs\Controls\UncategorizedMovies.js" />
@@ -184,7 +187,7 @@
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
+          <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>17395</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>

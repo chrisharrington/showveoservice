@@ -26,6 +26,19 @@ namespace ShowveoService.Data.Repositories
 
 			return CurrentSession.Query<User>().Where(x => x.EmailAddress == emailAddress && x.Password == password).FirstOrDefault();
 		}
+
+		/// <summary>
+		/// Authenticates a user using his or her identity string.
+		/// </summary>
+		/// <param name="identity">The user's identity string.</param>
+		/// <returns>The authenticated user.</returns>
+		public User Authenticate(string identity)
+		{
+			if (string.IsNullOrEmpty(identity))
+				throw new ArgumentNullException("identity");
+
+			return CurrentSession.Query<User>().Where(x => x.Identity == identity).FirstOrDefault();
+		}
 		#endregion
 	}
 }

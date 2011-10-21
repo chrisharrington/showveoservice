@@ -47,7 +47,7 @@ namespace ShowveoService.Web.Routing
 		/// </summary>
 		private void DefineDataRoutes()
 		{
-			_routes.MapRoute("Authenticate", "user/authenticate/{emailAddress}/{password}", new { controller = "User", action = "Authenticate" });
+			_routes.MapRoute("Authenticate", "user/authenticate", new { controller = "User", action = "Authenticate" });
 
 			_routes.MapRoute("GetAllMovies", "movies/all", new { controller = "Movie", action = "GetAll" });
 			_routes.MapRoute("GetLatestMovies", "movies/latest", new { controller = "Movie", action = "GetLatest" });
@@ -58,6 +58,8 @@ namespace ShowveoService.Web.Routing
 			_routes.MapRoute("CategorizeMovie", "uncategorized/categorize/{uncategorizedMovieID}/{categorizedMovieID}", new { controller = "UncategorizedMovie", action = "CategorizeMovie" });
 
 			_routes.MapRoute("Search", "remotemovies/search", new { controller = "RemoteMovies", action = "Search" });
+
+			_routes.MapRoute("GetAllGenres", "genres/all", new {controller = "Genre", action = "GetAll"});
 		}
 		#endregion
 	}
