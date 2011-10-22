@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using ShowveoService.Data;
+using ShowveoService.Entities;
 using ShowveoService.Service.Encoding;
 using ShowveoService.Service.Logging;
 
@@ -43,17 +45,9 @@ namespace ShowveoService.MVCApplication.Controllers
 		{
 			try
 			{
-				return Json(_userMovieRepository.GetForUser(User).Select(x => new {
-					x.Movie.ID,
-                    x.Movie.Name,
-					x.Movie.Description,
-					Cast = x.Movie.Actors.Select(y => new { y.ID, y.FirstName, y.LastName }),
-					Genres = x.Movie.Genres.Select(y => new { y.ID, y.Name }),
-					x.Movie.PosterLocation,
-					x.Movie.Year,
-					x.Movie.DateAdded
-				}), JsonRequestBehavior.AllowGet);
-			} catch (Exception ex)
+				return Json(SelectSubset(_userMovieRepository.GetForUser(User)), JsonRequestBehavior.AllowGet);
+			}
+			catch (Exception ex)
 			{
 				Logger.Error("Error during MovieController.GetAll.", ex);
 				throw;
@@ -68,17 +62,7 @@ namespace ShowveoService.MVCApplication.Controllers
 		{
 			try
 			{
-				return Json(_userMovieRepository.GetForUser(User).OrderByDescending(x => x.Movie.DateAdded).Select(x => new
-				{
-					x.Movie.ID,
-					x.Movie.Name,
-					x.Movie.Description,
-					Cast = x.Movie.Actors.Select(y => new { y.ID, y.FirstName, y.LastName }),
-					Genres = x.Movie.Genres.Select(y => new { y.ID, y.Name }),
-					x.Movie.PosterLocation,
-					x.Movie.Year,
-					x.Movie.DateAdded
-				}), JsonRequestBehavior.AllowGet);
+				return Json(SelectSubset(_userMovieRepository.GetForUser(User).OrderByDescending(x => x.Movie.DateAdded)), JsonRequestBehavior.AllowGet);
 			}
 			catch (Exception ex)
 			{
@@ -102,6 +86,32 @@ namespace ShowveoService.MVCApplication.Controllers
 				Logger.Error("Error during MovieController.GetEncodingMovies.", ex);
 				throw;
 			}
+		}
+		#endregion
+
+		#region Private Methods
+		/// <summary>
+		/// Returns a serializable subset of the given collection of user-movie object.s
+		/// </summary>
+		/// <param name="usermovies">The collection of user-movie objects.</param>
+		/// <returns></returns>
+		private object SelectSubset(IEnumerable<UserMovie> usermovies)
+		{
+			return usermovies.Select(x => new {
+					x.User,
+					Movie = new {
+						x.Movie.ID,
+						x.Movie.Name,
+						x.Movie.Description,
+						Cast = x.Movie.Actors.Select(y => new { y.ID, y.FirstName, y.LastName }),
+						Genres = x.Movie.Genres.Select(y => new { y.ID, y.Name }),
+						x.Movie.PosterLocation,
+						x.Movie.Year,
+						x.Movie.DateAdded
+					},
+					x.IsFavorite,
+					x.LastWatched
+				});
 		}
 		#endregion
 	}

@@ -36,8 +36,8 @@ Showveo.Home.Movies = function (parameters) {
 	* Fired after the user has selected a movie.
 	* movie: The selected movie.
 	*/
-	var onMovieSelected = function(movie) {
-		
+	var onMovieSelected = function (movie) {
+
 	};
 
 	//-------------------------------------------------------------------------------------
@@ -107,16 +107,29 @@ Showveo.Home.Movies = function (parameters) {
 		$.ajax({
 			type: "GET",
 			url: "movies/all",
-			success: function (movies) { _components.all.load(movies); },
+			success: function (usermovies) { _components.all.load(extractMovies(usermovies)); },
 			error: Showveo.Controls.Feedback.error
 		});
 
 		$.ajax({
 			type: "GET",
 			url: "movies/latest",
-			success: function (movies) { _components.latest.load(movies); },
+			success: function (usermovies) { _components.latest.load(extractMovies(usermovies)); },
 			error: Showveo.Controls.Feedback.error
 		});
+	};
+
+	/*
+	* Extracts a movie collection from a collection of user-movie objects.
+	* @usermovies The user-movies collection.
+	* @return The extracted movies collection.
+	*/
+	var extractMovies = function (usermovies) {
+		var movies = new Array();
+		$(usermovies).each(function (index, usermovie) {
+			movies.push(usermovie.Movie);
+		});
+		return movies;
 	};
 
 	this.initialize(parameters);
