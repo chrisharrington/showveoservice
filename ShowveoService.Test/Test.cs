@@ -12,7 +12,6 @@ using ShowveoService.Data.Repositories;
 using ShowveoService.Entities;
 using ShowveoService.MVCApplication.Load;
 using ShowveoService.Test.Data;
-using ShowveoService.Web.Remote;
 using log4net.Config;
 
 namespace ShowveoService.Test
@@ -37,8 +36,34 @@ namespace ShowveoService.Test
 			var session = factory.OpenSession();
 			SessionProvider.CurrentSession = session;
 
-			var repository = new RemoteMovieRepository(new TestConfigurationProvider(), new PersonRepository(), new GenreRepository());
-			var info = repository.GetDetails(1374);
+			var repo = new UserMovieRepository();
+			var info = repo.GetForUser(new User {ID = 1}).Select(x => x.Movie).ToArray();
+
+			session.Close();
+		}
+
+		[Test]
+		public void ResetEmpty()
+		{
+			Configuration configuration = null;
+			var session = Fluently
+				.Configure()
+				.ExposeConfiguration(x => configuration = x)
+				.Database(MsSqlConfiguration.MsSql2008.ConnectionString(x => x.FromConnectionStringWithKey("Database")))
+				.Mappings(x => x.FluentMappings.AddFromAssemblyOf<UserMap>())
+				.BuildSessionFactory()
+				.OpenSession();
+
+			SessionProvider.CurrentSession = session;
+
+			new SchemaExport(configuration).Execute(false, true, false);
+
+			var user = new User { EmailAddress = "chrisharrington99@gmail.com", FirstName = "Chris", Identity = "blah", LastName = "Harrington", Password = "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08" };
+			using (var transaction = session.BeginTransaction())
+			{
+				session.Save(user);
+				transaction.Commit();
+			}
 
 			session.Close();
 		}
@@ -61,7 +86,7 @@ namespace ShowveoService.Test
 
 			new SchemaExport(configuration).Execute(false, true, false);
 
-			var user = new User { EmailAddress = "chrisharrington99@gmail.com", FirstName = "Chris", Identity = "blah", LastName = "Harrington", Password = "" };
+			var user = new User { EmailAddress = "chrisharrington99@gmail.com", FirstName = "Chris", Identity = "blah", LastName = "Harrington", Password = "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08" };
 			using (var transaction = session.BeginTransaction())
 			{
 				session.Save(user);

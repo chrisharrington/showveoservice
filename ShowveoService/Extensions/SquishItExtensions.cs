@@ -76,7 +76,8 @@ namespace ShowveoService.Extensions
 		private static string TranslatePath(string file)
 		{
 			var apppath = HttpContext.Current.Server.MapPath("~");
-			return file.Replace(apppath, "").Replace("\\", "/");
+			var vdir = "/" + HttpRuntime.AppDomainAppVirtualPath.Replace("/", "");
+			return vdir + file.Replace(apppath, "").Replace("\\", "/");
 		}
 		#endregion
 	}

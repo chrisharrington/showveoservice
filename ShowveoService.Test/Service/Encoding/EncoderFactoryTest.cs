@@ -2,6 +2,7 @@
 using System.Linq;
 using Moq;
 using NUnit.Framework;
+using ShowveoService.Entities;
 using ShowveoService.Service.Configuration;
 using ShowveoService.Service.Encoding;
 
@@ -66,7 +67,7 @@ namespace ShowveoService.Test.Service.Encoding
 		[Test]
 		public void ShouldCreatePhoneEncoderOnCreate()
 		{
-			Assert.AreEqual(_sut.Create(EncodingPreset.Phone).GetType(), typeof (PhoneHandbrakeEncoder));
+			Assert.AreEqual(_sut.Create(Preset.Phone).GetType(), typeof (PhoneHandbrakeEncoder));
 		}
 
 		/// <summary>
@@ -75,7 +76,7 @@ namespace ShowveoService.Test.Service.Encoding
 		[Test]
 		public void ShouldCreateTVEncoderOnCreate()
 		{
-			Assert.AreEqual(_sut.Create(EncodingPreset.TV).GetType(), typeof (TVHandbrakeEncoder));
+			Assert.AreEqual(_sut.Create(Preset.TV).GetType(), typeof (TVHandbrakeEncoder));
 		}
 
 		/// <summary>
@@ -84,7 +85,7 @@ namespace ShowveoService.Test.Service.Encoding
 		[Test]
 		public void ShouldCreateTabletEncoderOnCreate()
 		{
-			Assert.AreEqual(_sut.Create(EncodingPreset.Tablet).GetType(), typeof (TabletHandbrakeEncoder));
+			Assert.AreEqual(_sut.Create(Preset.Tablet).GetType(), typeof (TabletHandbrakeEncoder));
 		}
 		#endregion
 	}

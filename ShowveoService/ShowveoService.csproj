@@ -69,10 +69,12 @@
     <Compile Include="Entities\Genre.cs" />
     <Compile Include="Entities\Movie.cs" />
     <Compile Include="Entities\Person.cs" />
+    <Compile Include="Entities\Preset.cs" />
     <Compile Include="Entities\RemoteMovie.cs" />
     <Compile Include="Entities\UncategorizedMovie.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserMovie.cs" />
+    <Compile Include="Extensions\DateExtensions.cs" />
     <Compile Include="Extensions\SquishItExtensions.cs" />
     <Compile Include="Service\Logging\Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

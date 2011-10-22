@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using ShowveoService.Data;
 using ShowveoService.Entities;
+using ShowveoService.MVCApplication.Controllers.Results;
+using ShowveoService.Service.Configuration;
 using ShowveoService.Service.Encoding;
 using ShowveoService.Service.Logging;
 
@@ -20,6 +23,16 @@ namespace ShowveoService.MVCApplication.Controllers
 		/// A container for user-movie information.
 		/// </summary>
 		private readonly IUserMovieRepository _userMovieRepository;
+
+		/// <summary>
+		/// A container for movie information.
+		/// </summary>
+		private readonly IMovieRepository _movieRepository;
+
+		/// <summary>
+		/// The base movie location containing all movies indexed by ID.
+		/// </summary>
+		private readonly string _baseMovieLocation;
 		#endregion
 
 		#region Constructors
@@ -27,12 +40,23 @@ namespace ShowveoService.MVCApplication.Controllers
 		/// The default constructor.
 		/// </summary>
 		/// <param name="userMovieRepository">A container for user-movie information.</param>
-		public MovieController(IUserMovieRepository userMovieRepository)
+		/// <param name="movieRepository">A container for movie information.</param>
+		/// <param name="configurationProvider">The application configuration.</param>
+		public MovieController(IUserMovieRepository userMovieRepository, IMovieRepository movieRepository,
+			IConfigurationProvider configurationProvider)
 		{
 			if (userMovieRepository == null)
 				throw new ArgumentNullException("userMovieRepository");
+			if (movieRepository == null)
+				throw new ArgumentNullException("movieRepository");
+			if (configurationProvider == null)
+				throw new ArgumentNullException("configurationProvider");
+			if (configurationProvider.EncodedMovieLocation == null)
+				throw new ArgumentNullException("configurationProvider.EncodedMovieLocation");
 
 			_userMovieRepository = userMovieRepository;
+			_movieRepository = movieRepository;
+			_baseMovieLocation = configurationProvider.PublicMovieLocation;
 		}
 		#endregion
 
@@ -87,6 +111,34 @@ namespace ShowveoService.MVCApplication.Controllers
 				throw;
 			}
 		}
+
+		/// <summary>
+		/// Plays a movie.
+		/// </summary>
+		/// <param name="type">The type of movie to play. Phone, tablet or tv.</param>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		public ActionResult PlayMovie(Preset? type, int? id)
+		{
+			try
+			{
+				if (type == null)
+					throw new HttpException(404, "The given preset type is invalid.");
+				if (id == null)
+					throw new HttpException(404, "The movie ID is invalid.");
+
+				var movie = _movieRepository.GetAll().Where(x => x.ID == id).FirstOrDefault();
+				if (movie == null)
+					throw new HttpException(404, "The movie ID \"" + id + "\" corresponds to no movie.");
+
+				return Redirect(_baseMovieLocation + movie.FileLocation);
+			}
+			catch (Exception ex)
+			{
+				Logger.Error("Error during MovieController.PlayMovie.", ex);
+				throw;
+			}
+		}
 		#endregion
 
 		#region Private Methods
@@ -103,11 +155,12 @@ namespace ShowveoService.MVCApplication.Controllers
 						x.Movie.ID,
 						x.Movie.Name,
 						x.Movie.Description,
-						Cast = x.Movie.Actors.Select(y => new { y.ID, y.FirstName, y.LastName }),
+						Actors = x.Movie.Actors.Select(y => y.FirstName + " " + y.LastName),
 						Genres = x.Movie.Genres.Select(y => new { y.ID, y.Name }),
 						x.Movie.PosterLocation,
-						x.Movie.Year,
-						x.Movie.DateAdded
+						x.Movie.Year.Year,
+						DateAdded = x.Movie.DateAdded.ToString("u"),
+						Director = x.Movie.Director == null ? "" : (x.Movie.Director.FirstName + " " + x.Movie.Director.LastName)
 					},
 					x.IsFavorite,
 					x.LastWatched

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ShowveoService.Entities;
 using ShowveoService.Service.Configuration;
 
 namespace ShowveoService.Service.Encoding
@@ -47,13 +48,13 @@ namespace ShowveoService.Service.Encoding
 		/// </summary>
 		/// <param name="preset">The preset used to generate the appropriate encoder.</param>
 		/// <returns>The created encoder.</returns>
-		public IEncoder Create(EncodingPreset preset)
+		public IEncoder Create(Preset preset)
 		{
 			switch (preset)
 			{
-				case EncodingPreset.Phone: return new PhoneHandbrakeEncoder(_configuration);
-				case EncodingPreset.TV: return new TVHandbrakeEncoder(_configuration);
-				case EncodingPreset.Tablet: return new TabletHandbrakeEncoder(_configuration);
+				case Preset.Phone: return new PhoneHandbrakeEncoder(_configuration);
+				case Preset.TV: return new TVHandbrakeEncoder(_configuration);
+				case Preset.Tablet: return new TabletHandbrakeEncoder(_configuration);
 			}
 
 			throw new ArgumentException("The preset " + preset + " has no implementation.");

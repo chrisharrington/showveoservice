@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ShowveoService.Entities;
 
 namespace ShowveoService.Service.Encoding
 {
@@ -20,7 +21,7 @@ namespace ShowveoService.Service.Encoding
 		/// </summary>
 		/// <param name="preset">The preset used to generate the appropriate encoder.</param>
 		/// <returns>The created encoder.</returns>
-		IEncoder Create(EncodingPreset preset);
+		IEncoder Create(Preset preset);
 
 		/// <summary>
 		/// Creates encoders for all presets.
@@ -28,15 +29,5 @@ namespace ShowveoService.Service.Encoding
 		/// <returns>The collection of all encoders.</returns>
 		IEnumerable<IEncoder> CreateAll();
 		#endregion
-	}
-
-	/// <summary>
-	/// An enumeration describing the encoding options available.
-	/// </summary>
-	public enum EncodingPreset
-	{
-		Phone,
-		Tablet,
-		TV
 	}
 }

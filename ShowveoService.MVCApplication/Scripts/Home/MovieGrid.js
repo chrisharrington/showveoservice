@@ -43,7 +43,7 @@ Showveo.Home.MovieGrid = function (parameters) {
 	* callback: The callback function to execute after all movies have been loaded.
 	*/
 	this.load = function (movies, callback) {
-		_components.panel.find(">div").remove();
+		_components.panel.find(">div:not(.clear)").remove();
 		_components.labelEmpty.hide();
 
 		if (!movies || movies.length == 0) {
@@ -126,9 +126,14 @@ Showveo.Home.MovieGrid = function (parameters) {
 	* callback: The callback function to execute after all movies have been loaded.
 	*/
 	var populateMovies = function (movies, callback) {
-		var panelWidth = _components.panel.width();
+		var isVisible = _components.panel.is(":visible");
+		var panelWidth = _components.panel.show().width();
+		if (!isVisible)
+			_components.panel.hide();
+		
 		if ($(window).height() <= $(document).height())
 			panelWidth -= 10;
+		
 		var width = Math.floor((panelWidth / _columns) - 12);
 		var count = 0;
 		var loaded = 0;
@@ -139,7 +144,7 @@ Showveo.Home.MovieGrid = function (parameters) {
 				row.append(Showveo.Home.MovieCreator.create(movies[count], width, _onMovieSelected));
 				count++;
 			}
-			_components.panel.append(row);
+			row.insertBefore(_components.panel.find("div.clear"));
 		}
 
 		_components.panel.find("img").load(function () {

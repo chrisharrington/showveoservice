@@ -21,6 +21,14 @@ namespace ShowveoService.Test
 		}
 
 		/// <summary>
+		/// The publicly accessible movie location.
+		/// </summary>
+		public string PublicMovieLocation
+		{
+			get { return "http://www.google.com/movies/"; }
+		}
+
+		/// <summary>
 		/// The directory to watch for movies to encode.
 		/// </summary>
 		public string WatchedMovieLocation

@@ -17,6 +17,11 @@
 		string EncodedMovieLocation { get; }
 
 		/// <summary>
+		/// The publicly accessible movie location.
+		/// </summary>
+		string PublicMovieLocation { get; }
+
+		/// <summary>
 		/// The directory to watch for movies to encode.
 		/// </summary>
 		string WatchedMovieLocation { get; }

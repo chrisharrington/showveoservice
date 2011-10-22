@@ -53,7 +53,7 @@ Showveo.Home.UncategorizedMovies.List = function (parameters) {
 				callback();
 		});
 	};
-	
+
 	//-------------------------------------------------------------------------------------
 	/* Event Handlers */
 
@@ -67,6 +67,8 @@ Showveo.Home.UncategorizedMovies.List = function (parameters) {
 	var loadComponents = function (panel) {
 		_components = {};
 		_components.panel = panel;
+		_components.labelEmpty = panel.find(">span");
+		_components.labelHeader = panel.find(">b");
 	};
 
 	/*
@@ -88,6 +90,16 @@ Showveo.Home.UncategorizedMovies.List = function (parameters) {
 	*/
 	var populateUncategorizedMovies = function (movies) {
 		_components.panel.find("div.um").remove();
+
+		if (movies.length == 0) {
+			_components.labelEmpty.show();
+			_components.labelHeader.hide();
+		}
+		else {
+			_components.labelEmpty.hide();
+			_components.labelHeader.show();
+		}
+
 		$(movies).each(function (i, movie) {
 			var panel = $("<div></div>").addClass("um").text(movie.OriginalFile).click(function () {
 				_onMovieSelected(movie);

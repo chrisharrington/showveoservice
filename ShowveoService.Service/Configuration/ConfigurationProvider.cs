@@ -25,6 +25,14 @@ namespace ShowveoService.Service.Configuration
 		}
 
 		/// <summary>
+		/// The publicly accessible movie location.
+		/// </summary>
+		public string PublicMovieLocation
+		{
+			get { return ConfigurationManager.AppSettings["PublicMovieLocation"]; }
+		}
+
+		/// <summary>
 		/// The directory to watch for movies to encode.
 		/// </summary>
 		public string WatchedMovieLocation

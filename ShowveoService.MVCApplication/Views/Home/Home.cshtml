@@ -7,7 +7,7 @@
 	<head>
 		<title>Showveo</title>
 		@MvcHtmlString.Create(Bundle.Css().Add("~/CSS/Common.css").Add("~/CSS/Home.css").ForceRelease().Render("all.css"))
-		@MvcHtmlString.Create(Bundle.JavaScript().AddFolder("~/Resources").Add("~/Scripts/Setup.js").AddFolder("~/Scripts/Prereqs").AddFolder("~/Scripts/Home").Render("all.js"))
+		@MvcHtmlString.Create(Bundle.JavaScript().Add("http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js").Add("~/Scripts/Setup.js").AddFolder("~/Scripts/Prereqs").AddFolder("~/Scripts/Home").Render("all.js"))
 	</head>
     <body>
         <div class="h">
@@ -32,11 +32,21 @@
 		</div>
         <div class="c">
 			<div class="m">
-				<div class="all mc"></div>
-				<div class="latest mc"></div>
-				<div class="genres mc"></div>
+				<div class="all mc bg">
+					<span class="e">No movies were found.</span>
+					<div class="clear"></div>
+				</div>
+				<div class="latest mc bg">
+					<span class="e">No movies were found.</span>
+					<div class="clear"></div>
+				</div>
+				<div class="genres mc bg">
+					<span class="e">No movies were found.</span>
+					<div class="clear"></div>
+				</div>
 				<div class="uncategorized umc">
-					<div class="l">
+					<div class="l bg">
+						<span class="e">No uncategorized movies were found.</span>
 						<b>Categorize which movie?</b>
 						<div class="clear"></div>
 					</div>
@@ -45,7 +55,7 @@
 						<input type="text"/>
 						<button class="s b">Search</button>
 						<div class="l">
-							<img src="../../Images/loader.gif" alt=""/>
+							<img src="@Url.Content("Images/loader.gif")" alt=""/>
 						</div>
 						<div class="r mc">
 							<span class="e">No movies were found.</span>
@@ -57,7 +67,7 @@
 		</div>
 
 		<div class="f">
-			<img alt="" src="/Images/modalclose.png" />
+			<img alt="" src="@Url.Content("Images/modalclose.png")" />
 			<span></span>
 		</div>
     </body>

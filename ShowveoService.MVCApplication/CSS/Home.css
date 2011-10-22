@@ -1,4 +1,4 @@
-﻿body>div.h { float:left; width:100%; height:50px; background:url(/images/headergradient.jpg) repeat-x; }
+﻿body>div.h { float:left; width:100%; height:50px; background:url(../images/headergradient.jpg) repeat-x; }
 body>div.h>div.m {float:left;}
 body>div.h>div.m>span {float:left; padding:5px 8px; border-radius:3px; color:#777; margin-top:9px; cursor:pointer; font-family:Franklin Gothic Medium; font-size:15px; text-transform:uppercase;}
 body>div.h>div.m>span.m {margin-left:5px; margin-right:5px; }
@@ -16,20 +16,22 @@ body>div.h>div.m>div.e>b {float:left; margin-left:5px; margin-top:16px;}
 body>div.h>div.s {float:right;}
 body>div.h>div.s>input {float:left; width:200px; margin-right:25px; margin-top:11px; padding:3px; color:#AAA; border-radius:3px; border:solid 1px #AAA; text-transform:uppercase; font-family:Trebuchet MS;}
 
-body>div.c { float:left; width:100%; height:1000px; background:#BDD8ED url(/images/bodygradient.jpg) repeat-x; }
+body>div.c { float:left; width:100%; height:1000px; background:#BDD8ED url(../images/bodygradient.jpg) repeat-x; }
 body>div.c>div.m {float:left; width:100%; }
-body>div.c>div.m>div {float:left; width:100%; display:none;}
+body>div.c div.bg {position:relative; padding:15px; margin:15px; background-color:#EEE; border-radius:5px; box-shadow:5px 5px 10px #888; display:none;}
 body>div.c>div.m div.mc>div {position:relative; padding:5px;}
-body>div.c>div.m div.mc>div>div {float:left; margin:5px; width:160px; height:240px;}
-body>div.c>div.m div.mc>div>div>img {cursor:pointer;}
-body>div.c>div.m>div.umc>div {position:relative; padding:10px; margin:5px; background-color:#EEE; border-radius:5px; box-shadow:5px 5px 10px #888; display:none;}
+body>div.c>div.m div.mc>div>div {float:left; margin:5px;}
+body>div.c>div.m div.mc>div>div>img {cursor:pointer; border:solid 1px #CCC; border-radius:10px;}
+body>div.c>div.m div.mc>span.e {float:left; font-size:16px;}
+body>div.c>div.m>div.umc {display:none;}
+body>div.c>div.m>div.umc>div {position:relative; padding:15px; margin:15px; background-color:#EEE; border-radius:5px; box-shadow:5px 5px 10px #888; display:none;}
 body>div.c>div.m>div.umc>div>div.l { float:left;width:100%;margin-top:15px;text-align:center;display:none;}
 body>div.c>div.m>div.umc>div.l {display:block;}
-body>div.c>div.m>div.umc>div>b {float:left; width:100%; font-size:14px; margin-bottom:5px;}
+body>div.c>div.m>div.umc>div.l>span {float:left; font-size:16px; display:none;}
+body>div.c>div.m>div.umc>div>b {float:left; width:100%; font-size:16px; font-weight:normal; margin-bottom:5px;}
 body>div.c>div.m>div.umc>div.l>div.um {float:left; width:280px; margin:5px; font-size:12px; padding:8px 5px; border-radius:3px; overflow:hidden; background:#D0D0D0 url(../Images/umcgradient.png) repeat-x; cursor:pointer; box-shadow:2px 2px 5px #999;}
 body>div.c>div.m>div.umc>div.l>div.um:hover {background:#D5C86C url(../Images/umcgradienthover.png) repeat-x;}
 body>div.c>div.m>div.umc>div.s>div.r {float:left; width:100%; margin-top:15px; display:none;}
 body>div.c>div.m>div.umc>div.s>div.r>span.e {float:left; width:100%; font-size:13px;}
-body>div.c>div.m>div.umc>div>div.clear {float:none; clear:both;}
 body>div.c>div.m>div.umc>div.s>input[type='text'] {float:left; width:95%; padding:5px; border-radius:5px; border:solid 1px #AAA;}
 body>div.c>div.m>div.umc>div.s>button {float:right;}
