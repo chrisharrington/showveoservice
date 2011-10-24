@@ -33,24 +33,8 @@ Showveo.Controls.ServerPush = new function (parameters) {
 	this.listen = function (channel, callback) {
 		_client.initialize();
 		_client.connect({
-			onSuccess: function () {
-				callback("Connected!");
-				onConnectionEstablished(callback);
-			},
-			onFailure: function (args) {
-				if (args.isReconnect) {
-					callback('Could not reconnect: ' + args.error);
-				} else {
-					callback('Could not connect: ' + args.error);
-				}
-			},
-			onStreamFailure: function (args) {
-				if (args.willReconnect) {
-					callback('Connection to server lost, reconnecting...');
-				} else {
-					callback('Connection to server lost permanently.');
-				}
-			}
+			onSuccess: function () { onConnectionEstablished(callback); },
+			onFailure: function (args) { Showveo.Controls.Feedback.error("An error has occurred while connecting to the encoding update stream."); }
 		});
 	};
 
@@ -64,10 +48,8 @@ Showveo.Controls.ServerPush = new function (parameters) {
 	var onConnectionEstablished = function (callback) {
 		_client.subscribe({
 			channel: "/encoding",
-			onSuccess: function (args) { },
-			onFailure: function (args) {
-				Showveo.Controls.Feedback.error("An error occurred while subscribing to the encoding update stream.");
-			},
+			onSuccess: function () { },
+			onFailure: function () { Showveo.Controls.Feedback.error("An error occurred while subscribing to the encoding update stream."); },
 			onReceive: function (args) {
 				if (args.data)
 					callback(args.data);

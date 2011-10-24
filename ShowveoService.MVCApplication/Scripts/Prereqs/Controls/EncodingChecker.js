@@ -140,9 +140,3 @@ Showveo.Controls.EncodingChecker = function (parameters) {
 
 	this.initialize(parameters);
 };
-
-var handleIncomingMessage = function (data) {
-	var message = data.data.message;
-	var value = $("div.all>span").html();
-	$("div.all>span").html(value + "<br>" + message);
-}
