@@ -15,18 +15,23 @@ Showveo.Home.Movies = function (parameters) {
 	//	The currently shown grid.
 	var _grid;
 
+	//	The callback function to execute after a movie has been categorized.
+	var _onMovieCategorized;
+
 	//-------------------------------------------------------------------------------------
 	/* Constructors */
 
 	/*
 	* The default constructor.
 	* panel: The panel containing the control elements.
+	* onMovieCategorized: The callback function to execute after a movie has been categorized.
 	*/
 	this.initialize = function (parameters) {
+		_onMovieCategorized = parameters.onMovieCategorized;
 		_columns = 10;
 
 		loadComponents(parameters.panel);
-		loadMovies();
+		//loadMovies();
 	};
 
 	//-------------------------------------------------------------------------------------
@@ -93,6 +98,9 @@ Showveo.Home.Movies = function (parameters) {
 				});
 
 				Showveo.LocationManager.navigate("latest");
+
+				if (_onMovieCategorized)
+					_onMovieCategorized();
 			}
 		});
 

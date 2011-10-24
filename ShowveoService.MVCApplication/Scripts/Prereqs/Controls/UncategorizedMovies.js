@@ -24,6 +24,30 @@ Showveo.Controls.UncategorizedMovies = function (parameters) {
 	//-------------------------------------------------------------------------------------
 	/* Public Methods */
 
+	/*
+	* Subtracts one from the uncategorized count.
+	*/
+	this.decrementUncategorizedCount = function () {
+		var string = _components.menu.text().replace("Uncategorized", "").replace("(", "").replace(")", "").replace(" ", "");
+		var count = parseInt(string, 10);
+		if (isNaN(count))
+			return;
+
+		_components.menu.text("Uncategorized" + (count == 1 ? "" : " (" + (count - 1) + ")"));
+	};
+
+	/*
+	* Adds one to the uncategorized count.
+	*/
+	this.incrementUncategorizedCount = function () {
+		var string = _components.menu.text().replace("Uncategorized", "").replace("(", "").replace(")", "").replace(" ", "");
+		var count = parseInt(string, 10);
+		if (isNaN(count))
+			return;
+
+		_components.menu.text("Uncategorized  (" + (count + 1) + ")");
+	};
+
 	//-------------------------------------------------------------------------------------
 	/* Event Handlers */
 

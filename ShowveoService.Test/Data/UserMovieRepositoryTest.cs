@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using FluentNHibernate.MappingModel;
 using NHibernate.Linq;
 using NUnit.Framework;
 using ShowveoService.Data;
@@ -72,14 +70,6 @@ namespace ShowveoService.Test.Data
 		{
 			var user = new User {FirstName = "blah", LastName = "lastname", EmailAddress = "email", Identity = "identity", Password = "password"};
 			var movie = new Movie {Name = "boo", Year = DateTime.Now, DateAdded = DateTime.Now, FileLocation = "file", Description = "description"};
-
-			using (var transaction = InMemorySession.BeginTransaction())
-			{
-				InMemorySession.Save(user);
-				InMemorySession.Save(movie);
-				transaction.Commit();
-			}
-
 			var userMovie = new UserMovie {User = user, Movie = movie, IsFavorite = false};
 
 			_sut.Insert(userMovie);
@@ -98,14 +88,6 @@ namespace ShowveoService.Test.Data
 		{
 			var user = new User { FirstName = "blah", LastName = "lastname", EmailAddress = "email", Identity = "identity", Password = "password" };
 			var movie = new Movie {Name = "boo", Year = DateTime.Now, DateAdded = DateTime.Now, FileLocation = "file", Description = "description"};
-
-			using (var transaction = InMemorySession.BeginTransaction())
-			{
-				InMemorySession.Save(user);
-				InMemorySession.Save(movie);
-				transaction.Commit();
-			}
-
 			var userMovie = new UserMovie {User = user, Movie = movie, IsFavorite = false};
 			using (var transaction = InMemorySession.BeginTransaction())
 			{
@@ -129,15 +111,6 @@ namespace ShowveoService.Test.Data
 			var first = new User { FirstName = "first", LastName = "lastname", EmailAddress = "email", Identity = "identity", Password = "password" };
 			var second = new User { FirstName = "second", LastName = "lastname", EmailAddress = "email", Identity = "identity", Password = "password" };
 			var movie = new Movie {Name = "boo", Year = DateTime.Now, DateAdded = DateTime.Now, FileLocation = "file", Description = "description"};
-
-			using (var transaction = InMemorySession.BeginTransaction())
-			{
-				InMemorySession.Save(first);
-				InMemorySession.Save(second);
-				InMemorySession.Save(movie);
-				transaction.Commit();
-			}
-
 			var userMovie = new UserMovie { User = first, Movie = movie };
 			using (var transaction = InMemorySession.BeginTransaction())
 			{

@@ -40,6 +40,16 @@
 		/// The command used by Handbrake describing how to encode for viewing on TV.
 		/// </summary>
 		string TVHandbrakeCommand { get; }
+
+		/// <summary>
+		/// The request url used to define a publisher.
+		/// </summary>
+		string WebSyncRequestUrl { get; }
+
+		/// <summary>
+		/// The channel used to determine the location to send a published message.
+		/// </summary>
+		string EncodingChannel { get; }
 		#endregion
 	}
 }

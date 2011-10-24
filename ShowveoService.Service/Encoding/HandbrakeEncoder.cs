@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading;
 using ShowveoService.Entities;
 using ShowveoService.Service.Logging;
+using ShowveoService.Service.Presets;
 
 namespace ShowveoService.Service.Encoding
 {
@@ -24,19 +25,20 @@ namespace ShowveoService.Service.Encoding
 		/// Encodes a video and audio file.
 		/// </summary>
 		/// <param name="id">An ID used to track the item being encoded.</param>
+		/// <param name="preset">The preset used to encode the given file.</param>
 		/// <param name="file">The location of the file to encode.</param>
 		/// <param name="command">The command used to tell Handbrake how to encode the video.</param>
 		/// <param name="progress">The callback function fired when progress of a file's encoding is updated. The action is given the percentage complete.</param>
 		/// <param name="complete">The callback function fired when encoding is complete. The action is given the location of the encoded file.</param>
 		/// <returns>An ID used to track the item being encoded.</returns>
-		public void Encode(Guid id, string file, string command, Action<EncodingMovieTask, double> progress, Action<EncodingMovieTask, string> complete)
+		public void Encode(Guid id, Preset preset, string file, string command, Action<EncodingMovieTask, double> progress, Action<EncodingMovieTask> complete)
 		{
 			if (string.IsNullOrEmpty(file))
 				throw new ArgumentNullException("file");
 			if (!System.IO.File.Exists(file))
 				throw new FileNotFoundException(file);
 
-			command = string.Format(command, "\"" + file + "\"", id.ToString("N"));
+			command = string.Format(command, "\"" + file + "\"", id.ToString("N") + ".mp4" + PresetIndicator.Get(preset));
 
 			var task = new EncodingMovieTask {ID = id, File = file, PercentComplete = 0};
 
@@ -50,7 +52,7 @@ namespace ShowveoService.Service.Encoding
 				process.StartInfo.UseShellExecute = false;
 				process.OutputDataReceived += (sender, args) => OnDataReceived(progress, task, args);
 				process.ErrorDataReceived += (sender, args) => OnErrorReceived(args);
-				process.Exited += (sender, args) => complete.Invoke(task, task.ID.ToString("N") + ".mp4");
+				process.Exited += (sender, args) => complete.Invoke(task);
 				process.Start();
 
 				process.BeginOutputReadLine();

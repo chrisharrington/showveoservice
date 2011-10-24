@@ -63,6 +63,22 @@ namespace ShowveoService.Service.Configuration
 		{
 			get { return ConfigurationManager.AppSettings["TVHandbrakeCommand"]; }
 		}
+
+		/// <summary>
+		/// The request url used to define a publisher.
+		/// </summary>
+		public string WebSyncRequestUrl
+		{
+			get { return ConfigurationManager.AppSettings["WebSyncRequestUrl"]; }
+		}
+
+		/// <summary>
+		/// The channel used to determine the location to send a published message.
+		/// </summary>
+		public string EncodingChannel
+		{
+			get { return ConfigurationManager.AppSettings["EncodingChannel"]; }
+		}
 		#endregion
 	}
 }

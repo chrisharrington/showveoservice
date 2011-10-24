@@ -101,7 +101,7 @@ Showveo.Home.MovieGrid = function (parameters) {
 	* Clears any movies from the grid.
 	*/
 	this.clear = function () {
-		_components.panel.hide().find(">div").remove();
+		_components.panel.hide().find(">div:not(.clear)").remove();
 	};
 
 	//-------------------------------------------------------------------------------------
@@ -130,10 +130,10 @@ Showveo.Home.MovieGrid = function (parameters) {
 		var panelWidth = _components.panel.show().width();
 		if (!isVisible)
 			_components.panel.hide();
-		
+
 		if ($(window).height() <= $(document).height())
 			panelWidth -= 10;
-		
+
 		var width = Math.floor((panelWidth / _columns) - 12);
 		var count = 0;
 		var loaded = 0;

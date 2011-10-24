@@ -24,6 +24,11 @@ namespace ShowveoService.Service.Encoding
 		private readonly IUncategorizedMovieRepository _uncategorizedMovieRepository;
 
 		/// <summary>
+		/// A container for encoding progress information.
+		/// </summary>
+		private readonly IEncodingProgressContainer _encodingProgressContainer;
+
+		/// <summary>
 		/// The collection of encoding tasks to complete.
 		/// </summary>
 		private IList<Action> _tasks;
@@ -35,15 +40,20 @@ namespace ShowveoService.Service.Encoding
 		/// </summary>
 		/// <param name="factory">A factory used to create encoders.</param>
 		/// <param name="uncategorizedMovieRepository">A container for uncategorized movie information.</param>
-		public EncoderManager(IEncoderFactory factory, IUncategorizedMovieRepository uncategorizedMovieRepository)
+		/// <param name="encodingProgressContainer">A container for encoding progress information.</param>
+		public EncoderManager(IEncoderFactory factory, IUncategorizedMovieRepository uncategorizedMovieRepository,
+			IEncodingProgressContainer encodingProgressContainer)
 		{
 			if (factory == null)
 				throw new ArgumentNullException("factory");
 			if (uncategorizedMovieRepository == null)
 				throw new ArgumentNullException("uncategorizedMovieRepository");
+			if (encodingProgressContainer == null)
+				throw new ArgumentNullException("encodingProgressContainer");
 
 			_factory = factory;
 			_uncategorizedMovieRepository = uncategorizedMovieRepository;
+			_encodingProgressContainer = encodingProgressContainer;
 			_tasks = new List<Action>();
 		}
 		#endregion
@@ -70,7 +80,7 @@ namespace ShowveoService.Service.Encoding
 			}
 
 			var task = new EncodingMovieTask {File = file, ID = id, PercentComplete = 0};
-			EncodingProgressContainer.AddOrUpdate(task);
+			_encodingProgressContainer.AddOrUpdate(task);
 
 			_tasks.First().Invoke();
 		}
@@ -81,7 +91,7 @@ namespace ShowveoService.Service.Encoding
 		/// <returns>The information for all currently encoding movies.</returns>
 		public IEnumerable<EncodingMovieTask> GetAllTasks()
 		{
-			return EncodingProgressContainer.GetAll();
+			return _encodingProgressContainer.GetAll();
 		}
 		#endregion
 
@@ -94,15 +104,14 @@ namespace ShowveoService.Service.Encoding
 		private void OnProgressReceived(EncodingMovieTask task, double percentChanged)
 		{
 			percentChanged /= _factory.EncoderCount;
-			EncodingProgressContainer.AddOrUpdate(task, percentChanged);
+			_encodingProgressContainer.AddOrUpdate(task, percentChanged);
 		}
 
 		/// <summary>
 		/// Fired after an encoding task has been completed.
 		/// </summary>
 		/// <param name="task">The completed task.</param>
-		/// <param name="filename">The name of the encoded file.</param>
-		private void OnEncodingCompleted(EncodingMovieTask task, string filename)
+		private void OnEncodingCompleted(EncodingMovieTask task)
 		{
 			_tasks.RemoveAt(0);
 			if (_tasks.Count > 0)
@@ -111,8 +120,8 @@ namespace ShowveoService.Service.Encoding
 				return;
 			}
 
-			EncodingProgressContainer.AddOrUpdate(task, 100);
-			_uncategorizedMovieRepository.Insert(new UncategorizedMovie {OriginalFile = task.File, EncodedFile = filename});
+			_encodingProgressContainer.AddOrUpdate(task, 100);
+			_uncategorizedMovieRepository.Insert(new UncategorizedMovie { OriginalFile = task.File, EncodedFile = task.ID.ToString("N") });
 		}
 		#endregion
 	}

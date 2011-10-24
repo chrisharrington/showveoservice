@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ShowveoService.Data;
 using ShowveoService.Entities;
-using ShowveoService.MVCApplication.Controllers.Results;
 using ShowveoService.Service.Configuration;
-using ShowveoService.Service.Encoding;
 using ShowveoService.Service.Logging;
+using ShowveoService.Service.Presets;
 
 namespace ShowveoService.MVCApplication.Controllers
 {
@@ -96,23 +94,6 @@ namespace ShowveoService.MVCApplication.Controllers
 		}
 
 		/// <summary>
-		/// Retrieves information pertaining to currently encoding movies.
-		/// </summary>
-		/// <returns>The encoding movie information.</returns>
-		public ActionResult GetEncodingMovies()
-		{
-			try
-			{
-				return Json(EncodingProgressContainer.GetAll().Select(x => new { x.ID, File = Path.GetFileName(x.File), x.PercentComplete }), JsonRequestBehavior.AllowGet);
-			}
-			catch (Exception ex)
-			{
-				Logger.Error("Error during MovieController.GetEncodingMovies.", ex);
-				throw;
-			}
-		}
-
-		/// <summary>
 		/// Plays a movie.
 		/// </summary>
 		/// <param name="type">The type of movie to play. Phone, tablet or tv.</param>
@@ -131,7 +112,7 @@ namespace ShowveoService.MVCApplication.Controllers
 				if (movie == null)
 					throw new HttpException(404, "The movie ID \"" + id + "\" corresponds to no movie.");
 
-				return Redirect(_baseMovieLocation + movie.FileLocation);
+				return Redirect(_baseMovieLocation + movie.FileLocation + ".mp4" + PresetIndicator.Get(type.Value));
 			}
 			catch (Exception ex)
 			{

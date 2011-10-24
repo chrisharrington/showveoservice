@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using ShowveoService.Data;
+using ShowveoService.Entities;
 using ShowveoService.Service.Logging;
 using ShowveoService.Web.Remote;
 
@@ -11,7 +12,7 @@ namespace ShowveoService.MVCApplication.Controllers
 	/// <summary>
 	/// A controller used to provide access to uncategorized movies.
 	/// </summary>
-	public class UncategorizedMovieController : Controller
+	public class UncategorizedMovieController : AuthenticatedController
 	{
 		#region Data Members
 		/// <summary>
@@ -25,9 +26,9 @@ namespace ShowveoService.MVCApplication.Controllers
 		private readonly IRemoteMovieRepository _remoteMovieRepository;
 
 		/// <summary>
-		/// A container for movie information.
+		/// A container for user-movie information.
 		/// </summary>
-		private readonly IMovieRepository _movieRepository;
+		private readonly IUserMovieRepository _userMovieRepository;
 		#endregion
 
 		#region Constructors
@@ -36,18 +37,20 @@ namespace ShowveoService.MVCApplication.Controllers
 		/// </summary>
 		/// <param name="uncategorizedMovieRepository">A container for uncategorized movie information.</param>
 		/// <param name="remoteMovieRepository">A container for remote movie information.</param>
-		/// <param name="movieRepository">A container for movie information.</param>
+		/// <param name="userUserMovieRepository">A container for user-movie information.</param>
 		public UncategorizedMovieController(IUncategorizedMovieRepository uncategorizedMovieRepository, IRemoteMovieRepository remoteMovieRepository,
-			IMovieRepository movieRepository)
+			IUserMovieRepository userUserMovieRepository)
 		{
 			if (uncategorizedMovieRepository == null)
 				throw new ArgumentNullException("uncategorizedMovieRepository");
 			if (remoteMovieRepository == null)
 				throw new ArgumentNullException("remoteMovieRepository");
+			if (userUserMovieRepository == null)
+				throw new ArgumentNullException("userUserMovieRepository");
 
 			_uncategorizedMovieRepository = uncategorizedMovieRepository;
 			_remoteMovieRepository = remoteMovieRepository;
-			_movieRepository = movieRepository;
+			_userMovieRepository = userUserMovieRepository;
 		}
 		#endregion
 
@@ -113,7 +116,7 @@ namespace ShowveoService.MVCApplication.Controllers
 
 				details.FileLocation = uncategorizedMovie.EncodedFile;
 
-				_movieRepository.Insert(details);
+				_userMovieRepository.Insert(new UserMovie {IsFavorite = false, Movie = details, User = User});
 				_uncategorizedMovieRepository.Remove(uncategorizedMovieID);
 			}
 			catch (Exception ex)

@@ -46,14 +46,26 @@
     <Reference Include="Autofac.Integration.Mvc">
       <HintPath>..\packages\Autofac.Mvc3.2.5.2.830\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Dean.Edwards">
+      <HintPath>..\Libraries\Dean.Edwards.dll</HintPath>
+    </Reference>
     <Reference Include="dotless.Core">
       <HintPath>..\packages\dotless.1.1.0\lib\dotless.Core.dll</HintPath>
     </Reference>
     <Reference Include="EcmaScript.NET.modified">
       <HintPath>..\packages\YUICompressor.NET.1.5.0.0\lib\NET35\EcmaScript.NET.modified.dll</HintPath>
     </Reference>
+    <Reference Include="FM.WebSync.Core">
+      <HintPath>..\Libraries\FM.WebSync.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FM.WebSync.Server">
+      <HintPath>..\Libraries\FM.WebSync.Server.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\Libraries\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="SquishIt.Framework">
       <HintPath>..\packages\SquishIt.0.7.1\lib\SquishIt.Framework.dll</HintPath>
@@ -112,6 +124,7 @@
     <Content Include="Images\selectedmenu.png" />
     <Content Include="Images\umcgradient.png" />
     <Content Include="Images\umcgradienthover.png" />
+    <Content Include="Scripts\Prereqs\Controls\ServerPush.js" />
     <Content Include="Resources\HandBrakeCLI.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -127,6 +140,7 @@
     <Content Include="Scripts\Prereqs\Controls\UncategorizedMovies.js" />
     <Content Include="Scripts\Prereqs\Plugins\Clearbox.js" />
     <Content Include="Scripts\Prereqs\Controls\Feedback.js" />
+    <Content Include="Scripts\Prereqs\ThirdParty\jquery.json-2.2.js" />
     <Content Include="Scripts\Setup.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -186,9 +200,9 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
-          <DevelopmentServerPort>17395</DevelopmentServerPort>
+          <DevelopmentServerPort>17396</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:17395/showveo</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

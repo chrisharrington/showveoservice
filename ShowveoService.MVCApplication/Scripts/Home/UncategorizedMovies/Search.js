@@ -109,7 +109,14 @@ Showveo.Home.UncategorizedMovies.Search = function (parameters) {
 		_components.results = new Showveo.Home.MovieGrid({
 			panel: panel.find(">div.r"),
 			columns: _columns,
-			onMovieSelected: _onMovieSelected
+			onMovieSelected: function (movie) {
+				_onMovieSelected(movie);
+
+				_components.results.clear();
+				_components.imgLoader.show();
+				_components.textSearch.attr("disabled", true);
+				_components.buttonSearch.attr("disabled", true);
+			}
 		});
 	};
 

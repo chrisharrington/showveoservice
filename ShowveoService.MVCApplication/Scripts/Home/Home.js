@@ -33,7 +33,8 @@
 		});
 
 		_components.movies = new Showveo.Home.Movies({
-			panel: _components.panel.find("div.m")
+			panel: _components.panel.find("div.m"),
+			onMovieCategorized: _components.header.decrementUncategorizedCount
 		});
 
 		Showveo.LocationManager.initialize({

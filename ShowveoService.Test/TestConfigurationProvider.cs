@@ -59,5 +59,21 @@ namespace ShowveoService.Test
 		{
 			get { return @"-i {0} -o e:\Media\Showveo\Encoded\{1}.mp4 -e x264"; }
 		}
+
+		/// <summary>
+		/// The request url used to define a publisher.
+		/// </summary>
+		public string WebSyncRequestUrl
+		{
+			get { return "requestUrl"; }
+		}
+
+		/// <summary>
+		/// The channel used to determine the location to send a published message.
+		/// </summary>
+		public string EncodingChannel
+		{
+			get { return "encodingChannel"; }
+		}
 	}
 }

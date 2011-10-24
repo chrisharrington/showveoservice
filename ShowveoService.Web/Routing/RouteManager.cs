@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Routing;
-using ShowveoService.Entities;
 
 namespace ShowveoService.Web.Routing
 {
@@ -48,11 +47,12 @@ namespace ShowveoService.Web.Routing
 		/// </summary>
 		private void DefineDataRoutes()
 		{
+			_routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
 			_routes.MapRoute("Authenticate", "user/authenticate", new { controller = "User", action = "Authenticate" });
 
 			_routes.MapRoute("GetAllMovies", "movies/all", new { controller = "Movie", action = "GetAll" });
 			_routes.MapRoute("GetLatestMovies", "movies/latest", new { controller = "Movie", action = "GetLatest" });
-			_routes.MapRoute("GetEncodingMovies", "movies/encoding", new {controller = "Movie", action = "GetEncodingMovies"});
 			_routes.MapRoute("PlayPhoneMovie", "movies/play/{type}/{id}", new { controller = "Movie", action = "PlayMovie" });
 
 			_routes.MapRoute("GetUncategorizedMovieCount", "uncategorized/count", new { controller = "UncategorizedMovie", action = "GetUncategorizedMovieCount" });

@@ -83,8 +83,11 @@ Showveo.Home.UncategorizedMovies.UncategorizedMovies = function (parameters) {
 	var onSearchMovieSelected = function (movie) {
 		$.ajax({
 			type: "POST",
-			url: "/uncategorized/categorize/" + _movie.ID + "/" + movie.ID,
-			success: _onMovieCategorized,
+			url: "uncategorized/categorize/" + _movie.ID + "/" + movie.ID,
+			success: function (result) {
+				_onMovieCategorized(result);
+				_components.search.hide(_components.list.show);
+			},
 			error: Showveo.Controls.Feedback.error
 		});
 	};

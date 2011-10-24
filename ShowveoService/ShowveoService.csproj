@@ -76,6 +76,7 @@
     <Compile Include="Entities\UserMovie.cs" />
     <Compile Include="Extensions\DateExtensions.cs" />
     <Compile Include="Extensions\SquishItExtensions.cs" />
+    <Compile Include="Service\Encoding\IEncodingProgressContainer.cs" />
     <Compile Include="Service\Logging\Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Configuration\IConfigurationProvider.cs" />
@@ -84,6 +85,8 @@
     <Compile Include="Service\Encoding\IEncoderManager.cs" />
     <Compile Include="Service\File\FileInfo.cs" />
     <Compile Include="Service\File\IFolderWatcher.cs" />
+    <Compile Include="Service\Presets\PresetIndicator.cs" />
+    <Compile Include="Web\Push\IEncodingProgressPusher.cs" />
     <Compile Include="Web\Remote\IRemoteMovieRepository.cs" />
     <Compile Include="Web\Routing\IRouteManager.cs" />
   </ItemGroup>

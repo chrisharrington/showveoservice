@@ -38,9 +38,9 @@ namespace ShowveoService.Service.Encoding
 		/// <param name="file">The location of the file to encode.</param>
 		/// <param name="progress">The callback function fired when progress of a file's encoding is updated. The action is given the percentage complete.</param>
 		/// <param name="complete">The callback function fired when encoding is complete. The action is given the location of the encoded file.</param>
-		public void Encode(Guid id, string file, Action<EncodingMovieTask, double> progress, Action<EncodingMovieTask, string> complete)
+		public void Encode(Guid id, string file, Action<EncodingMovieTask, double> progress, Action<EncodingMovieTask> complete)
 		{
-			Encode(id, file, _tabletHandbrakeCommand, progress, complete);
+			Encode(id, Preset.Tablet, file, _tabletHandbrakeCommand, progress, complete);
 		}
 		#endregion
 	}

@@ -4,6 +4,7 @@ Showveo.Controls = { };
 
 $(document).ready(function () {
 	Showveo.Controls.Feedback.initialize($("body>div.f"));
+	Showveo.Controls.ServerPush.initialize();
 	Showveo.Home.Home.initialize();
 });
 

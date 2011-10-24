@@ -69,8 +69,8 @@ namespace ShowveoService.Service.Encoding
 			return new List<IEncoder>
 			        {
 			            new PhoneHandbrakeEncoder(_configuration),
-			            new TVHandbrakeEncoder(_configuration),
-			            new TabletHandbrakeEncoder(_configuration)
+			            //new TVHandbrakeEncoder(_configuration),
+			            //new TabletHandbrakeEncoder(_configuration)
 			        };
 		}
 		#endregion

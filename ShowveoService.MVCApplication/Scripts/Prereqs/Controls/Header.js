@@ -27,6 +27,13 @@
 		_components.panel.find("#" + id).addClass("s");
 	};
 
+	/*
+	* Subtracts one from the uncategorized count.
+	*/
+	this.decrementUncategorizedCount = function () {
+		_components.uncategorized.decrementUncategorizedCount();
+	};
+
 	//--------------------------------------------------------------------------------------------------------------
 	/* Event Handlers */
 
@@ -59,7 +66,8 @@
 		});
 
 		_components.encodingchecker = new Showveo.Controls.EncodingChecker({
-			panel: panel.find("div.m>div.e")
+			panel: panel.find("div.m>div.e"),
+			onEncodingComplete: _components.uncategorized.incrementUncategorizedCount
 		});
 	};
 

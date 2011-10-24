@@ -10,9 +10,7 @@ using ShowveoService.Data;
 using ShowveoService.Data.Maps;
 using ShowveoService.Data.Repositories;
 using ShowveoService.Entities;
-using ShowveoService.MVCApplication.Load;
 using ShowveoService.Test.Data;
-using log4net.Config;
 
 namespace ShowveoService.Test
 {
@@ -24,22 +22,22 @@ namespace ShowveoService.Test
 		[Test]
 		public void Blah()
 		{
-			Loader.Start();
-			XmlConfigurator.Configure();
+			//Loader.Start();
+			//XmlConfigurator.Configure();
 
-			var factory = Fluently
-				.Configure()
-				.Database(MsSqlConfiguration.MsSql2008.ConnectionString(x => x.FromConnectionStringWithKey("Database")))
-				.Mappings(x => x.FluentMappings.AddFromAssemblyOf<UserMap>())
-				.BuildSessionFactory();
+			//var factory = Fluently
+			//    .Configure()
+			//    .Database(MsSqlConfiguration.MsSql2008.ConnectionString(x => x.FromConnectionStringWithKey("Database")))
+			//    .Mappings(x => x.FluentMappings.AddFromAssemblyOf<UserMap>())
+			//    .BuildSessionFactory();
 
-			var session = factory.OpenSession();
-			SessionProvider.CurrentSession = session;
+			//var session = factory.OpenSession();
+			//SessionProvider.CurrentSession = session;
 
-			var repo = new UserMovieRepository();
-			var info = repo.GetForUser(new User {ID = 1}).Select(x => x.Movie).ToArray();
+			//var repo = new UserMovieRepository();
+			//var info = repo.GetForUser(new User {ID = 1}).Select(x => x.Movie).ToArray();
 
-			session.Close();
+			//session.Close();
 		}
 
 		[Test]
