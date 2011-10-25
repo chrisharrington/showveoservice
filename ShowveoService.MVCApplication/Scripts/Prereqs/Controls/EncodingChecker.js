@@ -122,7 +122,6 @@ Showveo.Controls.EncodingChecker = function (parameters) {
 	*/
 	var subscribeToChannel = function () {
 		Showveo.Controls.ServerPush.listen("encoding", function (task) {
-			inspect(task);
 			if (task.PercentComplete == 100) {
 				_components.panel.fadeOut(200);
 				_onEncodingComplete();

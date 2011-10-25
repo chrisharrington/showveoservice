@@ -29,9 +29,9 @@ namespace ShowveoService.Service.Encoding
 		private readonly IEncodingProgressContainer _encodingProgressContainer;
 
 		/// <summary>
-		/// The collection of encoding tasks to complete.
+		/// The queue for encoding tasks.
 		/// </summary>
-		private IList<Action> _tasks;
+		private readonly IList<IList<Action>> _queue; 
 		#endregion
 
 		#region Constructors
@@ -54,7 +54,7 @@ namespace ShowveoService.Service.Encoding
 			_factory = factory;
 			_uncategorizedMovieRepository = uncategorizedMovieRepository;
 			_encodingProgressContainer = encodingProgressContainer;
-			_tasks = new List<Action>();
+			_queue = new List<IList<Action>>();
 		}
 		#endregion
 
@@ -72,17 +72,14 @@ namespace ShowveoService.Service.Encoding
 				throw new FileNotFoundException(file);
 
 			var id = Guid.NewGuid();
-			_tasks = new List<Action>();
-			foreach (var encoder in _factory.CreateAll())
-			{
-				var localEncoder = encoder;
-				_tasks.Add(() => localEncoder.Encode(id, file, OnProgressReceived, OnEncodingCompleted));
-			}
-
+			var tasks = _factory.CreateAll().Select(localEncoder => (Action) (() => localEncoder.Encode(id, file, OnProgressReceived, OnEncodingCompleted))).ToList();
 			var task = new EncodingMovieTask {File = file, ID = id, PercentComplete = 0};
 			_encodingProgressContainer.AddOrUpdate(task);
 
-			_tasks.First().Invoke();
+			if (_queue.Count() == 0)
+				tasks.First().Invoke();
+
+			_queue.Add(tasks);
 		}
 
 		/// <summary>
@@ -113,15 +110,23 @@ namespace ShowveoService.Service.Encoding
 		/// <param name="task">The completed task.</param>
 		private void OnEncodingCompleted(EncodingMovieTask task)
 		{
-			_tasks.RemoveAt(0);
-			if (_tasks.Count > 0)
+			var tasks = _queue[0];
+			tasks.RemoveAt(0);
+			if (tasks.Count > 0)
 			{
-				_tasks.First().Invoke();
+				tasks.First().Invoke();
 				return;
 			}
 
 			_encodingProgressContainer.AddOrUpdate(task, 100);
 			_uncategorizedMovieRepository.Insert(new UncategorizedMovie { OriginalFile = task.File, EncodedFile = task.ID.ToString("N") });
+
+			_queue.RemoveAt(0);
+			if (_queue.Count > 0)
+			{
+				tasks = _queue[0];
+				tasks.First().Invoke();
+			}
 		}
 		#endregion
 	}

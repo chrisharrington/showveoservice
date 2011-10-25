@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Web.Script.Serialization;
 using FM.WebSync.Core;
 using ShowveoService.Entities;
@@ -54,10 +55,13 @@ namespace ShowveoService.Web.Push
 			if (task == null)
 				throw new ArgumentNullException("task");
 
-			var blah = _publisher.Publish(new Publication {
+			_publisher.Publish(new Publication {
 				Channel = _channel,
-				DataJson = _serializer.Serialize(task)
-			});
+				DataJson = _serializer.Serialize(new {
+					task.ID,
+					File = Path.GetFileName(task.File),
+					task.PercentComplete
+			})});
 		}
 		#endregion
 	}
