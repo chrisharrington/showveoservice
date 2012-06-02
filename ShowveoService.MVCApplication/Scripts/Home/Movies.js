@@ -18,6 +18,9 @@ Showveo.Home.Movies = function (parameters) {
 	//	The callback function to execute after a movie has been categorized.
 	var _onMovieCategorized;
 
+	// The callback method to fire after the uncategorized movie list has been loaded.
+	var _onUncategorizedMoviesLoaded;
+
 	//-------------------------------------------------------------------------------------
 	/* Constructors */
 
@@ -25,13 +28,15 @@ Showveo.Home.Movies = function (parameters) {
 	* The default constructor.
 	* panel: The panel containing the control elements.
 	* onMovieCategorized: The callback function to execute after a movie has been categorized.
+	* @onUncategorizedMoviesLoaded The callback function to execute after uncategorized movies have been loaded.
 	*/
 	this.initialize = function (parameters) {
 		_onMovieCategorized = parameters.onMovieCategorized;
+		_onUncategorizedMoviesLoaded = parameters.onUncategorizedMoviesLoaded;
 		_columns = 10;
 
 		loadComponents(parameters.panel);
-		//loadMovies();
+		loadMovies();
 	};
 
 	//-------------------------------------------------------------------------------------
@@ -101,7 +106,8 @@ Showveo.Home.Movies = function (parameters) {
 
 				if (_onMovieCategorized)
 					_onMovieCategorized();
-			}
+			},
+			onMoviesLoaded: _onUncategorizedMoviesLoaded
 		});
 
 		_components.grids = new Array(_components.all, _components.latest, _components.uncategorized);

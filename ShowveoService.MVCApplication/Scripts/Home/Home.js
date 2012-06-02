@@ -34,7 +34,9 @@
 
 		_components.movies = new Showveo.Home.Movies({
 			panel: _components.panel.find("div.m"),
-			onMovieCategorized: _components.header.decrementUncategorizedCount
+			onUncategorizedMoviesLoaded: function (movies) {
+				_components.header.setUncategorizedMovieCount(movies.length);
+			}
 		});
 
 		Showveo.LocationManager.initialize({

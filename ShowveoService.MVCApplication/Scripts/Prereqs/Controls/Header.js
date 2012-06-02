@@ -28,10 +28,11 @@
 	};
 
 	/*
-	* Subtracts one from the uncategorized count.
+	* Sets the uncategorized movie count.
+	* @count The count.
 	*/
-	this.decrementUncategorizedCount = function () {
-		_components.uncategorized.decrementUncategorizedCount();
+	this.setUncategorizedMovieCount = function (count) {
+		_components.uncategorized.setCount(count);
 	};
 
 	//--------------------------------------------------------------------------------------------------------------

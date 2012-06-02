@@ -14,6 +14,9 @@ Showveo.Home.UncategorizedMovies.List = function (parameters) {
 	// The callback method to fire after the user has selected a movie to categorize.
 	var _onMovieSelected;
 
+	// The callback method to fire after the uncategorized movie list has been loaded.
+	var _onMoviesLoaded;
+
 	//-------------------------------------------------------------------------------------
 	/* Constructors */
 
@@ -21,9 +24,11 @@ Showveo.Home.UncategorizedMovies.List = function (parameters) {
 	* The default constructor.
 	* panel: The panel containing the control elements.
 	* onMovieSelected: The callback method to fire after the user has selected a movie to categorize.
+	* onMoviesLoaded: The callback method to fire after the uncategorized movie list has been loaded.
 	*/
 	this.initialize = function (parameters) {
 		_onMovieSelected = parameters.onMovieSelected;
+		_onMoviesLoaded = parameters.onMoviesLoaded;
 
 		loadComponents(parameters.panel);
 		loadUncategorizedMovies(populateUncategorizedMovies);
@@ -31,6 +36,13 @@ Showveo.Home.UncategorizedMovies.List = function (parameters) {
 
 	//-------------------------------------------------------------------------------------
 	/* Public Methods */
+
+	/*
+	* Refreshes the list of uncategorized movies.
+	*/
+	this.refresh = function () {
+		loadUncategorizedMovies(populateUncategorizedMovies);
+	};
 
 	/*
 	* Shows this movie grid.
@@ -79,7 +91,7 @@ Showveo.Home.UncategorizedMovies.List = function (parameters) {
 		$.ajax({
 			type: "GET",
 			url: "uncategorized/all",
-			success: callback,
+			success: function (movies) { callback(movies); _onMoviesLoaded(movies); },
 			error: Showveo.Controls.Feedback.error
 		});
 	};

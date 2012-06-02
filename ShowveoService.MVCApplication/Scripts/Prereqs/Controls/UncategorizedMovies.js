@@ -14,7 +14,7 @@ Showveo.Controls.UncategorizedMovies = function (parameters) {
 
 	/*
 	* The default constructor.
-	* menu: The menu item used to show the number of uncategorized movies.
+	* @menu The menu item used to show the number of uncategorized movies.
 	*/
 	this.initialize = function (parameters) {
 		loadComponents(parameters.menu);
@@ -23,6 +23,14 @@ Showveo.Controls.UncategorizedMovies = function (parameters) {
 
 	//-------------------------------------------------------------------------------------
 	/* Public Methods */
+
+	/*
+	* Sets the uncategorized movie count.
+	* @count The count.
+	*/
+	this.setUncategorizedMovieCount = function (count) {
+		_components.menu.text("Uncategorized" + (count == 0 ? "" : " (" + count + ")"));
+	};
 
 	/*
 	* Subtracts one from the uncategorized count.
